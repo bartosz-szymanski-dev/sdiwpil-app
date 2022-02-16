@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass=ClinicRepository::class)
  */
-class Clinic
+class Clinic extends AbstractEntity
 {
     /**
      * @ORM\Id
@@ -50,22 +50,24 @@ class Clinic
     private string $streetAddress;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Doctor::class, inversedBy="clinics")
+     * @ORM\ManyToMany(targetEntity=\App\Entity\DoctorData::class, inversedBy="clinics")
      */
-    private $doctors;
+    private Collection $doctors;
 
     /**
-     * @ORM\OneToMany(targetEntity=Receptionist::class, mappedBy="clinic")
+     * @ORM\OneToMany(targetEntity=\App\Entity\ReceptionistData::class, mappedBy="clinic")
      */
-    private $receptionists;
+    private Collection $receptionists;
 
     /**
-     * @ORM\OneToMany(targetEntity=Manager::class, mappedBy="clinic")
+     * @ORM\OneToMany(targetEntity=\App\Entity\ManagerData::class, mappedBy="clinic")
      */
-    private $managers;
+    private Collection $managers;
 
     public function __construct()
     {
+        parent::__construct();
+
         $this->doctors = new ArrayCollection();
         $this->receptionists = new ArrayCollection();
         $this->managers = new ArrayCollection();
