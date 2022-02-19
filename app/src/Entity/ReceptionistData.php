@@ -23,6 +23,12 @@ class ReceptionistData extends AbstractEntity
      */
     private ?User $receptionist;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Clinic::class, inversedBy="receptionists")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private Clinic $clinic;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -36,6 +42,18 @@ class ReceptionistData extends AbstractEntity
     public function setReceptionist(?User $receptionist): self
     {
         $this->receptionist = $receptionist;
+
+        return $this;
+    }
+
+    public function getClinic(): ?Clinic
+    {
+        return $this->clinic;
+    }
+
+    public function setClinic(?Clinic $clinic): self
+    {
+        $this->clinic = $clinic;
 
         return $this;
     }

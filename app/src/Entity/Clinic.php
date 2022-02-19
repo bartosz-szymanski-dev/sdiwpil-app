@@ -55,12 +55,12 @@ class Clinic extends AbstractEntity
     private Collection $doctors;
 
     /**
-     * @ORM\OneToMany(targetEntity=\App\Entity\ReceptionistData::class, mappedBy="clinic")
+     * @ORM\OneToMany(targetEntity=ReceptionistData::class, mappedBy="clinic")
      */
     private Collection $receptionists;
 
     /**
-     * @ORM\OneToMany(targetEntity=\App\Entity\ManagerData::class, mappedBy="clinic")
+     * @ORM\OneToMany(targetEntity=ManagerData::class, mappedBy="clinic")
      */
     private Collection $managers;
 
@@ -151,14 +151,14 @@ class Clinic extends AbstractEntity
     }
 
     /**
-     * @return Collection|Doctor[]
+     * @return Collection|DoctorData[]
      */
     public function getDoctors(): Collection
     {
         return $this->doctors;
     }
 
-    public function addDoctor(Doctor $doctor): self
+    public function addDoctor(DoctorData $doctor): self
     {
         if (!$this->doctors->contains($doctor)) {
             $this->doctors[] = $doctor;
@@ -167,7 +167,7 @@ class Clinic extends AbstractEntity
         return $this;
     }
 
-    public function removeDoctor(Doctor $doctor): self
+    public function removeDoctor(DoctorData $doctor): self
     {
         $this->doctors->removeElement($doctor);
 
@@ -175,14 +175,14 @@ class Clinic extends AbstractEntity
     }
 
     /**
-     * @return Collection|Receptionist[]
+     * @return Collection|ReceptionistData[]
      */
     public function getReceptionists(): Collection
     {
         return $this->receptionists;
     }
 
-    public function addReceptionist(Receptionist $receptionist): self
+    public function addReceptionist(ReceptionistData $receptionist): self
     {
         if (!$this->receptionists->contains($receptionist)) {
             $this->receptionists[] = $receptionist;
@@ -192,7 +192,7 @@ class Clinic extends AbstractEntity
         return $this;
     }
 
-    public function removeReceptionist(Receptionist $receptionist): self
+    public function removeReceptionist(ReceptionistData $receptionist): self
     {
         // set the owning side to null (unless already changed)
         if ($this->receptionists->removeElement($receptionist) && $receptionist->getClinic() === $this) {
@@ -203,14 +203,14 @@ class Clinic extends AbstractEntity
     }
 
     /**
-     * @return Collection|Manager[]
+     * @return Collection|ManagerData[]
      */
     public function getManagers(): Collection
     {
         return $this->managers;
     }
 
-    public function addManager(Manager $manager): self
+    public function addManager(ManagerData $manager): self
     {
         if (!$this->managers->contains($manager)) {
             $this->managers[] = $manager;
@@ -220,7 +220,7 @@ class Clinic extends AbstractEntity
         return $this;
     }
 
-    public function removeManager(Manager $manager): self
+    public function removeManager(ManagerData $manager): self
     {
         // set the owning side to null (unless already changed)
         if ($this->managers->removeElement($manager) && $manager->getClinic() === $this) {

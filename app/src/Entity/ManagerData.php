@@ -24,7 +24,8 @@ class ManagerData extends AbstractEntity
     private ?User $manager;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Clinic::class, inversedBy="Receptionists")
+     * @ORM\ManyToOne(targetEntity=Clinic::class, inversedBy="managers")
+     * @ORM\JoinColumn(nullable=false)
      */
     private Clinic $clinic;
 
