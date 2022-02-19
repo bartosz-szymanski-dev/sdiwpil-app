@@ -4,7 +4,14 @@
         "@symfony/stimulus-bridge": "^3.0.0",
         "@symfony/webpack-encore": "^1.7.0",
         "core-js": "^3.0.0",
+        "eslint": "^8.9.0",
+        "eslint-webpack-plugin": "^3.1.1",
+        "install": "^0.13.0",
         "regenerator-runtime": "^0.13.2",
+        "sass": "^1.49.8",
+        "sass-loader": "^12.0.0",
+        "ts-loader": "^9.0.0",
+        "typescript": "^4.5.5",
         "webpack-notifier": "^1.6.0"
     },
     "license": "UNLICENSED",
@@ -16,8 +23,10 @@
         "build": "encore production --progress"
     },
     "dependencies": {
+        "node": "^17.4.0",
+        "node-version": "^2.0.0",
         "vue": "^3.2.31",
-        "vue-loader": "^17.0.0",
+        "vue-loader": "16.7.0",
         "vue-template-compiler": "^2.6.14"
     }
 }
