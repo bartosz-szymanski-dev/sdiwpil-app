@@ -65,7 +65,8 @@ Encore
 
   // uncomment if you use React
   // .enableReactPreset()
-  .enableVueLoader(() => {}, {
+  .enableVueLoader(() => {
+  }, {
     runtimeCompilerBuild: false,
   })
 

@@ -4,16 +4,16 @@
 
 {% block stylesheets %}
     {{ parent() }}
-    {{ encore_entry_link_tags('home') }}
+    {{ encore_entry_link_tags('home_page') }}
 {% endblock %}
 
 {% block body %}
-    <div id="home"></div>
+    <div id="main"></div>
 {% endblock %}
 
 {% block javascripts %}
     <script type="text/javascript">
       window.state = {{ state|raw }}
     </script>
-    {{ encore_entry_script_tags('home') }}
+    {{ encore_entry_script_tags('home_page') }}
 {% endblock %}
