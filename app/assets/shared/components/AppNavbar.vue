@@ -1,47 +1,40 @@
 <template>
   <div>
     <v-app-bar
-      absolute
+      fixed
       color="primary"
-      elevate-on-scroll
-      scroll-target="#scrolling-techniques-7"
     >
-      <v-toolbar-title>{{ title }}</v-toolbar-title>
+      <v-toolbar-title class="white--text">
+        {{ title }}
+      </v-toolbar-title>
 
       <v-spacer />
 
       <v-app-bar-nav-icon
+        v-if="breakpoint.xsOnly"
+        color="white"
         @click="drawer = true"
       />
     </v-app-bar>
+
     <v-navigation-drawer
+      v-if="breakpoint.xsOnly"
       v-model="drawer"
       absolute
       temporary
     >
-      <v-list
-        nav
-        dense
-      >
-        <v-list-item-group
-          v-model="group"
-          active-class="deep-purple--text text--accent-4"
-        >
-          <v-list-item>
-            <v-list-item-icon>
-              <v-icon>mdi-home</v-icon>
-            </v-list-item-icon>
-            <v-list-item-title>Strona główna</v-list-item-title>
-          </v-list-item>
+      <mobile-nav-list :title="title" />
 
-          <v-list-item>
-            <v-list-item-icon>
-              <v-icon>mdi-account</v-icon>
-            </v-list-item-icon>
-            <v-list-item-title>Zaloguj się</v-list-item-title>
-          </v-list-item>
-        </v-list-item-group>
-      </v-list>
+      <template #append>
+        <div class="pa-2">
+          <v-btn
+            block
+            color="accent"
+          >
+            Wyloguj się
+          </v-btn>
+        </div>
+      </template>
     </v-navigation-drawer>
   </div>
 </template>
@@ -49,12 +42,14 @@
 <script>
 import breakpoint from '../../mixins/breakpoint';
 
+import MobileNavList from './MobileNavList';
+
 export default {
   name: 'AppNavbar',
+  components: { MobileNavList },
   mixins: [breakpoint],
   data: () => ({
     drawer: false,
-    group: null,
   }),
   computed: {
     title() {

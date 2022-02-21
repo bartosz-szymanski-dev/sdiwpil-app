@@ -1,30 +1,47 @@
 <template>
   <v-app>
-    <app-navbar />
-    <v-card class="overflow-hidden">
-      <v-sheet
-        id="scrolling-techniques-7"
-        class="overflow-y-auto"
-        :max-height="windowHeight"
-      >
-        <v-container style="height: 1500px;" />
-      </v-sheet>
-    </v-card>
+    <app-navbar
+      ref="navbar"
+    />
+    <v-container
+      :style="{paddingTop: `${navbarHeight}px`}"
+    >
+      <main-screen />
+    </v-container>
   </v-app>
 </template>
 
 <script>
 import AppNavbar from '../../../shared/components/AppNavbar';
+import MainScreen from './MainScreen';
 
 export default {
   name: 'HomePage',
-  components: { AppNavbar },
+  components: { AppNavbar, MainScreen },
   data: () => ({
-    windowHeight: window.innerHeight,
+    navbarHeight: 0,
   }),
+  mounted() {
+    this.navbarHeight = this.getNavbarHeight();
+  },
+  methods: {
+    getNavbarHeight() {
+      const { navbar } = this.$refs;
+      if (navbar) {
+        const firstChild = navbar.$children[0];
+
+        return firstChild.$el ? firstChild.$el.clientHeight + 12 : 0;
+      }
+
+      return 0;
+    },
+  },
 };
 </script>
 
-<style scoped>
-
+<style scoped lang="scss">
+.container {
+  position: relative;
+  z-index: 2;
+}
 </style>
