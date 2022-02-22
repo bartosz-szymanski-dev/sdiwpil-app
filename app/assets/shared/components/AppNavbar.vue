@@ -4,24 +4,28 @@
       fixed
       color="primary"
     >
+      <v-app-bar-nav-icon
+        v-if="breakpoint.xsOnly"
+        color="white"
+        class="navbar-btn"
+        @click="drawer = true"
+      />
+
+      <v-spacer />
+
       <v-toolbar-title class="white--text">
         {{ title }}
       </v-toolbar-title>
 
       <v-spacer />
-
-      <v-app-bar-nav-icon
-        v-if="breakpoint.xsOnly"
-        color="white"
-        @click="drawer = true"
-      />
     </v-app-bar>
 
     <v-navigation-drawer
       v-if="breakpoint.xsOnly"
       v-model="drawer"
-      absolute
+      fixed
       temporary
+      height="100vh"
     >
       <mobile-nav-list :title="title" />
 
@@ -59,6 +63,10 @@ export default {
 };
 </script>
 
-<style scoped>
-
+<style scoped lang="scss">
+.navbar {
+  &-btn {
+    position: absolute;
+  }
+}
 </style>
