@@ -2,15 +2,32 @@
   <v-app class="home-page--bg">
     <app-navbar ref="navbar" />
 
-    <v-container :style="{paddingTop: `${navbarHeight}px`}">
+    <v-container
+      :style="{
+        paddingTop: `${navbarHeight}px`,
+        minHeight: `calc(100vh - ${footerHeight}px)`,
+      }"
+    >
       <main-screen class="home-page--main" />
 
-      <main-img />
+      <v-row class="home-page--row">
+        <v-col
+          sm="6"
+          class="pb-0"
+        >
+          <main-img />
+        </v-col>
 
-      <main-functions />
+        <v-col
+          cols="12"
+          class="pt-0"
+        >
+          <main-functions />
+        </v-col>
+      </v-row>
     </v-container>
 
-    <app-footer />
+    <app-footer ref="footer" />
   </v-app>
 </template>
 
@@ -28,9 +45,11 @@ export default {
   },
   data: () => ({
     navbarHeight: 0,
+    footerHeight: 0,
   }),
   mounted() {
     this.navbarHeight = this.getNavbarHeight();
+    this.footerHeight = this.getFooterHeight();
   },
   methods: {
     getNavbarHeight() {
@@ -39,6 +58,14 @@ export default {
         const firstChild = navbar.$children[0];
 
         return firstChild.$el ? firstChild.$el.clientHeight + 12 : 0;
+      }
+
+      return 0;
+    },
+    getFooterHeight() {
+      const { footer } = this.$refs;
+      if (footer) {
+        return footer.$el.clientHeight;
       }
 
       return 0;
@@ -63,6 +90,14 @@ export default {
 
   &--main {
     margin-bottom: 32px;
+
+    @media (min-width: $sm) {
+      margin-bottom: 64px;
+    }
+  }
+
+  &--row {
+    justify-content: center;
   }
 }
 </style>

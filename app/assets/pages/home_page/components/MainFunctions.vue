@@ -1,48 +1,26 @@
 <template>
-  <v-carousel
-    hide-delimiters
-    light
-    height="420"
-  >
-    <v-carousel-item
-      v-for="({ title, description, image }, i) in functions"
-      :key="i"
-    >
-      <v-card
-        class="mx-auto functions-card"
-        max-width="374"
-      >
-        <v-img
-          height="250"
-          :src="image"
-        />
-
-        <v-card-title>{{ title }}</v-card-title>
-
-        <v-card-text>
-          <v-row
-            align="center"
-            class="mx-0"
-          >
-            <div>{{ description }}</div>
-          </v-row>
-        </v-card-text>
-        <v-card-actions>
-          <v-btn
-            color="secondary"
-            block
-          >
-            Sprawdź
-          </v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-carousel-item>
-  </v-carousel>
+  <div>
+    <functions-carousel
+      v-if="breakpoint.mdAndDown"
+      :functions="functions"
+    />
+    <functions-block
+      v-else
+      :functions="functions"
+    />
+  </div>
 </template>
 
 <script>
+import breakpoint from '../../../mixins/breakpoint';
+
+import FunctionsCarousel from './functions/FunctionsCarousel';
+import FunctionsBlock from './functions/FunctionsBlock';
+
 export default {
   name: 'MainFunctions',
+  components: { FunctionsCarousel, FunctionsBlock },
+  mixins: [breakpoint],
   data: () => ({
     functions: [
       {
@@ -70,14 +48,6 @@ export default {
 };
 </script>
 
-<style scoped lang="scss">
-.functions {
-  &-card {
-    border-radius: 8px;
-  }
-}
+<style scoped>
 
-::v-deep .v-card__actions {
-  padding: 16px;
-}
 </style>

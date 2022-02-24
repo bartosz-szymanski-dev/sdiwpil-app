@@ -5,7 +5,7 @@
       color="primary"
     >
       <v-app-bar-nav-icon
-        v-if="breakpoint.xsOnly"
+        v-if="breakpoint.mdAndDown"
         color="white"
         class="navbar-btn"
         @click="drawer = true"
@@ -21,13 +21,13 @@
     </v-app-bar>
 
     <v-navigation-drawer
-      v-if="breakpoint.xsOnly"
+      v-if="breakpoint.mdAndDown"
       v-model="drawer"
       fixed
       temporary
       height="100vh"
     >
-      <mobile-nav-list :title="title" />
+      <mobile-nav-list :title="navTitle" />
 
       <template #append>
         <div class="pa-2">
@@ -58,6 +58,9 @@ export default {
   computed: {
     title() {
       return this.breakpoint.xsOnly && 'SDIWPIL' || 'System do internetowego wspomagania pacjenta i lekarza';
+    },
+    navTitle() {
+      return 'SDIWPIL';
     },
   },
 };
