@@ -1,5 +1,5 @@
 <template>
-  <v-row>
+  <v-row justify="center">
     <v-col
       v-for="({image, title, description}, i) in functions"
       :key="i"

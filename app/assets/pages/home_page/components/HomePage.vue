@@ -2,30 +2,16 @@
   <v-app class="home-page--bg">
     <app-navbar ref="navbar" />
 
-    <v-container
-      :style="{
-        paddingTop: `${navbarHeight}px`,
-        minHeight: `calc(100vh - ${footerHeight}px)`,
-      }"
-    >
-      <main-screen class="home-page--main" />
+    <mobile-container
+      v-if="breakpoint.mdAndDown"
+      :navbar-height="navbarHeight"
+      :footer-height="footerHeight"
+    />
 
-      <v-row class="home-page--row">
-        <v-col
-          sm="6"
-          class="pb-0"
-        >
-          <main-img />
-        </v-col>
-
-        <v-col
-          cols="12"
-          class="pt-0"
-        >
-          <main-functions />
-        </v-col>
-      </v-row>
-    </v-container>
+    <main-container
+      :navbar-height="navbarHeight"
+      :footer-height="footerHeight"
+    />
 
     <app-footer ref="footer" />
   </v-app>
@@ -34,15 +20,16 @@
 <script>
 import AppNavbar from '../../../shared/components/AppNavbar';
 import AppFooter from '../../../shared/components/AppFooter';
-import MainScreen from './MainScreen';
-import MainImg from './MainImg';
-import MainFunctions from './MainFunctions';
+import MobileContainer from './MobileContainer';
+import MainContainer from './MainContainer';
+import breakpoint from '../../../mixins/breakpoint';
 
 export default {
   name: 'HomePage',
   components: {
-    MainFunctions, AppNavbar, MainScreen, MainImg, AppFooter,
+    AppNavbar, AppFooter, MobileContainer, MainContainer,
   },
+  mixins: [breakpoint],
   data: () => ({
     navbarHeight: 0,
     footerHeight: 0,
@@ -75,7 +62,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import 'assets/styles/app';
+@import 'assets/styles/colors';
 
 .container {
   position: relative;
@@ -86,18 +73,6 @@ export default {
 .home-page {
   &--bg {
     background-color: rgba($primary, 0.2);
-  }
-
-  &--main {
-    margin-bottom: 32px;
-
-    @media (min-width: $sm) {
-      margin-bottom: 64px;
-    }
-  }
-
-  &--row {
-    justify-content: center;
   }
 }
 </style>

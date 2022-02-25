@@ -11,13 +11,13 @@
         @click="drawer = true"
       />
 
-      <v-spacer />
+      <v-spacer v-if="breakpoint.mdAndDown" />
 
       <v-toolbar-title class="white--text">
         {{ title }}
       </v-toolbar-title>
 
-      <v-spacer />
+      <v-spacer v-if="breakpoint.mdAndDown" />
     </v-app-bar>
 
     <v-navigation-drawer
