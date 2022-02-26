@@ -23,41 +23,14 @@ import AppFooter from '../../../shared/components/AppFooter';
 import MobileContainer from './MobileContainer';
 import MainContainer from './MainContainer';
 import breakpoint from '../../../mixins/breakpoint';
+import mainComponentHelper from '../../../mixins/mainComponentHelper';
 
 export default {
   name: 'HomePage',
   components: {
     AppNavbar, AppFooter, MobileContainer, MainContainer,
   },
-  mixins: [breakpoint],
-  data: () => ({
-    navbarHeight: 0,
-    footerHeight: 0,
-  }),
-  mounted() {
-    this.navbarHeight = this.getNavbarHeight();
-    this.footerHeight = this.getFooterHeight();
-  },
-  methods: {
-    getNavbarHeight() {
-      const { navbar } = this.$refs;
-      if (navbar) {
-        const firstChild = navbar.$children[0];
-
-        return firstChild.$el ? firstChild.$el.clientHeight + 12 : 0;
-      }
-
-      return 0;
-    },
-    getFooterHeight() {
-      const { footer } = this.$refs;
-      if (footer) {
-        return footer.$el.clientHeight;
-      }
-
-      return 0;
-    },
-  },
+  mixins: [breakpoint, mainComponentHelper],
 };
 </script>
 

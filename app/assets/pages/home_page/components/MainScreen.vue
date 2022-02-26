@@ -34,6 +34,7 @@
         <v-btn
           class="main-btn"
           color="accent"
+          :href="$fosGenerate('front.register')"
         >
           Zacznij korzystać z systemu
         </v-btn>

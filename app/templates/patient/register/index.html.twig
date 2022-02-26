@@ -1,10 +1,10 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Zarejestruj się | SDIWPIL{% endblock %}
+{% block title %}Pacjent | Zarejestruj się | SDIWPIL{% endblock %}
 
 {% block stylesheets %}
     {{ parent() }}
-    {{ encore_entry_link_tags('register') }}
+    {{ encore_entry_link_tags('patient-register') }}
 {% endblock %}
 
 {% block body %}
@@ -15,5 +15,5 @@
     <script type="text/javascript">
       window.state = {{ state|raw }}
     </script>
-    {{ encore_entry_script_tags('register') }}
+    {{ encore_entry_script_tags('patient-register') }}
 {% endblock %}
