@@ -34,6 +34,7 @@
         "node-version": "^2.0.0",
         "vue": "2.6.14",
         "vue-loader": "^15.9.5",
+        "vue-snotify": "^3.2.1",
         "vue-template-compiler": "^2.6.14",
         "vuelidate": "^0.7.7",
         "vuetify": "^2.6.3"

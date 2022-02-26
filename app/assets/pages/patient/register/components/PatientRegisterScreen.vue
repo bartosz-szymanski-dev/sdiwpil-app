@@ -7,7 +7,7 @@
         Stwórz konto pacjenta
       </h1>
 
-      <p class="register-white mb-0">
+      <p class="register-white">
         Wypełnij poniższy formularz i skorzystaj z możliwości jakie oferuje system SDIWPIL.
       </p>
     </v-col>

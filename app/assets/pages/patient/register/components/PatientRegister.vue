@@ -1,5 +1,7 @@
 <template>
   <v-app class="register--bg">
+    <vue-snotify />
+
     <app-navbar ref="navbar" />
 
     <v-container
@@ -11,6 +13,8 @@
       <app-background />
 
       <patient-register-screen />
+
+      <patient-register-form />
     </v-container>
 
     <app-footer ref="footer" />
@@ -23,11 +27,16 @@ import AppFooter from '../../../../shared/components/AppFooter';
 import mainComponentHelper from '../../../../mixins/mainComponentHelper';
 import AppBackground from '../../../../shared/components/AppBackground';
 import PatientRegisterScreen from './PatientRegisterScreen';
+import PatientRegisterForm from './PatientRegisterForm';
 
 export default {
   name: 'PatientRegister',
   components: {
-    AppBackground, AppNavbar, AppFooter, PatientRegisterScreen,
+    PatientRegisterForm,
+    AppBackground,
+    AppNavbar,
+    AppFooter,
+    PatientRegisterScreen,
   },
   mixins: [mainComponentHelper],
 };

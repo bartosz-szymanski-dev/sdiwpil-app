@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller\Patient;
+namespace App\Controller\Patient\Register;
 
 use GuzzleHttp\Utils;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;

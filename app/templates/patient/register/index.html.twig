@@ -4,7 +4,7 @@
 
 {% block stylesheets %}
     {{ parent() }}
-    {{ encore_entry_link_tags('patient-register') }}
+    {{ encore_entry_link_tags('patient_register') }}
 {% endblock %}
 
 {% block body %}
@@ -15,5 +15,5 @@
     <script type="text/javascript">
       window.state = {{ state|raw }}
     </script>
-    {{ encore_entry_script_tags('patient-register') }}
+    {{ encore_entry_script_tags('patient_register') }}
 {% endblock %}
