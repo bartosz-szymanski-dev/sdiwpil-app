@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-container fluid>
-      <main-background />
+      <app-background />
     </v-container>
 
     <v-container
@@ -18,13 +18,13 @@
 </template>
 
 <script>
-import MainBackground from './MainBackground';
+import AppBackground from '../../../shared/components/AppBackground';
 import MainScreen from './MainScreen';
 import MainFunctions from './MainFunctions';
 
 export default {
   name: 'MainContainer',
-  components: { MainScreen, MainBackground, MainFunctions },
+  components: { MainScreen, AppBackground, MainFunctions },
   props: {
     navbarHeight: {
       type: Number,

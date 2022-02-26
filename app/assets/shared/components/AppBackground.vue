@@ -4,7 +4,7 @@
 
 <script>
 export default {
-  name: 'MainBackground',
+  name: 'AppBackground',
 };
 </script>
 

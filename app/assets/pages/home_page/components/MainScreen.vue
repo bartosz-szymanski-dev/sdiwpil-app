@@ -1,6 +1,6 @@
 <template>
   <div>
-    <main-background v-if="isMobile" />
+    <app-background v-if="isMobile" />
     <v-row
       row
       :class="[!isMobile && 'justify-center']"
@@ -34,7 +34,7 @@
         <v-btn
           class="main-btn"
           color="accent"
-          :href="$fosGenerate('front.register')"
+          :href="$fosGenerate('front.patient.register')"
         >
           Zacznij korzystać z systemu
         </v-btn>
@@ -44,12 +44,12 @@
 </template>
 
 <script>
-import MainBackground from './MainBackground';
+import AppBackground from '../../../shared/components/AppBackground';
 import MainImg from './MainImg';
 
 export default {
   name: 'MainScreen',
-  components: { MainBackground, MainImg },
+  components: { AppBackground, MainImg },
   props: {
     isMobile: {
       type: Boolean,
