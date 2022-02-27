@@ -1,20 +1,20 @@
 <?php
 
-namespace App\Controller\Patient\Register;
+namespace App\Controller\Patient;
 
 use GuzzleHttp\Utils;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class RegisterPatientViewController extends AbstractController
+class PatientAppointmentViewController extends AbstractController
 {
     /**
-     * @Route("/patient/register", name="front.patient.register")
+     * @Route("/patient/appointment", name="front.patient.appointment")
      */
     public function index(): Response
     {
-        return $this->render('/patient/register.html.twig', [
+        return $this->render('patient/appointment.html.twig', [
             'state' => Utils::jsonEncode([]),
         ]);
     }

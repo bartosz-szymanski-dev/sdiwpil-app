@@ -25,6 +25,7 @@ Encore
   .addEntry('home_page', './assets/pages/home_page/index.js')
   // patient
   .addEntry('patient_register', './assets/pages/patient/register/index.js')
+  .addEntry('patient_dashboard', './assets/pages/patient/dashboard/index.js')
 
   // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
   .enableStimulusBridge('./assets/controllers.json')

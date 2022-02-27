@@ -2,19 +2,20 @@
 
 namespace App\Controller\Patient;
 
+use GuzzleHttp\Utils;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class PatientDashboardController extends AbstractController
+class PatientDashboardViewController extends AbstractController
 {
     /**
-     * @Route("/patient/dashboard", name="front.patient.dashboard")
+     * @Route("/patient", name="front.patient.dashboard")
      */
     public function index(): Response
     {
         return $this->render('patient/dashboard.html.twig', [
-            'controller_name' => 'PatientDashboardController',
+            'state' => Utils::jsonEncode([]),
         ]);
     }
 }
