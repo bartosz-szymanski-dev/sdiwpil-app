@@ -150,19 +150,24 @@ export default {
       if (has(vField, 'maxLength') && !vField.maxLength) {
         errors.push(`Maksymalna ilość znaków to: ${vField.$params.maxLength.max}`);
       }
+      if (has(vField, 'email') && !vField.email) {
+        errors.push('Nieprawidłowy adres e-mail');
+      }
+      if (has(vField, 'sameAs') && !vField.sameAs) {
+        errors.push('Wprowadzone hasła muszą być takie same');
+      }
 
       return errors;
     },
     onSubmit() {
       this.$v.$touch();
-      console.log('eee');
       if (this.$v.$invalid) {
         this.$snotify.error('Formularz nie został poprawnie wypełniony');
 
         return;
       }
 
-      window.location.href = this.$fosGenerate('patient.dashboard');
+      window.location.href = this.$fosGenerate('front.patient.dashboard');
     },
   },
 };
