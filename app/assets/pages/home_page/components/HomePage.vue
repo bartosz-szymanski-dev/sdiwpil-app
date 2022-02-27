@@ -36,7 +36,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import 'assets/styles/colors';
+@import '../../../styles/colors';
 
 .container {
   position: relative;

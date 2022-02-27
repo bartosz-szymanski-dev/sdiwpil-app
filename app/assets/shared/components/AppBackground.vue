@@ -9,7 +9,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import 'assets/styles/breakpoints';
+@import '../../styles/breakpoints';
 
 .background {
   position: absolute;

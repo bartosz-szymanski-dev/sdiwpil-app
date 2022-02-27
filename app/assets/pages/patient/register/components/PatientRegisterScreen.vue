@@ -1,6 +1,7 @@
 <template>
   <v-row
     row
+    justify-md="center"
   >
     <v-col md="4">
       <h1 class="text-h4 register-white mb-2">

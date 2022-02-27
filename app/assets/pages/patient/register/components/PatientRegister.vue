@@ -4,18 +4,17 @@
 
     <app-navbar ref="navbar" />
 
-    <v-container
-      :style="{
-        paddingTop: `${navbarHeight}px`,
-        minHeight: `calc(100vh - ${footerHeight}px)`,
-      }"
-    >
-      <app-background />
+    <patient-register-mobile-container
+      v-if="breakpoint.mdAndDown"
+      :navbar-height="navbarHeight"
+      :footer-height="footerHeight"
+    />
 
-      <patient-register-screen />
-
-      <patient-register-form />
-    </v-container>
+    <patient-register-desktop-container
+      v-else
+      :navbar-height="navbarHeight"
+      :footer-height="footerHeight"
+    />
 
     <app-footer ref="footer" />
   </v-app>
@@ -25,25 +24,24 @@
 import AppNavbar from '../../../../shared/components/AppNavbar';
 import AppFooter from '../../../../shared/components/AppFooter';
 import mainComponentHelper from '../../../../mixins/mainComponentHelper';
-import AppBackground from '../../../../shared/components/AppBackground';
-import PatientRegisterScreen from './PatientRegisterScreen';
-import PatientRegisterForm from './PatientRegisterForm';
+import PatientRegisterMobileContainer from './PatientRegisterMobileContainer';
+import PatientRegisterDesktopContainer from './PatientRegisterDesktopContainer';
+import breakpoint from '../../../../mixins/breakpoint';
 
 export default {
   name: 'PatientRegister',
   components: {
-    PatientRegisterForm,
-    AppBackground,
     AppNavbar,
     AppFooter,
-    PatientRegisterScreen,
+    PatientRegisterMobileContainer,
+    PatientRegisterDesktopContainer,
   },
-  mixins: [mainComponentHelper],
+  mixins: [breakpoint, mainComponentHelper],
 };
 </script>
 
 <style scoped lang="scss">
-@import 'assets/styles/colors';
+@import '../../../../styles/colors';
 
 .container {
   position: relative;
