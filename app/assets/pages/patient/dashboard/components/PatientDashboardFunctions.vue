@@ -44,17 +44,17 @@ export default {
         },
         {
           name: 'Wizyty',
-          url: '',
+          url: this.$fosGenerate('front.patient.appointment'),
           img: '/images/patient-dashboard/appointment.png',
         },
         {
           name: 'Czat z lekarzem',
-          url: '',
+          url: this.$fosGenerate('front.patient.chat'),
           img: '/images/patient-dashboard/chat.png',
         },
         {
           name: 'Ustawienia',
-          url: '',
+          url: this.$fosGenerate('front.patient.setting'),
           img: '/images/patient-dashboard/settings.png',
         },
       ];
