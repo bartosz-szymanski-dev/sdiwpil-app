@@ -24,4 +24,8 @@ export default {
     color: #fff;
   }
 }
+
+::v-deep .col {
+  position: relative;
+}
 </style>

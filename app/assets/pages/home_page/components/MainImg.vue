@@ -1,6 +1,6 @@
 <template>
   <v-img
-    src="/images/home_page/main.png"
+    src="/images/home-page/main.png"
     :width="height ? height : '100%'"
     :height="height"
     :class="[isOval && 'oval']"

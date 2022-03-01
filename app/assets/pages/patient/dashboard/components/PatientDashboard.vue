@@ -2,18 +2,17 @@
   <v-app>
     <app-navbar ref="navbar" />
 
-    <v-container
-      :style="{
-        paddingTop: `${navbarHeight}px`,
-        minHeight: `calc(100vh - ${footerHeight}px)`,
-      }"
-    >
-      <app-background />
+    <patient-dashboard-mobile-container
+      v-if="breakpoint.mdAndDown"
+      :footer-height="footerHeight"
+      :navbar-height="navbarHeight"
+    />
 
-      <patient-dashboard-screen />
-
-      <patient-dashboard-functions />
-    </v-container>
+    <patient-dashboard-desktop-container
+      v-else
+      :footer-height="footerHeight"
+      :navbar-height="navbarHeight"
+    />
 
     <app-footer ref="footer" />
   </v-app>
@@ -23,27 +22,22 @@
 import AppNavbar from '../../../../shared/components/AppNavbar';
 import AppFooter from '../../../../shared/components/AppFooter';
 import mainComponentHelper from '../../../../mixins/mainComponentHelper';
-import AppBackground from '../../../../shared/components/AppBackground';
-import PatientDashboardScreen from './PatientDashboardScreen';
-import PatientDashboardFunctions from './PatientDashboardFunctions';
+import PatientDashboardMobileContainer from './PatientDashboardMobileContainer';
+import breakpoint from '../../../../mixins/breakpoint';
+import PatientDashboardDesktopContainer from './PatientDashboardDesktopContainer';
 
 export default {
   name: 'PatientDashboard',
   components: {
-    PatientDashboardFunctions,
-    PatientDashboardScreen,
-    AppBackground,
+    PatientDashboardDesktopContainer,
+    PatientDashboardMobileContainer,
     AppFooter,
     AppNavbar,
   },
-  mixins: [mainComponentHelper],
+  mixins: [breakpoint, mainComponentHelper],
 };
 </script>
 
 <style scoped>
-.container {
-  position: relative;
-  z-index: 2;
-  overflow-x: hidden;
-}
+
 </style>
