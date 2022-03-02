@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <v-app class="appointment--bg">
     <app-navbar ref="navbar" />
 
     <patient-appointment-mobile-container
@@ -7,6 +7,7 @@
       :footer-height="footerHeight"
       :navbar-height="navbarHeight"
     />
+
     <patient-appointment-desktop-container
       v-else
       :footer-height="footerHeight"
@@ -34,6 +35,10 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+@import "assets/styles/colors";
 
+.appointment--bg {
+  background-color: rgba($primary, 0.2);
+}
 </style>

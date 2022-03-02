@@ -38,7 +38,7 @@
               Wypełnij formularz wizyty
             </v-card-title>
             <v-card-text>
-              hello
+              <patient-appointment-stepper />
             </v-card-text>
             <v-card-actions>
               <v-btn
@@ -66,8 +66,11 @@
 </template>
 
 <script>
+import PatientAppointmentStepper from './PatientAppointmentStepper';
+
 export default {
   name: 'PatientAppointmentList',
+  components: { PatientAppointmentStepper },
   data: () => ({
     headers: [
       {
@@ -79,6 +82,11 @@ export default {
         text: 'Lekarz',
         sortable: false,
         value: 'doctor',
+      },
+      {
+        text: 'Specjalizacja lekarza',
+        sortable: false,
+        value: 'medicalSpecialty',
       },
       {
         text: 'Powód wizyty',
