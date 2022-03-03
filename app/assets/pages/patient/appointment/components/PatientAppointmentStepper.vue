@@ -3,6 +3,7 @@
     <v-stepper-items>
       <v-stepper-content step="1">
         <patient-appointment-form @change="handleFormChange" />
+
         <v-btn
           v-show="showSearchButton"
           block
@@ -19,20 +20,28 @@
           @change="isDoctorChosen = true"
         />
 
-        <v-btn
-          color="primary"
-          :disabled="!isDoctorChosen"
-          @click="step += 1"
-        >
-          Dalej
-        </v-btn>
+        <v-row>
+          <v-col cols="auto">
+            <v-btn
+              text
+              @click="step -= 1"
+            >
+              Wstecz
+            </v-btn>
+          </v-col>
 
-        <v-btn
-          text
-          @click="step -= 1"
-        >
-          Wstecz
-        </v-btn>
+          <v-spacer />
+
+          <v-col cols="auto">
+            <v-btn
+              color="primary"
+              :disabled="!isDoctorChosen"
+              @click="step += 1"
+            >
+              Dalej
+            </v-btn>
+          </v-col>
+        </v-row>
       </v-stepper-content>
 
       <v-stepper-content step="3">
