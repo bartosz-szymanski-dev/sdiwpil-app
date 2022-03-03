@@ -2,6 +2,7 @@
 
 namespace App\Controller\Patient;
 
+use Carbon\Carbon;
 use GuzzleHttp\Utils;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,7 +16,23 @@ class PatientAppointmentViewController extends AbstractController
     public function index(): Response
     {
         return $this->render('patient/appointment.html.twig', [
-            'state' => Utils::jsonEncode([]),
+            'state' => Utils::jsonEncode([
+                'time_slots' => $this->getTimeSlots(),
+            ]),
         ]);
+    }
+
+    private function getTimeSlots(): array
+    {
+        $result = [];
+        $date = Carbon::now();
+        for ($i = 0; $i < 5; $i++) {
+            $date = $date->addDay();
+            $d = $date->format('d.m.Y');
+            $t = $date->format('H:i');
+            $result[] = $d . 'r., godz.: ' . $t;
+        }
+
+        return $result;
     }
 }

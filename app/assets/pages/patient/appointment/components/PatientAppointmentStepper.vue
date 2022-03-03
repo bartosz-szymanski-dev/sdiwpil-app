@@ -7,40 +7,40 @@
           v-show="showSearchButton"
           block
           x-large
-          @click="step = 2"
+          @click="step += 1"
         >
           Szukaj
         </v-btn>
       </v-stepper-content>
 
       <v-stepper-content step="2">
-        <patient-appointment-results class="mb-4" />
+        <patient-appointment-results
+          class="mb-4"
+          @change="isDoctorChosen = true"
+        />
 
         <v-btn
           color="primary"
-          @click="step = 3"
+          :disabled="!isDoctorChosen"
+          @click="step += 1"
         >
           Dalej
         </v-btn>
 
         <v-btn
           text
-          @click="step = 2"
+          @click="step -= 1"
         >
           Wstecz
         </v-btn>
       </v-stepper-content>
 
       <v-stepper-content step="3">
-        <v-card
-          class="mb-12"
-          color="grey lighten-1"
-          height="200px"
-        />
+        <patient-appointment-rest-info-form />
 
         <v-btn
           text
-          @click="step = 2"
+          @click="step -= 1"
         >
           Wstecz
         </v-btn>
@@ -52,13 +52,15 @@
 <script>
 import PatientAppointmentForm from './PatientAppointmentForm';
 import PatientAppointmentResults from './PatientAppointmentResults';
+import PatientAppointmentRestInfoForm from './PatientAppointmentRestInfoForm';
 
 export default {
   name: 'PatientAppointmentStepper',
-  components: { PatientAppointmentForm, PatientAppointmentResults },
+  components: { PatientAppointmentForm, PatientAppointmentResults, PatientAppointmentRestInfoForm },
   data: () => ({
     step: 1,
     showSearchButton: false,
+    isDoctorChosen: false,
   }),
   methods: {
     handleFormChange(search) {
