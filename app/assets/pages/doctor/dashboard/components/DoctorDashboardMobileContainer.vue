@@ -5,7 +5,7 @@
       minHeight: `calc(100vh - ${footerHeight}px)`,
     }"
   >
-    <app-background />
+    <app-background color-schema="doctor" />
   </v-container>
 </template>
 

@@ -1,6 +1,9 @@
 <template>
   <v-app class="dashboard--bg">
-    <app-navbar ref="navbar" />
+    <app-navbar
+      ref="navbar"
+      color-schema="doctor"
+    />
 
     <doctor-dashboard-mobile-container
       v-if="breakpoint.mdAndDown"

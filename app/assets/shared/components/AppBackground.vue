@@ -1,10 +1,27 @@
 <template>
-  <div class="background" />
+  <div :class="classes" />
 </template>
 
 <script>
 export default {
   name: 'AppBackground',
+  props: {
+    colorSchema: {
+      type: String,
+      default: 'patient',
+      validator: (value) => ['patient', 'doctor', 'receptionist', 'management'].includes(value),
+    },
+  },
+  computed: {
+    classes() {
+      switch (this.colorSchema) {
+        case 'doctor':
+          return 'background background-doctor';
+        default:
+          return 'background';
+      }
+    },
+  },
 };
 </script>
 
@@ -24,6 +41,10 @@ export default {
 
   @media (min-width: $md) {
     height: 460px;
+  }
+
+  &-doctor {
+    background: linear-gradient(180deg, rgba(53, 166, 230, 1) 0%, rgba(0, 206, 200, 1) 100%);
   }
 }
 </style>

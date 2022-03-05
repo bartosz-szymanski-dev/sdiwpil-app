@@ -2,7 +2,7 @@
   <div>
     <v-app-bar
       fixed
-      color="primary"
+      :color="color"
     >
       <v-app-bar-nav-icon
         v-if="breakpoint.mdAndDown"
@@ -52,15 +52,28 @@ export default {
   name: 'AppNavbar',
   components: { MobileNavList },
   mixins: [breakpoint],
+  props: {
+    colorSchema: {
+      type: String,
+      default: 'patient',
+      validator: (value) => ['patient', 'doctor', 'receptionist', 'management'].includes(value),
+    },
+  },
   data: () => ({
     drawer: false,
+    navTitle: 'SDIWPIL',
   }),
   computed: {
     title() {
       return this.breakpoint.xsOnly && 'SDIWPIL' || 'System do internetowego wspomagania pacjenta i lekarza';
     },
-    navTitle() {
-      return 'SDIWPIL';
+    color() {
+      switch (this.colorSchema) {
+        case 'doctor':
+          return 'secondary';
+        default:
+          return 'primary';
+      }
     },
   },
 };
