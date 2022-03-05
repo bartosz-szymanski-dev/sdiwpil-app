@@ -6,15 +6,24 @@
     }"
   >
     <app-background color-schema="doctor" />
+
+    <route-screen
+      header="Witaj w panelu lekarza"
+      text="Skorzystaj z usług oferowanych przez konto lekarza poprzez kliknięcie w wybrany odnośnik."
+    />
+
+    <dashboard-functions :functions="functions" />
   </v-container>
 </template>
 
 <script>
 import AppBackground from '../../../../shared/components/AppBackground';
+import RouteScreen from '../../../../shared/components/RouteScreen';
+import DashboardFunctions from '../../../../shared/components/DashboardFunctions';
 
 export default {
   name: 'DoctorDashboardMobileContainer',
-  components: { AppBackground },
+  components: { DashboardFunctions, RouteScreen, AppBackground },
   props: {
     navbarHeight: {
       type: Number,
@@ -23,6 +32,11 @@ export default {
     footerHeight: {
       type: Number,
       required: true,
+    },
+  },
+  computed: {
+    functions() {
+      return [];
     },
   },
 };

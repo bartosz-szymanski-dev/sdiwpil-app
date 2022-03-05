@@ -7,20 +7,28 @@
   >
     <app-background />
 
-    <patient-dashboard-screen />
+    <route-screen
+      header="Witaj w panelu pacjenta"
+      text="Skorzystaj z usług oferowanych przez konto w systemie. Poniżej znajdują się odnośniki do poszczególnych sekcji."
+    />
 
-    <patient-dashboard-functions />
+    <dashboard-functions :functions="functions" />
   </v-container>
 </template>
 
 <script>
 import AppBackground from '../../../../shared/components/AppBackground';
-import PatientDashboardScreen from './PatientDashboardScreen';
-import PatientDashboardFunctions from './PatientDashboardFunctions';
+import DashboardFunctions from '../../../../shared/components/DashboardFunctions';
+import RouteScreen from '../../../../shared/components/RouteScreen';
+import DashboardFunctionModel from '../../../../shared/models/DashboardFunctionModel';
 
 export default {
   name: 'PatientDashboardMobileContainer',
-  components: { AppBackground, PatientDashboardScreen, PatientDashboardFunctions },
+  components: {
+    RouteScreen,
+    DashboardFunctions,
+    AppBackground,
+  },
   props: {
     navbarHeight: {
       type: Number,
@@ -29,6 +37,32 @@ export default {
     footerHeight: {
       type: Number,
       required: true,
+    },
+  },
+  computed: {
+    functions() {
+      return [
+        new DashboardFunctionModel(
+          'Skierowania',
+          this.$fosGenerate('front.patient.referral'),
+          '/images/patient-dashboard/referral.png',
+        ),
+        new DashboardFunctionModel(
+          'Wizyty',
+          this.$fosGenerate('front.patient.appointment'),
+          '/images/patient-dashboard/appointment.png',
+        ),
+        new DashboardFunctionModel(
+          'Czat z lekarzem',
+          this.$fosGenerate('front.patient.chat'),
+          '/images/patient-dashboard/chat.png',
+        ),
+        new DashboardFunctionModel(
+          'Ustawienia',
+          this.$fosGenerate('front.patient.setting'),
+          '/images/patient-dashboard/settings.png',
+        ),
+      ];
     },
   },
 };
