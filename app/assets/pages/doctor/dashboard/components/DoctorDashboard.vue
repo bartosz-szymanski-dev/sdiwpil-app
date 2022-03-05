@@ -12,6 +12,7 @@
     />
 
     <doctor-dashboard-desktop-container
+      v-else
       :navbar-height="navbarHeight"
       :footer-height="footerHeight"
     />
