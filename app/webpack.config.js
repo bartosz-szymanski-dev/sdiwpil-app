@@ -29,6 +29,10 @@ Encore
   .addEntry('patient_appointment', './assets/pages/patient/appointment/index.js')
   // doctor
   .addEntry('doctor_dashboard', './assets/pages/doctor/dashboard/index.js')
+  .addEntry('doctor_documents', './assets/pages/doctor/documents/index.js')
+  .addEntry('doctor_chats', './assets/pages/doctor/chats/index.js')
+  .addEntry('doctor_appointments', './assets/pages/doctor/appointments/index.js')
+  .addEntry('doctor_settings', './assets/pages/doctor/settings/index.js')
 
   // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
   .enableStimulusBridge('./assets/controllers.json')
