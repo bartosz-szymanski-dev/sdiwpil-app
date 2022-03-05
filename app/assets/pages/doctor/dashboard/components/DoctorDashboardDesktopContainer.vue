@@ -1,30 +1,34 @@
 <template>
-  <v-container
-    :style="{
-      paddingTop: `${navbarHeight}px`,
-      minHeight: `calc(100vh - ${footerHeight}px)`,
-    }"
-  >
-    <app-background color-schema="doctor" />
+  <div>
+    <v-container fluid>
+      <app-background color-schema="doctor" />
+    </v-container>
 
-    <route-screen
-      header="Witaj w panelu lekarza"
-      text="Skorzystaj z usług oferowanych przez konto lekarza poprzez kliknięcie w wybrany odnośnik."
-    />
+    <v-container
+      :style="{
+        paddingTop: `${navbarHeight}px`,
+        minHeight: `calc(100vh - ${footerHeight}px)`,
+      }"
+    >
+      <route-screen
+        header="Witaj w panelu lekarza"
+        text="Skorzystaj z usług oferowanych przez konto lekarza poprzez kliknięcie w wybrany odnośnik."
+      />
 
-    <dashboard-functions :functions="functions" />
-  </v-container>
+      <dashboard-functions :functions="functions" />
+    </v-container>
+  </div>
 </template>
 
 <script>
+import DashboardFunctionModel from '../../../../shared/models/DashboardFunctionModel';
 import AppBackground from '../../../../shared/components/AppBackground';
 import RouteScreen from '../../../../shared/components/RouteScreen';
 import DashboardFunctions from '../../../../shared/components/DashboardFunctions';
-import DashboardFunctionModel from '../../../../shared/models/DashboardFunctionModel';
 
 export default {
-  name: 'DoctorDashboardMobileContainer',
-  components: { DashboardFunctions, RouteScreen, AppBackground },
+  name: 'DoctorDashboardDesktopContainer',
+  components: { AppBackground, RouteScreen, DashboardFunctions },
   props: {
     navbarHeight: {
       type: Number,
@@ -64,10 +68,10 @@ export default {
 };
 </script>
 
-<style scoped>
-.container {
-  position: relative;
-  z-index: 2;
-  overflow-x: hidden;
+<style scoped lang="scss">
+::v-deep {
+  .background {
+    z-index: 0;
+  }
 }
 </style>

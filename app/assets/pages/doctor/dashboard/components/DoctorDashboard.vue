@@ -11,6 +11,11 @@
       :footer-height="footerHeight"
     />
 
+    <doctor-dashboard-desktop-container
+      :navbar-height="navbarHeight"
+      :footer-height="footerHeight"
+    />
+
     <app-footer ref="footer" />
   </v-app>
 </template>
@@ -21,10 +26,13 @@ import AppFooter from '../../../../shared/components/AppFooter';
 import DoctorDashboardMobileContainer from './DoctorDashboardMobileContainer';
 import breakpoint from '../../../../mixins/breakpoint';
 import mainComponentHelper from '../../../../mixins/mainComponentHelper';
+import DoctorDashboardDesktopContainer from './DoctorDashboardDesktopContainer';
 
 export default {
   name: 'DoctorDashboard',
-  components: { DoctorDashboardMobileContainer, AppFooter, AppNavbar },
+  components: {
+    DoctorDashboardDesktopContainer, DoctorDashboardMobileContainer, AppFooter, AppNavbar,
+  },
   mixins: [breakpoint, mainComponentHelper],
 };
 </script>
