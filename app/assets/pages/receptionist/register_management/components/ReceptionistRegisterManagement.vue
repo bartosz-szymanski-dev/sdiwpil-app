@@ -42,7 +42,9 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@import "assets/styles/colors";
+
 .receptionist--bg {
-  background-color: rgba(#4774FC, .2);
+  background-color: rgba($accent, .2);
 }
 </style>
