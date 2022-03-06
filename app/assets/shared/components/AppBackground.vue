@@ -17,6 +17,8 @@ export default {
       switch (this.colorSchema) {
         case 'doctor':
           return 'background background-doctor';
+        case 'receptionist':
+          return 'background background-receptionist';
         default:
           return 'background';
       }
@@ -45,6 +47,10 @@ export default {
 
   &-doctor {
     background: linear-gradient(180deg, rgba(53, 166, 230, 1) 0%, rgba(0, 206, 200, 1) 100%);
+  }
+
+  &-receptionist {
+    background: linear-gradient(180deg, #4774FC 0%, rgba(0, 206, 200, 1) 100%);
   }
 }
 </style>

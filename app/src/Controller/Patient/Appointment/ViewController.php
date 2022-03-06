@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller\Patient;
+namespace App\Controller\Patient\Appointment;
 
 use Carbon\Carbon;
 use GuzzleHttp\Utils;
@@ -8,7 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class PatientAppointmentViewController extends AbstractController
+class ViewController extends AbstractController
 {
     /**
      * @Route("/patient/appointment", name="front.patient.appointment")

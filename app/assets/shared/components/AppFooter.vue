@@ -6,7 +6,7 @@
       flat
       tile
       width="100%"
-      color="accent"
+      :color="color"
       class="text-center"
     >
       <v-card-text class="white--text">
@@ -19,9 +19,24 @@
 <script>
 export default {
   name: 'AppFooter',
+  props: {
+    colorSchema: {
+      type: String,
+      default: 'default',
+      validator: (value) => ['receptionist'].includes(value),
+    },
+  },
   computed: {
     year() {
       return new Date().getFullYear();
+    },
+    color() {
+      switch (this.colorSchema) {
+        case 'receptionist':
+          return 'primary';
+        default:
+          return 'accent';
+      }
     },
   },
 };

@@ -1,20 +1,21 @@
 <?php
 
-namespace App\Controller\Doctor;
+namespace App\Controller\Doctor\Dashboard;
 
 use GuzzleHttp\Utils;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class DoctorChatsViewController extends AbstractController
+class ViewController extends AbstractController
 {
     /**
-     * @Route("/doctor/chats", name="front.doctor.chats")
+     * @Route("/doctor", name="front.doctor.dashboard")
+     * @return Response
      */
     public function index(): Response
     {
-        return $this->render('doctor/chats.html.twig', [
+        return $this->render('doctor/dashboard.html.twig', [
             'state' => Utils::jsonEncode([]),
         ]);
     }

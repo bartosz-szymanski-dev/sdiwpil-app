@@ -71,6 +71,8 @@ export default {
       switch (this.colorSchema) {
         case 'doctor':
           return 'secondary';
+        case 'receptionist':
+          return 'accent';
         default:
           return 'primary';
       }
