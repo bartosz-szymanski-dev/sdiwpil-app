@@ -11,4 +11,8 @@
 /app/public/js/
 /app/var/
 /app/vendor/
+/app/node_modules/*
+/app/public/build/
+/app/npm-debug.log
+/app/yarn-error.log
 ###< symfony/framework-bundle ###
