@@ -23,7 +23,7 @@ export default {
     colorSchema: {
       type: String,
       default: 'default',
-      validator: (value) => ['receptionist'].includes(value),
+      validator: (value) => ['receptionist', 'management'].includes(value),
     },
   },
   computed: {
@@ -34,6 +34,8 @@ export default {
       switch (this.colorSchema) {
         case 'receptionist':
           return 'primary';
+        case 'management':
+          return 'warning';
         default:
           return 'accent';
       }

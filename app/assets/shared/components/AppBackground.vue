@@ -19,6 +19,8 @@ export default {
           return 'background background-doctor';
         case 'receptionist':
           return 'background background-receptionist';
+        case 'management':
+          return 'background background-management';
         default:
           return 'background';
       }
@@ -28,7 +30,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import '../../styles/breakpoints';
+@import "assets/styles/app";
 
 .background {
   position: absolute;
@@ -38,7 +40,7 @@ export default {
   width: 150%;
   height: 360px;
   border-radius: 0 0 50% 50%;
-  background: linear-gradient(180deg, rgba(0, 206, 200, 1) 0%, rgba(53, 166, 230, 1) 100%);
+  background: linear-gradient(180deg, $primary 0%, $secondary 100%);
   z-index: -1;
 
   @media (min-width: $md) {
@@ -46,11 +48,15 @@ export default {
   }
 
   &-doctor {
-    background: linear-gradient(180deg, rgba(53, 166, 230, 1) 0%, rgba(0, 206, 200, 1) 100%);
+    background: linear-gradient(180deg, $secondary 0%, $primary 100%);
   }
 
   &-receptionist {
-    background: linear-gradient(180deg, #4774FC 0%, rgba(0, 206, 200, 1) 100%);
+    background: linear-gradient(180deg, $accent 0%, $primary 100%);
+  }
+
+  &-management {
+    background: linear-gradient(180deg, $success 0%, $warning 100%);
   }
 }
 </style>

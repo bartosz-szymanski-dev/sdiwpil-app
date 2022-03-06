@@ -73,6 +73,8 @@ export default {
           return 'secondary';
         case 'receptionist':
           return 'accent';
+        case 'management':
+          return 'success';
         default:
           return 'primary';
       }
