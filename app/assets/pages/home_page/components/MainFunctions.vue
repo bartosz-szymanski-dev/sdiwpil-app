@@ -25,22 +25,22 @@ export default {
     functions: [
       {
         title: 'Konto pacjenta',
-        description: 'Lorem ipsum',
+        description: 'Strefa przeznaczona stworzona z myślą o udogodnieniach dla każdego pacjenta.',
         image: '/images/functions/patient-account.png',
       },
       {
         title: 'Konto lekarza',
-        description: 'Lorem ipsum',
+        description: 'Podsystem realizujący kompleksowo realizujący potrzeby lekarzy.',
         image: '/images/functions/doctor-account.png',
       },
       {
         title: 'Konto recepcjonisty',
-        description: 'Lorem ipsum',
+        description: 'Specjalnie wydelegowana strefa dla pracownika recepcji, by wspomagać mikro zarządzanie.',
         image: '/images/functions/receptionist-account.png',
       },
       {
         title: 'Konto administracji',
-        description: 'Lorem ipsum',
+        description: 'Część systemu zbudowana z myślą o szerokim przedstawieniu statystyk i możliwości makro zarządzania.',
         image: '/images/functions/management-account.png',
       },
     ],
