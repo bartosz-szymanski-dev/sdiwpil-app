@@ -23,7 +23,7 @@ export default {
     colorSchema: {
       type: String,
       default: 'default',
-      validator: (value) => ['receptionist', 'management'].includes(value),
+      validator: (value) => ['default', 'receptionist', 'management'].includes(value),
     },
   },
   computed: {

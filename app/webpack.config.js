@@ -40,6 +40,8 @@ Encore
   .addEntry('receptionist_settings', './assets/pages/receptionist/settings/index.js')
   // management
   .addEntry('management_dashboard', './assets/pages/management/dashboard/index.js')
+  .addEntry('management_statistics', './assets/pages/management/statistics/index.js')
+  .addEntry('management_settings', './assets/pages/management/settings/index.js')
   // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
   .enableStimulusBridge('./assets/controllers.json')
 

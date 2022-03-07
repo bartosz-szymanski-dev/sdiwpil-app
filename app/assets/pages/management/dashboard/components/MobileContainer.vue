@@ -11,16 +11,20 @@
       header="Witaj w panelu administracji placówki medycznej"
       text="Poniższe odnośniki przestawiają możliwości oferowane przez system. Kliknij w jeden z nich, by rozpocząć akcję"
     />
+
+    <dashboard-functions :functions="functions" />
   </v-container>
 </template>
 
 <script>
 import AppBackground from '../../../../shared/components/AppBackground';
 import RouteScreen from '../../../../shared/components/RouteScreen';
+import DashboardFunctions from '../../../../shared/components/DashboardFunctions';
+import DashboardFunctionModel from '../../../../shared/models/DashboardFunctionModel';
 
 export default {
   name: 'MobileContainer',
-  components: { RouteScreen, AppBackground },
+  components: { DashboardFunctions, RouteScreen, AppBackground },
   props: {
     navbarHeight: {
       type: Number,
@@ -29,6 +33,22 @@ export default {
     footerHeight: {
       type: Number,
       required: true,
+    },
+  },
+  computed: {
+    functions() {
+      return [
+        new DashboardFunctionModel(
+          'Statystyki',
+          this.$fosGenerate('front.management.statistics'),
+          '/images/dashboard-functions/statistics.png',
+        ),
+        new DashboardFunctionModel(
+          'Ustawienia',
+          this.$fosGenerate('front.management.settings'),
+          '/images/patient-dashboard/settings.png',
+        ),
+      ];
     },
   },
 };
