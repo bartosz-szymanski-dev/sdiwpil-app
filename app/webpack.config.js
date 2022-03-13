@@ -23,6 +23,8 @@ Encore
   .addEntry('app', './assets/app.js')
   // home page
   .addEntry('home_page', './assets/pages/home_page/index.js')
+  // global
+  .addEntry('login', './assets/pages/login/index.js')
   // patient
   .addEntry('patient_register', './assets/pages/patient/register/index.js')
   .addEntry('patient_dashboard', './assets/pages/patient/dashboard/index.js')
