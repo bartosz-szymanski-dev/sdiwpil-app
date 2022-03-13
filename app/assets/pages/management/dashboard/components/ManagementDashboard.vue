@@ -18,7 +18,7 @@
     />
 
     <app-footer
-      ref="navbar"
+      ref="footer"
       color-schema="management"
     />
   </v-app>

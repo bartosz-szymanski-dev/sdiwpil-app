@@ -29,6 +29,7 @@
         "build": "encore production --progress"
     },
     "dependencies": {
+        "axios": "^0.26.1",
         "lodash": "^4.17.21",
         "node": "^17.4.0",
         "node-version": "^2.0.0",

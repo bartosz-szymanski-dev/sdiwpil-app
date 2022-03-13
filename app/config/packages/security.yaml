@@ -26,7 +26,7 @@ security:
                 check_path: front.login.check
             logout:
                 path: front.logout
-            entry_point: App\Security\AuthenticationEntryPoint
+            custom_authenticator: App\Security\JsonLoginAuthenticator
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall
@@ -38,7 +38,10 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
         # - { path: ^/admin, roles: ROLE_ADMIN }
+
+         - { path: ^/patient/register, roles: IS_AUTHENTICATED_ANONYMOUSLY }
          - { path: ^/patient, roles: ROLE_PATIENT }
+
          - { path: ^/.*, roles: IS_AUTHENTICATED_ANONYMOUSLY }
 
 when@test:

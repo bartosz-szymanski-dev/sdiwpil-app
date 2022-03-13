@@ -2,10 +2,7 @@
 
 namespace App\Controller\Login;
 
-use App\Entity\User;
-use App\Service\LoginCheckHelper;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 
 class CheckController extends AbstractController
@@ -16,12 +13,8 @@ class CheckController extends AbstractController
      *     name="front.login.check",
      *     methods={"POST"},
      * )
-     * @param User|null $user
-     * @param LoginCheckHelper $loginCheckHelper
-     * @return JsonResponse
      */
-    public function index(?User $user, LoginCheckHelper $loginCheckHelper): JsonResponse
+    public function index(): void
     {
-        return $this->json($loginCheckHelper->getState($user));
     }
 }
