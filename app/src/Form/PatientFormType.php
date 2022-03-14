@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\User;
+use App\Validator\Pesel;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -16,7 +17,7 @@ use Symfony\Component\Validator\Constraints\Email;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
-class UserFormType extends AbstractType
+class PatientFormType extends AbstractType
 {
     private EntityManagerInterface $entityManager;
 
@@ -59,13 +60,19 @@ class UserFormType extends AbstractType
                 'required' => true,
                 'constraints' => [new NotBlank()],
             ])
+            ->add('pesel', TextType::class, [
+                'required' => true,
+                'constraints' => [
+                    new NotBlank(),
+                    new Pesel(),
+                ],
+            ])
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => User::class,
             'csrf_protection' => false,
         ]);
     }

@@ -13,6 +13,9 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class PatientData extends AbstractEntity
 {
+    public const GENDER_FEMALE = 'female';
+    public const GENDER_MALE = 'male';
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue

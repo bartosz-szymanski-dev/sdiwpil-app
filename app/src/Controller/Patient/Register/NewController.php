@@ -2,6 +2,7 @@
 
 namespace App\Controller\Patient\Register;
 
+use App\Service\Patient\PatientRegisterService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -12,10 +13,11 @@ class NewController extends AbstractController
     /**
      * @Route("/patient/register/new", name="front.patient.register.new")
      * @param Request $request
+     * @param PatientRegisterService $registerService
      * @return JsonResponse
      */
-    public function index(Request $request): JsonResponse
+    public function index(Request $request, PatientRegisterService $registerService): JsonResponse
     {
-        return $this->json([]);
+        return $this->json($registerService->handleRequest($request));
     }
 }

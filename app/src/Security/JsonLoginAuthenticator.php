@@ -73,19 +73,19 @@ class JsonLoginAuthenticator extends AbstractAuthenticator implements Authentica
         }
 
         foreach ($user->getRoles() as $role) {
-            if ($role !== User::ROLE_USER) {
+            if ($role === User::ROLE_USER) {
                 continue;
             }
 
             switch ($role) {
                 case User::ROLE_PATIENT:
-                    return 'front.patient';
+                    return $this->urlGenerator->generate('front.patient.dashboard');
                 case User::ROLE_DOCTOR:
-                    return 'front.doctor';
+                    return $this->urlGenerator->generate('front.doctor');
                 case User::ROLE_RECEPTIONIST:
-                    return 'front.receptionist';
+                    return $this->urlGenerator->generate('front.receptionist');
                 case User::ROLE_MANAGER:
-                    return 'front.manager';
+                    return $this->urlGenerator->generate('front.manager');
                 default:
                     throw new RuntimeException('Nie znaleziono strefy podanego użytkownika');
             }
