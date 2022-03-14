@@ -1,5 +1,7 @@
 <template>
   <v-app class="main--bg">
+    <vue-snotify />
+
     <app-navbar ref="navbar" />
 
     <mobile-container

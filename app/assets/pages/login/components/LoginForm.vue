@@ -1,5 +1,9 @@
 <template>
-  <v-card max-width="350px">
+  <v-card
+    :loading="loading"
+    max-width="350px"
+    @keydown.enter.prevent="login"
+  >
     <v-card-text>
       <v-form>
         <v-text-field
@@ -19,6 +23,7 @@
     <v-card-actions>
       <v-btn
         color="primary"
+        :disabled="loading"
         @click.prevent="login"
       >
         Zaloguj się
@@ -35,11 +40,15 @@ export default {
   data: () => ({
     username: '',
     password: '',
+    loading: false,
   }),
   methods: {
     handleSuccessfulLogin(response) {
-      this.$snotify.success(response.message);
-      window.location.href = response.route;
+      const timeout = 1500;
+      this.$snotify.success(response.message, { timeout });
+      setTimeout(() => {
+        window.location.href = response.route;
+      }, timeout + 500);
     },
     handleLoginError(error) {
       this.$snotify.error(error);
@@ -49,6 +58,7 @@ export default {
       console.error(`Login error: ${error}`);
     },
     async login() {
+      this.loading = true;
       const url = this.$fosGenerate('front.login.check');
       const { username, password } = this;
       try {
@@ -61,6 +71,7 @@ export default {
       } catch (e) {
         this.handleAxiosError(e);
       }
+      this.loading = false;
     },
   },
 };

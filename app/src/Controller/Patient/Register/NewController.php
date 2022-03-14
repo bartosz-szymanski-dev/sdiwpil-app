@@ -10,6 +10,8 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class NewController extends AbstractController
 {
+    public const ROUTE_NAME = 'front.patient.register.new';
+
     /**
      * @Route("/patient/register/new", name="front.patient.register.new")
      * @param Request $request

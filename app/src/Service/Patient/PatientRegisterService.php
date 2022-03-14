@@ -2,6 +2,8 @@
 
 namespace App\Service\Patient;
 
+use App\Controller\Patient\Register\NewController;
+use App\Controller\Patient\Register\ViewController;
 use App\Entity\User;
 use App\Form\PatientFormType;
 use App\Service\AbstractRegisterService;
@@ -15,7 +17,7 @@ class PatientRegisterService extends AbstractRegisterService
 
     protected function getRegisterNewRoute(): string
     {
-        return 'front.patient.register.new';
+        return NewController::ROUTE_NAME;
     }
 
     protected function getFormClass(): string
@@ -25,6 +27,6 @@ class PatientRegisterService extends AbstractRegisterService
 
     protected function getRedirectRoute(): string
     {
-        return 'front.patient.dashboard';
+        return ViewController::ROUTE_NAME;
     }
 }
