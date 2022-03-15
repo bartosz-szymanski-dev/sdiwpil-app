@@ -2,6 +2,8 @@
 
 namespace App\Validator;
 
+use App\Entity\PatientData;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 
@@ -11,6 +13,13 @@ class PeselValidator extends ConstraintValidator
      * @see https://cyberfolks.pl/blog/walidacja-pesel-w-php/
      */
     private const POSITION_WAGES = [1, 3, 7, 9, 1, 3, 7, 9, 1, 3];
+
+    private EntityManagerInterface $entityManager;
+
+    public function __construct(EntityManagerInterface $entityManager)
+    {
+        $this->entityManager = $entityManager;
+    }
 
     public function validate($value, Constraint $constraint): void
     {
@@ -23,6 +32,11 @@ class PeselValidator extends ConstraintValidator
         if (!$this->isMatchingRegExp($value) || !$this->isCheckSumValid($value)) {
             $this->context->buildViolation($constraint->message)
                 ->setParameter('{{ value }}', $value)
+                ->addViolation();
+        }
+
+        if ($this->isExistingPesel($value))  {
+            $this->context->buildViolation('Podany numer PESEL jest już przypisany do użytkownika')
                 ->addViolation();
         }
     }
@@ -54,5 +68,10 @@ class PeselValidator extends ConstraintValidator
         $controlSum = ($int === 10) ? 0 : $int;
 
         return $controlSum === (int)$pesel[10];
+    }
+
+    private function isExistingPesel(string $pesel): bool
+    {
+        return (bool)$this->entityManager->getRepository(PatientData::class)->findOneBy(['pesel' => $pesel]);
     }
 }

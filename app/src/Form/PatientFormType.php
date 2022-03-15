@@ -6,6 +6,7 @@ use App\Entity\User;
 use App\Validator\Pesel;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
@@ -14,6 +15,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Callback;
 use Symfony\Component\Validator\Constraints\Email;
+use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
@@ -65,6 +67,12 @@ class PatientFormType extends AbstractType
                 'constraints' => [
                     new NotBlank(),
                     new Pesel(),
+                ],
+            ])
+            ->add('agreeTerms', CheckboxType::class, [
+                'required' => true,
+                'constraints' => [
+                    new IsTrue(),
                 ],
             ])
         ;

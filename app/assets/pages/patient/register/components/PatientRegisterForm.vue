@@ -1,5 +1,8 @@
 <template>
-  <v-card>
+  <v-card
+    :loading="loading"
+    @keydown.enter.prevent="onSubmit"
+  >
     <v-card-title>Zarejestruj się</v-card-title>
     <v-card-text>
       <v-form>
@@ -45,22 +48,22 @@
           @input="$v.value.email.$touch()"
         />
         <v-text-field
-          v-model="value.password"
+          v-model="passwordFirst"
           label="Hasło"
           type="password"
           required
-          :error-messages="getError($v.value.password)"
-          @touch="$v.value.password.$touch()"
-          @input="$v.value.password.$touch()"
+          :error-messages="getError($v.passwordFirst)"
+          @touch="$v.passwordFirst.$touch()"
+          @input="$v.passwordFirst.$touch()"
         />
         <v-text-field
-          v-model="value.passwordRepeat"
+          v-model="passwordSecond"
           label="Powtórz hasło"
           type="password"
           required
-          :error-messages="getError($v.value.passwordRepeat)"
-          @touch="$v.value.passwordRepeat.$touch()"
-          @input="$v.value.passwordRepeat.$touch()"
+          :error-messages="getError($v.passwordSecond)"
+          @touch="$v.passwordSecond.$touch()"
+          @input="$v.passwordSecond.$touch()"
         />
         <v-checkbox
           v-model="value.agreeTerms"
@@ -72,6 +75,7 @@
       <v-btn
         block
         color="secondary"
+        :disabled="loading"
         @click.prevent="onSubmit"
       >
         Zarejestruj się
@@ -81,6 +85,7 @@
 </template>
 
 <script>
+import axios from 'axios';
 import { validationMixin } from 'vuelidate';
 import {
   maxLength, minLength, required, email, sameAs,
@@ -93,6 +98,7 @@ export default {
   mixins: [validationMixin],
   data: () => ({
     value: new PatientModel(),
+    loading: false,
   }),
   validations() {
     return {
@@ -120,20 +126,38 @@ export default {
           minLength: minLength(11),
           maxLength: maxLength(11),
         },
-        password: {
-          required,
-          minLength: minLength(6),
-          maxLength: maxLength(255),
-          sameAs: sameAs('passwordRepeat'),
-        },
-        passwordRepeat: {
-          required,
-          minLength: minLength(6),
-          maxLength: maxLength(255),
-          sameAs: sameAs('password'),
-        },
+      },
+      passwordFirst: {
+        required,
+        minLength: minLength(6),
+        maxLength: maxLength(255),
+        sameAs: sameAs('passwordSecond'),
+      },
+      passwordSecond: {
+        required,
+        minLength: minLength(6),
+        maxLength: maxLength(255),
+        sameAs: sameAs('passwordFirst'),
       },
     };
+  },
+  computed: {
+    passwordFirst: {
+      get() {
+        return this.value.password.first;
+      },
+      set(value) {
+        this.value.password.first = value;
+      },
+    },
+    passwordSecond: {
+      get() {
+        return this.value.password.second;
+      },
+      set(value) {
+        this.value.password.second = value;
+      },
+    },
   },
   methods: {
     getError(vField) {
@@ -159,7 +183,23 @@ export default {
 
       return errors;
     },
-    onSubmit() {
+    async register() {
+      this.loading = true;
+      try {
+        const { data } = await axios.post(this.$fosGenerate('front.patient.register.new'), { ...this.value });
+        if (data && data.success) {
+          this.handleRegisterSuccess(data);
+        } else if (data && data.errors) {
+          this.handleErrors(data.errors);
+        } else {
+          this.$snotify.error('Przepraszamy, coś poszło nie tak');
+        }
+      } catch (e) {
+        this.handleAxiosError(e);
+      }
+      this.loading = false;
+    },
+    async onSubmit() {
       this.$v.$touch();
       if (this.$v.$invalid) {
         this.$snotify.error('Formularz nie został poprawnie wypełniony');
@@ -167,7 +207,21 @@ export default {
         return;
       }
 
-      window.location.href = this.$fosGenerate('front.patient.dashboard');
+      await this.register();
+    },
+    handleRegisterSuccess({ message, route }) {
+      const timeout = 1500;
+      this.$snotify.success(message, { timeout });
+      setTimeout(() => {
+        window.location.href = route;
+      }, timeout + 500);
+    },
+    handleErrors(errors) {
+      errors.forEach((error) => this.$snotify.error(error.message));
+    },
+    handleAxiosError(error) {
+      console.error(`Register error: ${error}`);
+      this.$snotify.error('Przepraszamy, coś poszło nie tak');
     },
   },
 };

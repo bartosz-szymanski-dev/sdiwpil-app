@@ -9,6 +9,8 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ViewController extends AbstractController
 {
+    public const ROUTE_NAME = 'front.patient.dashboard';
+
     /**
      * @Route("/patient", name="front.patient.dashboard")
      */

@@ -1,3 +1,5 @@
+import PasswordModel from './PasswordModel';
+
 class UserModel {
   constructor(
     {
@@ -6,8 +8,7 @@ class UserModel {
       lastName = '',
       agreeTerms = false,
       email = '',
-      password = '',
-      passwordRepeat = '',
+      password = new PasswordModel(),
     } = {},
   ) {
     this.firstName = firstName;
@@ -16,7 +17,6 @@ class UserModel {
     this.agreeTerms = agreeTerms;
     this.email = email;
     this.password = password;
-    this.passwordRepeat = passwordRepeat;
   }
 }
 
