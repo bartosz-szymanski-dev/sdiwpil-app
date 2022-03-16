@@ -35,6 +35,7 @@ Encore
   .addEntry('doctor_chats', './assets/pages/doctor/chats/index.js')
   .addEntry('doctor_appointments', './assets/pages/doctor/appointments/index.js')
   .addEntry('doctor_settings', './assets/pages/doctor/settings/index.js')
+  .addEntry('doctor_register', './assets/pages/doctor/register/index.js')
   // receptionist
   .addEntry('receptionist_dashboard', './assets/pages/receptionist/dashboard/index.js')
   .addEntry('receptionist_register_management', './assets/pages/receptionist/register_management/index.js')
