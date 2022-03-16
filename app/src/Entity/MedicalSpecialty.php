@@ -95,4 +95,12 @@ class MedicalSpecialty
 
         return $this;
     }
+
+    public function toFrontEndArray(): array
+    {
+        return [
+            'text' => $this->title,
+            'value' => $this->id,
+        ];
+    }
 }

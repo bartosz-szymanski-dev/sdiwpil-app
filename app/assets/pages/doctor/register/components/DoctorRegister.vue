@@ -19,10 +19,7 @@
       :footer-height="footerHeight"
     />
 
-    <app-footer
-      ref="footer"
-      color-schema="doctor"
-    />
+    <app-footer ref="footer" />
   </v-app>
 </template>
 

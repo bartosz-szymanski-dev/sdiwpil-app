@@ -3,12 +3,12 @@ import UserModel from '../../../../shared/models/UserModel';
 class DoctorModel extends UserModel {
   constructor(
     {
-      pesel = '',
+      medicalSpecialty = 0,
     } = {},
   ) {
     super();
 
-    this.pesel = pesel;
+    this.medicalSpecialty = medicalSpecialty;
   }
 }
 

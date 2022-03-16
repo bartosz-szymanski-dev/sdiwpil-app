@@ -29,14 +29,15 @@
           @touch="$v.value.lastName.$touch()"
           @input="$v.value.lastName.$touch()"
         />
-        <v-text-field
-          v-model="value.pesel"
-          label="Numer PESEL"
-          type="number"
+        <v-select
+          v-model="value.medicalSpecialty"
+          :items="medicalSpecialtiesItems"
+          label="Specjalizacja lekarska"
           required
-          :error-messages="getError($v.value.pesel)"
-          @touch="$v.value.pesel.$touch()"
-          @input="$v.value.pesel.$touch()"
+          clearable
+          :error-messages="getError($v.value.medicalSpecialty)"
+          @touch="$v.value.medicalSpecialty.$touch()"
+          @input="$v.value.medicalSpecialty.$touch()"
         />
         <v-text-field
           v-model="value.email"
@@ -86,11 +87,11 @@
 
 <script>
 import axios from 'axios';
+import { get, has } from 'lodash';
 import { validationMixin } from 'vuelidate';
 import {
   maxLength, minLength, required, email, sameAs,
 } from 'vuelidate/lib/validators';
-import { has } from 'lodash';
 import DoctorModel from '../models/DoctorModel';
 
 export default {
@@ -99,6 +100,7 @@ export default {
   data: () => ({
     value: new DoctorModel(),
     loading: false,
+    medicalSpecialtiesItems: [],
   }),
   validations() {
     return {
@@ -121,10 +123,8 @@ export default {
           required,
           email,
         },
-        pesel: {
+        medicalSpecialty: {
           required,
-          minLength: minLength(11),
-          maxLength: maxLength(11),
         },
       },
       passwordFirst: {
@@ -158,6 +158,9 @@ export default {
         this.value.password.second = value;
       },
     },
+  },
+  mounted() {
+    this.medicalSpecialtiesItems = get(window, 'state.medical_specialties', []);
   },
   methods: {
     getError(vField) {

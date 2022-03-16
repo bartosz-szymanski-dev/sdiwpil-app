@@ -26,7 +26,7 @@ class DoctorData extends AbstractEntity
     private User $doctor;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Clinic::class, inversedBy="Receptionists")
+     * @ORM\ManyToOne(targetEntity=Clinic::class, inversedBy="doctor")
      */
     private Clinic $clinic;
 
