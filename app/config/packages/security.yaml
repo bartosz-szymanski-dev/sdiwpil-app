@@ -42,6 +42,9 @@ security:
          - { path: ^/patient/register, roles: IS_AUTHENTICATED_ANONYMOUSLY }
          - { path: ^/patient, roles: ROLE_PATIENT }
 
+         - { path: ^/doctor/register, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+         - { path: ^/doctor, roles: ROLE_DOCTOR }
+
          - { path: ^/.*, roles: IS_AUTHENTICATED_ANONYMOUSLY }
 
 when@test:
