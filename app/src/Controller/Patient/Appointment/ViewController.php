@@ -2,6 +2,7 @@
 
 namespace App\Controller\Patient\Appointment;
 
+use App\Service\MedicalSpecialty\FrontEndMedicalSpecialtyService;
 use Carbon\Carbon;
 use GuzzleHttp\Utils;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -13,11 +14,12 @@ class ViewController extends AbstractController
     /**
      * @Route("/patient/appointment", name="front.patient.appointment")
      */
-    public function index(): Response
+    public function index(FrontEndMedicalSpecialtyService $medicalSpecialtyService): Response
     {
         return $this->render('patient/appointment.html.twig', [
             'state' => Utils::jsonEncode([
                 'time_slots' => $this->getTimeSlots(),
+                'medical_specialties' => $medicalSpecialtyService->getResult(),
             ]),
         ]);
     }

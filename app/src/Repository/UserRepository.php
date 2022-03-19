@@ -8,6 +8,7 @@ use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
+use function Doctrine\ORM\QueryBuilder;
 
 /**
  * @method User|null find($id, $lockMode = null, $lockVersion = null)
@@ -34,6 +35,41 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $user->setPassword($newHashedPassword);
         $this->_em->persist($user);
         $this->_em->flush();
+    }
+
+    /**
+     * @return User[]
+     */
+    public function findDoctorByAppointmentParams(array $params): array
+    {
+        $qb = $this->createQueryBuilder('u')
+            ->join('u.doctorData', 'dd')
+            ->orderBy('u.firstName', 'ASC');
+
+        $medicalSpecialty = $params['medicalSpecialty'] ?? 0;
+        if ($medicalSpecialty) {
+            $qb
+                ->andWhere($qb->expr()->eq('dd.medicalSpecialty', ':medicalSpecialty'))
+                ->setParameter('medicalSpecialty', $medicalSpecialty);
+        }
+
+        $city = $params['city'] ?? '';
+        if ($city) {
+            $qb
+                ->join('dd.clinic', 'ddc')
+                ->andWhere($qb->expr()->eq('ddc.city', ':city'))
+                ->setParameter('city', $city);
+        }
+
+        $lastName = $params['lastName'] ?? '';
+        if ($lastName) {
+            $qb
+                ->andWhere($qb->expr()->eq('u.lastName', ':lastName'))
+                ->andWhere($qb->expr()->isNotNull('dd'))
+                ->setParameter('lastName', $lastName);
+        }
+
+        return $qb->getQuery()->getResult();
     }
 
     // /**

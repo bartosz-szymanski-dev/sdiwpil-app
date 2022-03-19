@@ -8,7 +8,7 @@
           v-show="showSearchButton"
           block
           x-large
-          @click="step += 1"
+          @click="findDoctor"
         >
           Szukaj
         </v-btn>
@@ -17,6 +17,7 @@
       <v-stepper-content step="2">
         <patient-appointment-results
           class="mb-4"
+          :doctors="doctors"
           @change="isDoctorChosen = true"
         />
 
@@ -59,9 +60,11 @@
 </template>
 
 <script>
+import axios from 'axios';
 import PatientAppointmentForm from './PatientAppointmentForm';
 import PatientAppointmentResults from './PatientAppointmentResults';
 import PatientAppointmentRestInfoForm from './PatientAppointmentRestInfoForm';
+import AppointmentSearchModel from '../models/AppointmentSearchModel';
 
 export default {
   name: 'PatientAppointmentStepper',
@@ -70,11 +73,34 @@ export default {
     step: 1,
     showSearchButton: false,
     isDoctorChosen: false,
+    search: new AppointmentSearchModel(),
+    doctors: [],
   }),
   methods: {
     handleFormChange(search) {
-      const { medicalSpecialty, city, name } = search;
-      this.showSearchButton = !!(medicalSpecialty || city || name);
+      const { medicalSpecialty, city, lastName } = search;
+      this.showSearchButton = !!(medicalSpecialty || city || lastName);
+      this.search = search;
+    },
+    handleResponseErrors(errors) {
+      errors.forEach(({ message }) => this.$snotify.error(message));
+    },
+    handleAxiosError(error, action) {
+      console.error(`${action} error: ${error}`);
+      this.$snotify.error('Przepraszamy, coś poszło nie tak');
+    },
+    async findDoctor() {
+      try {
+        const { data } = await axios.post(this.$fosGenerate('front.patient.find_doctor'), { ...this.search });
+        if (data.success) {
+          this.doctors = data.doctors;
+          this.step += 1;
+        } else {
+          this.handleResponseErrors(data.errors);
+        }
+      } catch (e) {
+        this.handleAxiosError(e, 'Find doctor');
+      }
     },
   },
 };

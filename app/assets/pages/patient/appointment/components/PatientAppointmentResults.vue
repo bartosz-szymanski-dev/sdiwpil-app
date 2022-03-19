@@ -1,7 +1,7 @@
 <template>
   <v-row dense>
     <v-col
-      v-for="({id, name, description}, i) in doctors"
+      v-for="({id, firstName, secondName, lastName, email}, i) in doctors"
       :key="i"
       cols="12"
     >
@@ -11,10 +11,10 @@
         @click="handleChosenDoctorChange(id)"
       >
         <v-card-title class="text-h5">
-          {{ name }}
+          {{ firstName }} {{ secondName }} {{ lastName }}
         </v-card-title>
 
-        <v-card-subtitle>{{ description }}</v-card-subtitle>
+        <v-card-subtitle>{{ email }}</v-card-subtitle>
 
         <v-card-actions>
           <v-btn @click="handleChosenDoctorChange(id)">
@@ -29,20 +29,14 @@
 <script>
 export default {
   name: 'PatientAppointmentResults',
+  props: {
+    doctors: {
+      type: Array,
+      required: true,
+    },
+  },
   data: () => ({
-    doctors: [
-      {
-        id: 1,
-        name: 'Jan Kowalski',
-        description: 'Lorem ipsum',
-      },
-      {
-        id: 2,
-        name: 'Anna Nowak',
-        description: 'Lorem ipsum',
-      },
-    ],
-    chosenDoctor: -1,
+    chosenDoctor: 0,
   }),
   methods: {
     handleChosenDoctorChange(id) {

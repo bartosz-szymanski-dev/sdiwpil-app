@@ -184,4 +184,12 @@ class DoctorData extends AbstractEntity
 
         return $this;
     }
+
+    public function toArray(): array
+    {
+        return [
+            'id' => $this->id,
+            'medicalSpecialty' => $this->medicalSpecialty->toArray(),
+        ];
+    }
 }

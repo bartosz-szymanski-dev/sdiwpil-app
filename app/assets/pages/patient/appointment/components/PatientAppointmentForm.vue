@@ -2,7 +2,7 @@
   <v-form>
     <v-select
       v-model="search.medicalSpecialty"
-      :items="medicalSpecialties"
+      :items="medicalSpecialtiesItems"
       label="Wybierz specjalizację"
       clearable
     />
@@ -13,7 +13,7 @@
       clearable
     />
     <v-text-field
-      v-model="search.name"
+      v-model="search.lastName"
       label="Wpisz nazwisko"
       clearable
     />
@@ -21,12 +21,13 @@
 </template>
 
 <script>
+import { get } from 'lodash';
 import AppointmentSearchModel from '../models/AppointmentSearchModel';
 
 export default {
   name: 'PatientAppointmentForm',
   data: () => ({
-    medicalSpecialties: ['Chirurg', 'Neurolog', 'Kardiolog', 'Psycholog', 'Stomatolog', 'Ortopeda', 'Dermatolog'],
+    medicalSpecialtiesItems: [],
     cities: ['Kraków', 'Warszawa', 'Poznań', 'Wrocław', 'Katowice', 'Gdańsk', 'Rzeszów'],
     search: new AppointmentSearchModel(),
   }),
@@ -37,6 +38,9 @@ export default {
         this.$emit('change', this.search);
       },
     },
+  },
+  mounted() {
+    this.medicalSpecialtiesItems = get(window, 'state.medical_specialties', []);
   },
 };
 </script>

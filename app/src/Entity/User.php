@@ -330,4 +330,16 @@ class User extends AbstractEntity implements UserInterface, PasswordAuthenticate
 
         return $this;
     }
+
+    public function toArray(): array
+    {
+        return [
+            'id' => $this->id,
+            'email' => $this->email,
+            'doctorData' => $this->doctorData ? $this->doctorData->toArray() : null,
+            'firstName' => $this->firstName,
+            'secondName' => $this->secondName,
+            'lastName' => $this->lastName,
+        ];
+    }
 }

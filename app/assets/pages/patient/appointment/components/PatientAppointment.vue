@@ -2,6 +2,8 @@
   <v-app class="appointment--bg">
     <app-navbar ref="navbar" />
 
+    <vue-snotify />
+
     <patient-appointment-mobile-container
       v-if="breakpoint.mdAndDown"
       :footer-height="footerHeight"

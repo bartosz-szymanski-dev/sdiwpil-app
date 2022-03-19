@@ -3,12 +3,12 @@ class AppointmentSearchModel {
     {
       medicalSpecialty = '',
       city = '',
-      name = '',
+      lastName = '',
     } = {},
   ) {
     this.medicalSpecialty = medicalSpecialty;
     this.city = city;
-    this.name = name;
+    this.lastName = lastName;
   }
 }
 

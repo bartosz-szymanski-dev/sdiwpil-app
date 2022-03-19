@@ -103,4 +103,13 @@ class MedicalSpecialty implements FrontEndStructureEntityInterface
             'value' => $this->id,
         ];
     }
+
+    public function toArray(): array
+    {
+        return [
+            'id' => $this->id,
+            'title' => $this->title,
+            'description' => $this->description,
+        ];
+    }
 }
