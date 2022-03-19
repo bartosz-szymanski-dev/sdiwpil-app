@@ -2,6 +2,8 @@
 
 namespace App\Service\User;
 
+use App\Entity\Clinic;
+use App\Entity\DoctorData;
 use App\Entity\PatientData;
 use App\Entity\User;
 use App\Service\Patient\PeselDataHelper;
@@ -57,7 +59,16 @@ class UserRegisterService
 
     private function handleDoctorData(User $user, array $userData): void
     {
-        // TODO: implement method
+        /** @var Clinic $clinic */
+        $clinic = $userData['clinic'];
+        $data = (new DoctorData())
+            ->setDoctor($user)
+            ->setClinic($clinic)
+            ->setMedicalSpecialty($userData['medicalSpecialty']);
+        $clinic->addDoctor($data);
+        $user->setDoctorData($data);
+        $this->entityManager->persist($data);
+        $this->entityManager->persist($clinic);
     }
 
     private function handleReceptionistData(User $user, array $userData): void

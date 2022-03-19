@@ -39,6 +39,16 @@
           @touch="$v.value.medicalSpecialty.$touch()"
           @input="$v.value.medicalSpecialty.$touch()"
         />
+        <v-select
+          v-model="value.clinic"
+          :items="clinicsItems"
+          label="Przychodnia"
+          required
+          clearable
+          :error-messages="getError($v.value.clinic)"
+          @touch="$v.value.clinic.$touch()"
+          @input="$v.value.clinic.$touch()"
+        />
         <v-text-field
           v-model="value.email"
           label="Adres e-mail"
@@ -101,6 +111,7 @@ export default {
     value: new DoctorModel(),
     loading: false,
     medicalSpecialtiesItems: [],
+    clinicsItems: [],
   }),
   validations() {
     return {
@@ -124,6 +135,9 @@ export default {
           email,
         },
         medicalSpecialty: {
+          required,
+        },
+        clinic: {
           required,
         },
       },
@@ -161,6 +175,7 @@ export default {
   },
   mounted() {
     this.medicalSpecialtiesItems = get(window, 'state.medical_specialties', []);
+    this.clinicsItems = get(window, 'state.clinics', []);
   },
   methods: {
     getError(vField) {

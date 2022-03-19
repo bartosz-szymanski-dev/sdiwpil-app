@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass=MedicalSpecialtyRepository::class)
  */
-class MedicalSpecialty
+class MedicalSpecialty implements FrontEndStructureEntityInterface
 {
     /**
      * @ORM\Id

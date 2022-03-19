@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass=ClinicRepository::class)
  */
-class Clinic extends AbstractEntity
+class Clinic extends AbstractEntity implements FrontEndStructureEntityInterface
 {
     /**
      * @ORM\Id
@@ -228,5 +228,13 @@ class Clinic extends AbstractEntity
         }
 
         return $this;
+    }
+
+    public function toFrontEndArray(): array
+    {
+        return [
+            'text' => sprintf('%s/%s/%s/%s', $this->name, $this->city, $this->streetAddress, $this->zipCode),
+            'value' => $this->id,
+        ];
     }
 }

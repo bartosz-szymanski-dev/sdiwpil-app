@@ -79,7 +79,7 @@ abstract class AbstractRegisterService
     abstract protected function getRole(): string;
     abstract protected function getRegisterNewRoute(): string;
     abstract protected function getFormClass(): string;
-    abstract protected function getRedirectRoute(): string;
+    abstract protected function getRedirectRouteName(): string;
 
     private function supports(): bool
     {
@@ -126,6 +126,6 @@ abstract class AbstractRegisterService
         $this->authenticator->authenticateUser($user, $this->loginAuthenticator, $this->request);
         $this->state[self::SUCCESS_KEY] = true;
         $this->state[self::MESSAGE_KEY] = 'Pomyślnie zarejestrowano się w systemie';
-        $this->state[self::ROUTE_KEY] = $this->getRedirectRoute();
+        $this->state[self::ROUTE_KEY] = $this->urlGenerator->generate($this->getRedirectRouteName());
     }
 }

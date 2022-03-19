@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Entity\Clinic;
 use App\Entity\MedicalSpecialty;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -16,6 +17,10 @@ class DoctorFormType extends AbstractUserFormType
             ->add('medicalSpecialty', EntityType::class, [
                 'required' => true,
                 'class' => MedicalSpecialty::class
+            ])
+            ->add('clinic', EntityType::class, [
+                'required' => true,
+                'class' => Clinic::class,
             ]);
     }
 }

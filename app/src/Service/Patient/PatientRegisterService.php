@@ -25,7 +25,7 @@ class PatientRegisterService extends AbstractRegisterService
         return PatientFormType::class;
     }
 
-    protected function getRedirectRoute(): string
+    protected function getRedirectRouteName(): string
     {
         return ViewController::ROUTE_NAME;
     }

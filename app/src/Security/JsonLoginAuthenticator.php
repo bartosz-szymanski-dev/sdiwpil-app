@@ -81,11 +81,11 @@ class JsonLoginAuthenticator extends AbstractAuthenticator implements Authentica
                 case User::ROLE_PATIENT:
                     return $this->urlGenerator->generate('front.patient.dashboard');
                 case User::ROLE_DOCTOR:
-                    return $this->urlGenerator->generate('front.doctor');
+                    return $this->urlGenerator->generate('front.doctor.dashboard');
                 case User::ROLE_RECEPTIONIST:
-                    return $this->urlGenerator->generate('front.receptionist');
+                    return $this->urlGenerator->generate('front.receptionist.dashboard');
                 case User::ROLE_MANAGER:
-                    return $this->urlGenerator->generate('front.manager');
+                    return $this->urlGenerator->generate('front.manager.dashboard');
                 default:
                     throw new RuntimeException('Nie znaleziono strefy podanego użytkownika');
             }
