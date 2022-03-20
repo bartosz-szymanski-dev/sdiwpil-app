@@ -51,6 +51,11 @@ class DoctorData extends AbstractEntity
      */
     private MedicalSpecialty $medicalSpecialty;
 
+    /**
+     * @ORM\Column(type="array", nullable=true)
+     */
+    private ?array $workingTime = [];
+
     public function __construct()
     {
         parent::__construct();
@@ -191,5 +196,17 @@ class DoctorData extends AbstractEntity
             'id' => $this->id,
             'medicalSpecialty' => $this->medicalSpecialty->toArray(),
         ];
+    }
+
+    public function getWorkingTime(): ?array
+    {
+        return $this->workingTime;
+    }
+
+    public function setWorkingTime(?array $workingTime): self
+    {
+        $this->workingTime = $workingTime;
+
+        return $this;
     }
 }
