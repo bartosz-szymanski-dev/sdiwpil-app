@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Form;
+namespace App\Form\Register;
 
 use App\Validator\Pesel;
 use Symfony\Component\Form\Extension\Core\Type\TextType;

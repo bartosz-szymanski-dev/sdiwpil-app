@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Form;
+namespace App\Form\Register;
 
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;

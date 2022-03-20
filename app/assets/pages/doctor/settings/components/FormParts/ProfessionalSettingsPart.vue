@@ -3,28 +3,49 @@
     <v-card-title>Ustawienia zawodowe</v-card-title>
 
     <v-card-text>
-      <v-text-field
+      <v-select
         v-model="settings.medicalSpecialty"
+        :items="medicalSpecialtiesItems"
         label="Specjalizacja medyczna"
+        :error-messages="getError($v.settings.medicalSpecialty)"
+        @touch="$v.settings.medicalSpecialty.$touch()"
+        @input="$v.settings.medicalSpecialty.$touch()"
       />
 
-      <v-text-field
-        v-model="settings.workingTimeSettings"
-        label="Godziny pracy"
-      />
+      <working-time-part ref="workingTime" />
     </v-card-text>
   </v-card>
 </template>
 
 <script>
+// TODO: get data from working-time-part, handle it's errors
+
+import { get } from 'lodash';
+import { validationMixin } from 'vuelidate';
+import { required } from 'vuelidate/lib/validators';
+import vuelidateErrors from '../../../../../mixins/vuelidateErrors';
+import WorkingTimePart from './WorkingTimePart';
+
 export default {
   name: 'ProfessionalSettingsPart',
+  components: { WorkingTimePart },
+  mixins: [vuelidateErrors, validationMixin],
   data: () => ({
     settings: {
-      medicalSpecialty: '',
-      workingTimeSettings: '',
+      medicalSpecialty: 0,
+      workingTime: {},
     },
+    medicalSpecialtiesItems: [],
   }),
+  validation() {
+    return {
+      settings: {
+        medicalSpecialty: {
+          required,
+        },
+      },
+    };
+  },
   watch: {
     settings: {
       deep: true,
@@ -32,6 +53,10 @@ export default {
         this.$emit('change', this.settings);
       },
     },
+  },
+  mounted() {
+    this.settings.medicalSpecialty = get(window, 'state.medicalSpecialty', 0);
+    this.medicalSpecialtiesItems = get(window, 'state.medicalSpecialties', []);
   },
 };
 </script>

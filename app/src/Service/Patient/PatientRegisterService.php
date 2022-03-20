@@ -5,7 +5,7 @@ namespace App\Service\Patient;
 use App\Controller\Patient\Dashboard\ViewController;
 use App\Controller\Patient\Register\NewController;
 use App\Entity\User;
-use App\Form\PatientFormType;
+use App\Form\Register\PatientFormType;
 use App\Service\AbstractRegisterService;
 
 class PatientRegisterService extends AbstractRegisterService
