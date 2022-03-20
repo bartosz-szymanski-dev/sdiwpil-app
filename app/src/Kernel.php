@@ -14,4 +14,9 @@ class Kernel extends BaseKernel
         date_default_timezone_set('Europe/Warsaw');
         parent::__construct($environment, $debug);
     }
+
+    public function getCacheDir(): string
+    {
+        return '/tmp/sdiwpil/cache';
+    }
 }
