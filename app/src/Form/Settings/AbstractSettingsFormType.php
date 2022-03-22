@@ -22,7 +22,6 @@ abstract class AbstractSettingsFormType extends AbstractType
             ->add('password', RepeatedType::class, [
                 'required' => true,
                 'type' => PasswordType::class,
-                'constraints' => [new NotBlank()],
             ]);
     }
 

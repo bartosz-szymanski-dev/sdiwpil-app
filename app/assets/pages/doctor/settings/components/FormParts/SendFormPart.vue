@@ -4,6 +4,7 @@
       <v-btn
         block
         color="primary"
+        @click="$emit('submit')"
       >
         Zapisz ustawienia
       </v-btn>

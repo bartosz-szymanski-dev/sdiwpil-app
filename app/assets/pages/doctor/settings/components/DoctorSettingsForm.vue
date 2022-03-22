@@ -17,13 +17,14 @@
         md="auto"
         cols="12"
       >
-        <send-form-part />
+        <send-form-part @submit="saveSettings" />
       </v-col>
     </v-row>
   </v-form>
 </template>
 
 <script>
+import axios from 'axios';
 import { merge } from 'lodash';
 import SettingsModel from '../models/SettingsModel';
 import GeneralSettingsPart from './FormParts/GeneralSettingsPart';
@@ -39,6 +40,19 @@ export default {
   methods: {
     handleSettingsChange(settings) {
       this.settings = merge(this.settings, settings);
+    },
+    async saveSettings() {
+      try {
+        const { data } = await axios.post(this.$fosGenerate('front.doctor.settings.save'), { ...this.settings });
+        if (data.success) {
+          this.$snotify.success('Pomyślnie zapisano ustawienia');
+        } else {
+          data.errors.forEach((error) => this.$snotify.error(error.message));
+        }
+      } catch (e) {
+        console.error(`Doctor settings form error: ${e}`);
+        this.$snotify.error('Coś poszło nie tak, przepraszamy');
+      }
     },
   },
 };

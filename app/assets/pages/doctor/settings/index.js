@@ -3,6 +3,7 @@ import Vuetify from 'vuetify';
 import Snotify, { SnotifyPosition } from 'vue-snotify';
 import vuetify from '../../../plugins/vuetify';
 import '../../../plugins/router';
+import '../../../plugins/v-mask';
 
 import DoctorSettings from './components/DoctorSettings';
 

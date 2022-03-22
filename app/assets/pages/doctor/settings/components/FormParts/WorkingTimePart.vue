@@ -4,10 +4,12 @@
       <strong>Poniedziałek:</strong>
       <v-text-field
         v-model="workingTime.monday.start"
+        v-mask="'##:##'"
         label="Czas rozpoczęcia pracy"
       />
       <v-text-field
         v-model="workingTime.monday.end"
+        v-mask="'##:##'"
         label="Czas zakończenia pracy"
       />
     </v-col>
@@ -15,10 +17,12 @@
       <strong>Wtorek:</strong>
       <v-text-field
         v-model="workingTime.tuesday.start"
+        v-mask="'##:##'"
         label="Czas rozpoczęcia pracy"
       />
       <v-text-field
         v-model="workingTime.tuesday.end"
+        v-mask="'##:##'"
         label="Czas zakończenia pracy"
       />
     </v-col>
@@ -26,10 +30,12 @@
       <strong>Środa:</strong>
       <v-text-field
         v-model="workingTime.wednesday.start"
+        v-mask="'##:##'"
         label="Czas rozpoczęcia pracy"
       />
       <v-text-field
         v-model="workingTime.wednesday.end"
+        v-mask="'##:##'"
         label="Czas zakończenia pracy"
       />
     </v-col>
@@ -37,10 +43,12 @@
       <strong>Czwartek:</strong>
       <v-text-field
         v-model="workingTime.thursday.start"
+        v-mask="'##:##'"
         label="Czas rozpoczęcia pracy"
       />
       <v-text-field
         v-model="workingTime.thursday.end"
+        v-mask="'##:##'"
         label="Czas zakończenia pracy"
       />
     </v-col>
@@ -48,10 +56,12 @@
       <strong>Piątek:</strong>
       <v-text-field
         v-model="workingTime.friday.start"
+        v-mask="'##:##'"
         label="Czas rozpoczęcia pracy"
       />
       <v-text-field
         v-model="workingTime.friday.end"
+        v-mask="'##:##'"
         label="Czas zakończenia pracy"
       />
     </v-col>
@@ -59,10 +69,12 @@
       <strong>Urlop:</strong>
       <v-text-field
         v-model="workingTime.vacation.start"
+        v-mask="'##:##'"
         label="Czas rozpoczęcia urlopu"
       />
       <v-text-field
         v-model="workingTime.vacation.end"
+        v-mask="'##:##'"
         label="Czas zakończenia urlopu"
       />
     </v-col>
@@ -104,13 +116,13 @@ export default {
       },
     },
   }),
-  validation() {
-    // TODO: finish validation for working time
-    return {
-      workingTime: {
-
+  watch: {
+    workingTime: {
+      deep: true,
+      handler(newValue) {
+        this.$emit('change', newValue);
       },
-    };
+    },
   },
 };
 </script>

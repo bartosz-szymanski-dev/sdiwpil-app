@@ -12,7 +12,10 @@
         @input="$v.settings.medicalSpecialty.$touch()"
       />
 
-      <working-time-part ref="workingTime" />
+      <working-time-part
+        ref="workingTime"
+        @change="handleWorkingTimeChange"
+      />
     </v-card-text>
   </v-card>
 </template>
@@ -37,12 +40,10 @@ export default {
     },
     medicalSpecialtiesItems: [],
   }),
-  validation() {
+  validations() {
     return {
       settings: {
-        medicalSpecialty: {
-          required,
-        },
+        medicalSpecialty: { required },
       },
     };
   },
@@ -57,6 +58,11 @@ export default {
   mounted() {
     this.settings.medicalSpecialty = get(window, 'state.medicalSpecialty', 0);
     this.medicalSpecialtiesItems = get(window, 'state.medicalSpecialties', []);
+  },
+  methods: {
+    handleWorkingTimeChange(workingTime) {
+      this.settings.workingTime = workingTime;
+    },
   },
 };
 </script>

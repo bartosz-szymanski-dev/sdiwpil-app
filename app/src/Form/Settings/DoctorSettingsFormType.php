@@ -11,12 +11,14 @@ class DoctorSettingsFormType extends AbstractSettingsFormType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        parent::buildForm($builder, $options);
+
         $builder
             ->add('medicalSpecialty', EntityType::class, [
                 'required' => true,
                 'class' => MedicalSpecialty::class
             ])
-            ->add('workingHours', WorkingTimeFormType::class, [
+            ->add('workingTime', WorkingTimeFormType::class, [
                 'required' => true,
             ]);
     }

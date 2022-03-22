@@ -2,17 +2,18 @@ class SettingsModel {
   constructor(
     {
       email = '',
-      password = '',
-      passwordRepeat = '',
+      password = {
+        first: '',
+        second: '',
+      },
       medicalSpecialty = '',
-      workingTimeSettings = '', // TODO: make an object of that
+      workingTime = {},
     } = {},
   ) {
     this.email = email;
     this.password = password;
-    this.passwordRepeat = passwordRepeat;
     this.medicalSpecialty = medicalSpecialty;
-    this.workingTimeSettings = workingTimeSettings;
+    this.workingTime = workingTime;
   }
 }
 

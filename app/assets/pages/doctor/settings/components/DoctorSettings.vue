@@ -5,6 +5,8 @@
       color-schema="doctor"
     />
 
+    <vue-snotify />
+
     <doctor-settings-mobile-container
       v-if="breakpoint.mdAndDown"
       :navbar-height="navbarHeight"
