@@ -45,6 +45,17 @@ class AppointmentDatesService
         $end = $currentDayValues['end'];
 
         $now = Carbon::now();
-//        for ($now; $now < Carbon::now()->addDays(31); $now->)
+        for (; $now < Carbon::now()->addDays(31); $now->addMinutes(30)) {
+            if ($now->lessThan($start) || $now->greaterThan($end)) {
+                continue;
+            }
+
+            $result[] = [
+                'text' => sprintf('%s na godz.: %s', $now->format('d.m.Y'), $now->format('H:i')),
+                'value' => $now->format('Y-m-d H:i'),
+            ];
+        }
+
+        return $result ?? [];
     }
 }
