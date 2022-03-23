@@ -1,7 +1,7 @@
 <template>
   <v-row dense>
     <v-col
-      v-for="({id, firstName, secondName, lastName, email}, i) in doctors"
+      v-for="({id, firstName, secondName, lastName, email, doctorData}, i) in doctors"
       :key="i"
       cols="12"
     >
@@ -14,7 +14,7 @@
           {{ firstName }} {{ secondName }} {{ lastName }}
         </v-card-title>
 
-        <v-card-subtitle>{{ email }}</v-card-subtitle>
+        <v-card-subtitle>{{ getDoctorExtraInfo(doctorData, email) }}</v-card-subtitle>
 
         <v-card-actions>
           <v-btn @click="handleChosenDoctorChange(id)">
@@ -41,7 +41,10 @@ export default {
   methods: {
     handleChosenDoctorChange(id) {
       this.chosenDoctor = id;
-      this.$emit('change');
+      this.$emit('change', id);
+    },
+    getDoctorExtraInfo(doctorData, email) {
+      return `${doctorData.medicalSpecialty.title}, ${email}`;
     },
   },
 };

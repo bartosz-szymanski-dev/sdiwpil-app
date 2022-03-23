@@ -18,7 +18,7 @@
         <patient-appointment-results
           class="mb-4"
           :doctors="doctors"
-          @change="isDoctorChosen = true"
+          @change="handleResultsChange"
         />
 
         <v-row>
@@ -37,7 +37,8 @@
             <v-btn
               color="primary"
               :disabled="!isDoctorChosen"
-              @click="step += 1"
+              :loading="isLoadingAppointmentDates"
+              @click="findAppointmentDates"
             >
               Dalej
             </v-btn>
@@ -75,6 +76,9 @@ export default {
     isDoctorChosen: false,
     search: new AppointmentSearchModel(),
     doctors: [],
+    chosenDoctor: 0,
+    appointmentDates: [],
+    isLoadingAppointmentDates: false,
   }),
   methods: {
     handleFormChange(search) {
@@ -91,7 +95,7 @@ export default {
     },
     async findDoctor() {
       try {
-        const { data } = await axios.post(this.$fosGenerate('front.patient.find_doctor'), { ...this.search });
+        const { data } = await axios.post(this.$fosGenerate('front.patient.appointment.find_doctor'), { ...this.search });
         if (data.success) {
           this.doctors = data.doctors;
           this.step += 1;
@@ -101,6 +105,22 @@ export default {
       } catch (e) {
         this.handleAxiosError(e, 'Find doctor');
       }
+    },
+    handleResultsChange(id) {
+      this.chosenDoctor = id;
+    },
+    async findAppointmentDates() {
+      this.isLoadingAppointmentDates = true;
+      try {
+        const { data } = await axios.post(this.$fosGenerate('front.patient.appointment.find_appointment_dates'), { id: this.chosenDoctor });
+        if (data.success) {
+          this.appointmentDates = data.appointmentDates;
+          this.step += 1;
+        }
+      } catch (e) {
+        this.handleAxiosError(e, 'Find appointment dates');
+      }
+      this.isLoadingAppointmentDates = false;
     },
   },
 };

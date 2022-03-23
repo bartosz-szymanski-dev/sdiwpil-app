@@ -12,8 +12,8 @@ class FindDoctorController extends AbstractController
 {
     /**
      * @Route(
-     *     "/patient/find-doctor",
-     *     name="front.patient.find_doctor",
+     *     "/patient/appointment/find-doctor",
+     *     name="front.patient.appointment.find_doctor",
      *     methods={"POST"},
      * )
      * @param Request $request
