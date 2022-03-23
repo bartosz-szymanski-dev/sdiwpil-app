@@ -145,6 +145,7 @@ class DoctorSettingsSaveService
         $this->handleMedicalSpecialtySave($doctor, $data);
         $this->handleWorkingTimeSave($doctor, $data);
         $this->entityManager->persist($doctor);
+        $this->entityManager->flush();
     }
 
     private function handleForm(): void

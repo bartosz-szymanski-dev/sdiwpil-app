@@ -2,6 +2,7 @@
 
 namespace App\Validator;
 
+use DateTime;
 use Symfony\Component\Form\Exception\UnexpectedTypeException;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
@@ -15,9 +16,9 @@ class WorkingDayValidator extends ConstraintValidator
             throw new UnexpectedTypeException($constraint, WorkingDay::class);
         }
 
-        $start = $value['start'] ?? '';
-        $end = $value['end'] ?? '';
-        if ('' === $start || '' === $end) {
+        $start = $value['start'] ?? null;
+        $end = $value['end'] ?? null;
+        if (!$start && !$end) {
             return;
         }
 
@@ -27,38 +28,43 @@ class WorkingDayValidator extends ConstraintValidator
 
         if (!$this->isValidWorkingDay($value)) {
             $this->context->buildViolation($constraint->message)
-                ->setParameter('{{ value }}', implode(', ', $value))
+                ->setParameter('{{ value }}', $this->getInvalidValue($value))
                 ->addViolation();
         }
     }
 
     private function isValidWorkingDay(array $workingDay): bool
     {
-        $pattern = '/^(0\d|1\d|2[0-3]):([0-5]\d)$/';
-        $separator = ':';
-        $start = $workingDay['start'] ?? '';
-        $end = $workingDay['end'] ?? '';
-        dd($end);
-        if (!$start || !$end || !preg_match($pattern, $start) || !preg_match($pattern, $end)) {
+        $start = $workingDay['start'] ?? null;
+        $end = $workingDay['end'] ?? null;
+
+        if (($start && !$end) || (!$start && $end)) {
             return false;
         }
 
-        $start = explode($separator, $start);
-        $startHour = (int)$start[0];
-        $startMinutes = (int)$start[1];
+        return $end > $start;
+    }
 
-        $end = explode($separator, $end);
-        $endHour = (int)$end[0];
-        $endMinutes = (int)$end[1];
-
-        if ($endHour < $startHour) {
-            return false;
+    private function getInvalidValue($value): string
+    {
+        $emptyResult = 'brak godziny oraz minuty';
+        $format = 'H:i';
+        /** @var DateTime $start */
+        $start = $value['start'] ?? null;
+        if ($start) {
+            $startResult = $start->format($format);
+        } else {
+            $startResult = $emptyResult;
         }
 
-        if ($startHour === $endHour && $endMinutes <= $startMinutes) {
-            return false;
+        /** @var DateTime $end */
+        $end = $value['end'] ?? null;
+        if ($end) {
+            $endResult = $end->format($format);
+        } else {
+            $endResult = $emptyResult;
         }
 
-        return true;
+        return sprintf('%s i %s', $startResult, $endResult);
     }
 }

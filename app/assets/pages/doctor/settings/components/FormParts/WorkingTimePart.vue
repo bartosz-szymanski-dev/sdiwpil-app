@@ -82,6 +82,7 @@
 </template>
 
 <script>
+import { get } from 'lodash';
 import { validationMixin } from 'vuelidate';
 import vuelidateErrors from '../../../../../mixins/vuelidateErrors';
 
@@ -123,6 +124,9 @@ export default {
         this.$emit('change', newValue);
       },
     },
+  },
+  mounted() {
+    this.workingTime = get(window, 'state.workingTime', this.workingTime);
   },
 };
 </script>

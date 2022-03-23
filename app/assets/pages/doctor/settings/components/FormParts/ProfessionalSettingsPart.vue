@@ -21,8 +21,6 @@
 </template>
 
 <script>
-// TODO: get data from working-time-part, handle it's errors
-
 import { get } from 'lodash';
 import { validationMixin } from 'vuelidate';
 import { required } from 'vuelidate/lib/validators';
