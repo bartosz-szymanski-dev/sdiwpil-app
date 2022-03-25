@@ -117,11 +117,9 @@ class AppointmentDatesService
             'start' => $start,
             'end' => $end,
         ];
-        if ($this->cannotUse($cannotUseParams)) {
-            return;
+        if (!$this->cannotUse($cannotUseParams)) {
+            $this->result[] = $this->buildFrontEndValue($now);
         }
-
-        $this->result[] = $this->buildFrontEndValue($now);
     }
 
     /**
