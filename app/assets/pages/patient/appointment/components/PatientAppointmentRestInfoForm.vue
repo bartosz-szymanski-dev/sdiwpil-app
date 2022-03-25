@@ -1,19 +1,18 @@
 <template>
   <v-form>
     <v-select
-      v-model="timeSlot"
+      v-model="scheduledAt"
       :items="appointmentDates"
       label="Wybierz godzinę wizyty"
     />
     <v-textarea
-      v-model="reason"
+      v-model="patientReason"
       label="Wpisz powód wizyty"
     />
   </v-form>
 </template>
 
 <script>
-
 export default {
   name: 'PatientAppointmentRestInfoForm',
   props: {
@@ -23,8 +22,8 @@ export default {
     },
   },
   data: () => ({
-    timeSlot: '',
-    reason: '',
+    scheduledAt: '',
+    patientReason: '',
   }),
 };
 </script>
