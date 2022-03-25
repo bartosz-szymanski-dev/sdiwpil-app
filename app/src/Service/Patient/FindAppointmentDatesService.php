@@ -5,7 +5,6 @@ namespace App\Service\Patient;
 use App\Entity\User;
 use App\Form\FindAppointmentDatesFormType;
 use App\Service\FormErrorService;
-use Doctrine\ORM\EntityManagerInterface;
 use GuzzleHttp\Utils;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -21,7 +20,6 @@ class FindAppointmentDatesService
 
     private FormFactoryInterface $formFactory;
     private FormErrorService $formErrorService;
-    private EntityManagerInterface $entityManager;
     private LoggerInterface $logger;
     private RequestStack $requestStack;
     private AppointmentDatesService $datesService;
@@ -36,14 +34,12 @@ class FindAppointmentDatesService
     public function __construct(
         FormFactoryInterface $formFactory,
         FormErrorService $formErrorService,
-        EntityManagerInterface $entityManager,
         LoggerInterface $logger,
         RequestStack $requestStack,
         AppointmentDatesService $datesService
     ) {
         $this->formFactory = $formFactory;
         $this->formErrorService = $formErrorService;
-        $this->entityManager = $entityManager;
         $this->logger = $logger;
         $this->requestStack = $requestStack;
         $this->datesService = $datesService;
@@ -53,7 +49,7 @@ class FindAppointmentDatesService
     {
         $this->init();
 
-        return new JsonResponse();
+        return new JsonResponse($this->result);
     }
 
     private function setRequest(): void
@@ -76,9 +72,12 @@ class FindAppointmentDatesService
     {
         $result = $this->datesService->getResult($workingTime);
         if (empty($result)) {
-            $this->result[self::ERRORS_KEY][] = ['Przepraszamy, nie znaleziono propozycji daty wizyty...'];
+            $this->result[self::ERRORS_KEY][] = [
+                'message' => 'Przepraszamy, nie znaleziono propozycji daty wizyty...',
+            ];
         }
 
+        $this->result[self::SUCCESS_KEY] = true;
         $this->result[self::APPOINTMENT_DATES_KEY] = $result;
     }
 

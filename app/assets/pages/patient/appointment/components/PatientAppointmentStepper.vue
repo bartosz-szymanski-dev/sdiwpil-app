@@ -36,7 +36,7 @@
           <v-col cols="auto">
             <v-btn
               color="primary"
-              :disabled="!isDoctorChosen"
+              :disabled="!chosenDoctor"
               :loading="isLoadingAppointmentDates"
               @click="findAppointmentDates"
             >
@@ -47,7 +47,7 @@
       </v-stepper-content>
 
       <v-stepper-content step="3">
-        <patient-appointment-rest-info-form />
+        <patient-appointment-rest-info-form :appointment-dates="appointmentDates" />
 
         <v-btn
           text
@@ -73,7 +73,6 @@ export default {
   data: () => ({
     step: 1,
     showSearchButton: false,
-    isDoctorChosen: false,
     search: new AppointmentSearchModel(),
     doctors: [],
     chosenDoctor: 0,
@@ -112,10 +111,12 @@ export default {
     async findAppointmentDates() {
       this.isLoadingAppointmentDates = true;
       try {
-        const { data } = await axios.post(this.$fosGenerate('front.patient.appointment.find_appointment_dates'), { id: this.chosenDoctor });
+        const { data } = await axios.post(this.$fosGenerate('front.patient.appointment.find_appointment_dates'), { doctor: this.chosenDoctor });
         if (data.success) {
           this.appointmentDates = data.appointmentDates;
           this.step += 1;
+        } else {
+          this.handleResponseErrors(data.errors);
         }
       } catch (e) {
         this.handleAxiosError(e, 'Find appointment dates');

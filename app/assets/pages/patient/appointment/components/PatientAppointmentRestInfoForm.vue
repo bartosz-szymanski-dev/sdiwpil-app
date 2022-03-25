@@ -2,7 +2,7 @@
   <v-form>
     <v-select
       v-model="timeSlot"
-      :items="timeSlots"
+      :items="appointmentDates"
       label="Wybierz godzinę wizyty"
     />
     <v-textarea
@@ -13,18 +13,19 @@
 </template>
 
 <script>
-import { get } from 'lodash';
 
 export default {
   name: 'PatientAppointmentRestInfoForm',
+  props: {
+    appointmentDates: {
+      type: Array,
+      required: true,
+    },
+  },
   data: () => ({
-    timeSlots: [],
     timeSlot: '',
     reason: '',
   }),
-  mounted() {
-    this.timeSlots = get(window.state, 'time_slots', []);
-  },
 };
 </script>
 
