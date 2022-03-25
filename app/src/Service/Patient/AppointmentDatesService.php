@@ -14,6 +14,8 @@ class AppointmentDatesService
 
     private EntityManagerInterface $entityManager;
 
+    private array $result = [];
+
     public function __construct(EntityManagerInterface $entityManager)
     {
         $this->entityManager = $entityManager;
@@ -27,13 +29,13 @@ class AppointmentDatesService
         }
 
         $day = strtolower(Carbon::now()->format(self::TEXTUAL_DAY_REPRESENTATION_FORMAT));
-        $currentDayValues = $workingTime[$day];
+        $this->setAppointmentDatesForCurrentDay($workingTime[$day], $day);
 
-        return $this->getAppointmentDatesForCurrentDay($currentDayValues, $day);
+        return $this->result;
     }
 
     /**
-     * @param array{start: DateTimeImmutable|null, end: DateTimeImmutable|null} $doctorVacation
+     * @param array{start: DateTime|null, end: DateTime|null} $doctorVacation
      * @return bool
      */
     private function isVacationLeave(array $doctorVacation): bool
@@ -105,33 +107,36 @@ class AppointmentDatesService
         ];
     }
 
+    private function processFindingAppointmentDates(Carbon $now, DateTime $start, DateTime $end, string $day): void
+    {
+        $start = $this->createDateFromNowAndDate($now, $start);
+        $end = $this->createDateFromNowAndDate($now, $end);
+        $cannotUseParams = [
+            'now' => $now,
+            'day' => $day,
+            'start' => $start,
+            'end' => $end,
+        ];
+        if ($this->cannotUse($cannotUseParams)) {
+            return;
+        }
+
+        $this->result[] = $this->buildFrontEndValue($now);
+    }
+
     /**
      * @param array{start: DateTimeImmutable, end: DateTimeImmutable} $currentDayValues
      * @param string $day
-     * @return array
+     * @return void
      */
-    private function getAppointmentDatesForCurrentDay(array $currentDayValues, string $day): array
+    private function setAppointmentDatesForCurrentDay(array $currentDayValues, string $day): void
     {
         $start = $currentDayValues['start'];
         $end = $currentDayValues['end'];
 
         $now = $this->getNow();
         for (; $now < Carbon::now()->addMonth(); $now->addMinutes(30)) {
-            $start = $this->createDateFromNowAndDate($now, $start);
-            $end = $this->createDateFromNowAndDate($now, $end);
-            $cannotUseParams = [
-                'now' => $now,
-                'day' => $day,
-                'start' => $start,
-                'end' => $end,
-            ];
-            if ($this->cannotUse($cannotUseParams)) {
-                continue;
-            }
-
-            $result[] = $this->buildFrontEndValue($now);
+            $this->processFindingAppointmentDates($now, $start, $end, $day);
         }
-
-        return $result ?? [];
     }
 }
