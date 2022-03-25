@@ -97,6 +97,14 @@ class AppointmentDatesService
             $now->eq(Carbon::now());
     }
 
+    private function buildFrontEndValue(Carbon $now): array
+    {
+        return [
+            'text' => sprintf('%s na godz.: %s', $now->format('d.m.Y'), $now->format('H:i')),
+            'value' => $now->format('Y-m-d H:i'),
+        ];
+    }
+
     /**
      * @param array{start: DateTimeImmutable, end: DateTimeImmutable} $currentDayValues
      * @param string $day
@@ -121,10 +129,7 @@ class AppointmentDatesService
                 continue;
             }
 
-            $result[] = [
-                'text' => sprintf('%s na godz.: %s', $now->format('d.m.Y'), $now->format('H:i')),
-                'value' => $now->format('Y-m-d H:i'),
-            ];
+            $result[] = $this->buildFrontEndValue($now);
         }
 
         return $result ?? [];
