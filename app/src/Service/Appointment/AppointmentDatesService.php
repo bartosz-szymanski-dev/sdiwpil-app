@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Service\Patient;
+namespace App\Service\Appointment;
 
 use App\Entity\Appointment;
+use App\Entity\DoctorData;
 use Carbon\Carbon;
 use DateTime;
-use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
 
 class AppointmentDatesService
@@ -14,6 +14,8 @@ class AppointmentDatesService
 
     private EntityManagerInterface $entityManager;
 
+    private DoctorData $doctorData;
+
     private array $result = [];
 
     public function __construct(EntityManagerInterface $entityManager)
@@ -21,32 +23,21 @@ class AppointmentDatesService
         $this->entityManager = $entityManager;
     }
 
-    public function getResult(array $workingTime): array
+    public function getResult(DoctorData $doctorData): array
     {
-        $doctorVacation = $workingTime['vacation'];
-        if ($this->isVacationLeave($doctorVacation)) {
-            throw new \RuntimeException('Lekarz jest obecnie na urlopie.');
-        }
-
-        $day = strtolower(Carbon::now()->format(self::TEXTUAL_DAY_REPRESENTATION_FORMAT));
-        $this->setAppointmentDatesForCurrentDay($workingTime[$day], $day);
+        $this->doctorData = $doctorData;
+        $this->setAppointmentDatesForCurrentDay($doctorData->getWorkingTime());
 
         return $this->result;
     }
 
-    /**
-     * @param array{start: DateTime|null, end: DateTime|null} $doctorVacation
-     * @return bool
-     */
-    private function isVacationLeave(array $doctorVacation): bool
+    private function isVacationLeave(array $workingTime, Carbon $now): bool
     {
-        $start = $doctorVacation['start'] ?? null;
-        $end = $doctorVacation['end'] ?? null;
+        $start = $workingTime['vacation']['start'] ?? null;
+        $end = $workingTime['vacation']['end'] ?? null;
         if (!$start || !$end) {
             return false;
         }
-
-        $now = Carbon::now();
 
         return $now->greaterThanOrEqualTo($start) && $now->lessThanOrEqualTo($end);
     }
@@ -54,7 +45,10 @@ class AppointmentDatesService
     private function isBookedAppointment(Carbon $now): ?Appointment
     {
         return $this->entityManager->getRepository(Appointment::class)
-            ->findOneBy(['scheduledAt' => $now->toDateTimeImmutable()]);
+            ->findOneBy([
+                'scheduledAt' => $now->toDateTimeImmutable(),
+                'doctor' => $this->doctorData,
+            ]);
     }
 
     private function getNow(): Carbon
@@ -90,10 +84,8 @@ class AppointmentDatesService
     private function cannotUse(array $params): bool
     {
         $now = $params['now'];
-        $nowDay = strtolower($now->format(self::TEXTUAL_DAY_REPRESENTATION_FORMAT));
 
-        return $nowDay !== $params['day'] ||
-            $now->lessThan($params['start']) ||
+        return $now->lessThan($params['start']) ||
             $now->greaterThan($params['end']) ||
             $this->isBookedAppointment($now) ||
             $now->eq(Carbon::now());
@@ -107,13 +99,12 @@ class AppointmentDatesService
         ];
     }
 
-    private function processFindingAppointmentDates(Carbon $now, DateTime $start, DateTime $end, string $day): void
+    private function processFindingAppointmentDates(Carbon $now, DateTime $start, DateTime $end): void
     {
         $start = $this->createDateFromNowAndDate($now, $start);
         $end = $this->createDateFromNowAndDate($now, $end);
         $cannotUseParams = [
             'now' => $now,
-            'day' => $day,
             'start' => $start,
             'end' => $end,
         ];
@@ -122,19 +113,23 @@ class AppointmentDatesService
         }
     }
 
-    /**
-     * @param array{start: DateTimeImmutable, end: DateTimeImmutable} $currentDayValues
-     * @param string $day
-     * @return void
-     */
-    private function setAppointmentDatesForCurrentDay(array $currentDayValues, string $day): void
+    private function isWorkingDayEmpty($dayValuesFromToday): bool
     {
-        $start = $currentDayValues['start'];
-        $end = $currentDayValues['end'];
+        return !(($dayValuesFromToday['start'] ?? false) && ($dayValuesFromToday['end'] ?? false));
+    }
 
-        $now = $this->getNow();
-        for (; $now < Carbon::now()->addMonth(); $now->addMinutes(30)) {
-            $this->processFindingAppointmentDates($now, $start, $end, $day);
+    private function setAppointmentDatesForCurrentDay(array $workingTime): void
+    {
+        for ($now = $this->getNow(); $now < Carbon::now()->addMonth(); $now->addMinutes(30)) {
+            $textualRepresentationOfCurrentDay = strtolower($now->format(
+                self::TEXTUAL_DAY_REPRESENTATION_FORMAT
+            ));
+            $dayValuesFromToday = $workingTime[$textualRepresentationOfCurrentDay] ?? [];
+            if (!$this->isWorkingDayEmpty($dayValuesFromToday) && !$this->isVacationLeave($workingTime, $now)) {
+                $start = $dayValuesFromToday['start'];
+                $end = $dayValuesFromToday['end'];
+                $this->processFindingAppointmentDates($now, $start, $end);
+            }
         }
     }
 }

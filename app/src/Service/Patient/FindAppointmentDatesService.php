@@ -2,8 +2,10 @@
 
 namespace App\Service\Patient;
 
+use App\Entity\DoctorData;
 use App\Entity\User;
 use App\Form\FindAppointmentDatesFormType;
+use App\Service\Appointment\AppointmentDatesService;
 use App\Service\FormErrorService;
 use GuzzleHttp\Utils;
 use Psr\Log\LoggerInterface;
@@ -68,9 +70,9 @@ class FindAppointmentDatesService
         $this->logger->error($exception->getMessage());
     }
 
-    private function setAppointmentDates(array $workingTime): void
+    private function setAppointmentDates(DoctorData $doctorData): void
     {
-        $result = $this->datesService->getResult($workingTime);
+        $result = $this->datesService->getResult($doctorData);
         if (empty($result)) {
             $this->result[self::ERRORS_KEY][] = [
                 'message' => 'Przepraszamy, nie znaleziono propozycji daty wizyty...',
@@ -84,15 +86,15 @@ class FindAppointmentDatesService
     private function handleValidForm(array $data): void
     {
         /** @var User $doctor */
-        $doctor = $data['doctor'];
-        $workingTime = $doctor->getDoctorData()->getWorkingTime();
+        $doctorData = $data['doctor']->getDoctorData();
+        $workingTime = $doctorData->getWorkingTime();
         if (!$workingTime) {
             $this->result[self::ERRORS_KEY][] = [
                 'message' => 'Wybrany lekarz nie ustawił godzin pracy. Skontaktuj się z administracją w celu rozwiązania tego problemu'
             ];
         }
 
-        $this->setAppointmentDates($workingTime);
+        $this->setAppointmentDates($doctorData);
     }
 
     private function init(): void
