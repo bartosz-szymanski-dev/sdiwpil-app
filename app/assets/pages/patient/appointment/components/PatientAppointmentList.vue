@@ -38,7 +38,10 @@
               Wypełnij formularz wizyty
             </v-card-title>
             <v-card-text>
-              <patient-appointment-stepper />
+              <patient-appointment-stepper
+                @appointmentsChange="setAppointments"
+                @closeModal="dialog = false"
+              />
             </v-card-text>
             <v-card-actions>
               <v-btn
@@ -49,14 +52,6 @@
                 Zamknij
               </v-btn>
               <v-spacer />
-              <v-btn
-                color="primary"
-                type="submit"
-                class="mb-2"
-                @click="createNewAppointment"
-              >
-                Potwierdź
-              </v-btn>
             </v-card-actions>
           </v-card>
         </v-dialog>
@@ -66,6 +61,7 @@
 </template>
 
 <script>
+import { get } from 'lodash';
 import PatientAppointmentStepper from './PatientAppointmentStepper';
 
 export default {
@@ -73,11 +69,6 @@ export default {
   components: { PatientAppointmentStepper },
   data: () => ({
     headers: [
-      {
-        text: 'Powód wizyty',
-        sortable: false,
-        value: 'reason',
-      },
       {
         text: 'Lekarz',
         sortable: false,
@@ -91,7 +82,7 @@ export default {
       {
         text: 'Powód wizyty',
         sortable: false,
-        value: 'reason',
+        value: 'patientReason',
       },
       {
         text: 'Data wizyty',
@@ -109,9 +100,12 @@ export default {
     },
     rowsPerPageItems: [25, 50, 100, 250],
   }),
+  mounted() {
+    this.appointments = get(window, 'state.appointments', []);
+  },
   methods: {
-    createNewAppointment() {
-      console.log('todo');
+    setAppointments(appointments) {
+      this.appointments = appointments;
     },
   },
 };

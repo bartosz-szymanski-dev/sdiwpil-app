@@ -3,8 +3,11 @@
 namespace App\Repository;
 
 use App\Entity\Appointment;
+use App\Entity\PatientData;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Persistence\ManagerRegistry;
+use function Doctrine\ORM\QueryBuilder;
 
 /**
  * @method Appointment|null find($id, $lockMode = null, $lockVersion = null)
@@ -19,32 +22,16 @@ class AppointmentRepository extends ServiceEntityRepository
         parent::__construct($registry, Appointment::class);
     }
 
-    // /**
-    //  * @return Appointment[] Returns an array of Appointment objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function getPaginatedAppointments(PatientData $patientData, int $min, int $max): Paginator
     {
-        return $this->createQueryBuilder('a')
-            ->andWhere('a.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('a.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+        $qb = $this->createQueryBuilder('a');
+        $query = $qb
+            ->where($qb->expr()->eq('a.patient', ':patient'))
+            ->setParameter('patient', $patientData)
+            ->setFirstResult($min)
+            ->setMaxResults($max)
+            ->getQuery();
 
-    /*
-    public function findOneBySomeField($value): ?Appointment
-    {
-        return $this->createQueryBuilder('a')
-            ->andWhere('a.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        return new Paginator($query);
     }
-    */
 }

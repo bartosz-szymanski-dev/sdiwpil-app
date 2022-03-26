@@ -25,6 +25,14 @@ export default {
     scheduledAt: '',
     patientReason: '',
   }),
+  watch: {
+    scheduledAt(newValue) {
+      this.$emit('scheduledAtChange', newValue);
+    },
+    patientReason(newValue) {
+      this.$emit('patientReasonChange', newValue);
+    },
+  },
 };
 </script>
 

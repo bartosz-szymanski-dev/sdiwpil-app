@@ -6,9 +6,9 @@
       cols="12"
     >
       <v-card
-        :class="[chosenDoctor === id && 'active']"
+        :class="[chosenDoctor && chosenDoctor.id === id && 'active']"
         color="#00cec80d"
-        @click="handleChosenDoctorChange(id)"
+        @click="handleChosenDoctorChange({id, firstName, secondName, lastName, email, doctorData})"
       >
         <v-card-title class="text-h5">
           {{ firstName }} {{ secondName }} {{ lastName }}
@@ -17,7 +17,7 @@
         <v-card-subtitle>{{ getDoctorExtraInfo(doctorData, email) }}</v-card-subtitle>
 
         <v-card-actions>
-          <v-btn @click="handleChosenDoctorChange(id)">
+          <v-btn @click="handleChosenDoctorChange({id, firstName, secondName, lastName, email, doctorData})">
             Wybierz
           </v-btn>
         </v-card-actions>
@@ -36,12 +36,12 @@ export default {
     },
   },
   data: () => ({
-    chosenDoctor: 0,
+    chosenDoctor: null,
   }),
   methods: {
-    handleChosenDoctorChange(id) {
-      this.chosenDoctor = id;
-      this.$emit('change', id);
+    handleChosenDoctorChange(doctor) {
+      this.chosenDoctor = doctor;
+      this.$emit('change', doctor);
     },
     getDoctorExtraInfo(doctorData, email) {
       return `${doctorData.medicalSpecialty.title}, ${email}`;

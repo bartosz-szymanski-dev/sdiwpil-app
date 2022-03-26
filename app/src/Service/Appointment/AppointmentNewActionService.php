@@ -9,6 +9,7 @@ use App\Service\FormErrorService;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use GuzzleHttp\Utils;
+use Psr\Log\LoggerInterface;
 use RuntimeException;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
@@ -28,6 +29,7 @@ class AppointmentNewActionService
     private FormFactoryInterface $formFactory;
     private FormErrorService $formErrorService;
     private EntityManagerInterface $entityManager;
+    private LoggerInterface $logger;
 
     private Request $request;
     private User $patient;
@@ -43,13 +45,15 @@ class AppointmentNewActionService
         Security $security,
         FormFactoryInterface $formFactory,
         FormErrorService $formErrorService,
-        EntityManagerInterface $entityManager
+        EntityManagerInterface $entityManager,
+        LoggerInterface $logger
     ) {
         $this->requestStack = $requestStack;
         $this->security = $security;
         $this->formFactory = $formFactory;
         $this->formErrorService = $formErrorService;
         $this->entityManager = $entityManager;
+        $this->logger = $logger;
     }
 
     public function getJsonResponse(): JsonResponse
@@ -93,9 +97,29 @@ class AppointmentNewActionService
         $this->entityManager->flush();
     }
 
+    /**
+     * @return array{min: int, max: int}
+     */
+    private function getMinMax(): array
+    {
+        $page = (int)$this->request->get('page', 1);
+        $perPage = (int)$this->request->get('per_page', 25);
+
+        return [
+            'min' => $perPage * ($page - 1),
+            'max' => $perPage,
+        ];
+    }
+
     private function setAppointments(): void
     {
-        // TODO: get paginated appointments
+        $minMax = $this->getMinMax();
+        $appointments = $this->entityManager->getRepository(Appointment::class)
+            ->getPaginatedAppointments($this->patient->getPatientData(), $minMax['min'], $minMax['max']);
+        foreach ($appointments as $appointment) {
+            /** @var Appointment $appointment */
+            $this->result[self::APPOINTMENTS_KEY][] = $appointment->toFrontEndPatientArray();
+        }
     }
 
     private function processForm(): void
@@ -106,6 +130,7 @@ class AppointmentNewActionService
         if ($form->isSubmitted() && $form->isValid()) {
             $this->successfulFormAction($form);
             $this->setAppointments();
+            $this->result[self::SUCCESS_KEY] = true;
         } else {
             $this->result[self::ERRORS_KEY] = $this->formErrorService->getArray($form);
         }
@@ -119,7 +144,8 @@ class AppointmentNewActionService
                 ->setPatient()
                 ->processForm();
         } catch (Exception $exception) {
-
+            $this->result[self::ERRORS_KEY][] = ['message' => 'Przepraszamy, wystąpił błąd.'];
+            $this->logger->error($exception->getMessage());
         }
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Controller\Appointment;
 
+use App\Service\Appointment\AppointmentNewActionService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
@@ -14,10 +15,11 @@ class NewController extends AbstractController
      *     name="front.appointment.new",
      *     methods={"POST"},
      * )
+     * @param AppointmentNewActionService $actionService
      * @return JsonResponse
      */
-    public function index(): JsonResponse
+    public function index(AppointmentNewActionService $actionService): JsonResponse
     {
-        return new JsonResponse();
+        return $actionService->getJsonResponse();
     }
 }

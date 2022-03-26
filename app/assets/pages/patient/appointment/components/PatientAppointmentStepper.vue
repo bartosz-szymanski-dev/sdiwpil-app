@@ -47,13 +47,27 @@
       </v-stepper-content>
 
       <v-stepper-content step="3">
-        <patient-appointment-rest-info-form :appointment-dates="appointmentDates" />
+        <patient-appointment-rest-info-form
+          :appointment-dates="appointmentDates"
+          @scheduledAtChange="handleScheduledAtChange"
+          @patientReasonChange="handlePatientReasonChange"
+        />
 
         <v-btn
           text
           @click="step -= 1"
         >
           Wstecz
+        </v-btn>
+        <v-btn
+          color="primary"
+          type="submit"
+          class="mb-2"
+          :loading="isLoadingRestInfoForm"
+          :disabled="!isScheduledAtSet || !isPatientReasonSet"
+          @click="createNewAppointment"
+        >
+          Potwierdź
         </v-btn>
       </v-stepper-content>
     </v-stepper-items>
@@ -75,9 +89,14 @@ export default {
     showSearchButton: false,
     search: new AppointmentSearchModel(),
     doctors: [],
-    chosenDoctor: 0,
+    chosenDoctor: null,
     appointmentDates: [],
     isLoadingAppointmentDates: false,
+    isLoadingRestInfoForm: false,
+    scheduledAt: '',
+    patientReason: '',
+    isScheduledAtSet: false,
+    isPatientReasonSet: false,
   }),
   methods: {
     handleFormChange(search) {
@@ -105,13 +124,13 @@ export default {
         this.handleAxiosError(e, 'Find doctor');
       }
     },
-    handleResultsChange(id) {
-      this.chosenDoctor = id;
+    handleResultsChange(doctor) {
+      this.chosenDoctor = doctor;
     },
     async findAppointmentDates() {
       this.isLoadingAppointmentDates = true;
       try {
-        const { data } = await axios.post(this.$fosGenerate('front.patient.appointment.find_appointment_dates'), { doctor: this.chosenDoctor });
+        const { data } = await axios.post(this.$fosGenerate('front.patient.appointment.find_appointment_dates'), { doctor: this.chosenDoctor.id });
         if (data.success) {
           this.appointmentDates = data.appointmentDates;
           this.step += 1;
@@ -122,6 +141,36 @@ export default {
         this.handleAxiosError(e, 'Find appointment dates');
       }
       this.isLoadingAppointmentDates = false;
+    },
+    async createNewAppointment() {
+      this.isLoadingRestInfoForm = true;
+      try {
+        const { scheduledAt, patientReason, chosenDoctor } = this;
+        const payload = {
+          scheduledAt,
+          patientReason,
+          doctor: chosenDoctor.doctorData.id,
+        };
+        const { data } = await axios.post(this.$fosGenerate('front.appointment.new'), payload);
+        if (data.success) {
+          this.$emit('appointmentsChange', data.appointments);
+          this.$emit('closeModal');
+          this.$snotify.success('Pomyślnie umówiono wizytę');
+        } else {
+          this.handleResponseErrors(data.errors);
+        }
+      } catch (e) {
+        this.handleAxiosError(e, 'Create new appointment');
+      }
+      this.isLoadingRestInfoForm = false;
+    },
+    handleScheduledAtChange(scheduledAt) {
+      this.scheduledAt = scheduledAt;
+      this.isScheduledAtSet = true;
+    },
+    handlePatientReasonChange(patientReason) {
+      this.patientReason = patientReason;
+      this.isPatientReasonSet = true;
     },
   },
 };

@@ -3,7 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\AppointmentRepository;
-use DateTimeImmutable;
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -31,9 +31,9 @@ class Appointment extends AbstractEntity
     private DoctorData $doctor;
 
     /**
-     * @ORM\Column(type="datetime_immutable")
+     * @ORM\Column(type="datetime")
      */
-    private DateTimeImmutable $scheduledAt;
+    private ?DateTime $scheduledAt;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -74,12 +74,12 @@ class Appointment extends AbstractEntity
         return $this;
     }
 
-    public function getScheduledAt(): ?DateTimeImmutable
+    public function getScheduledAt(): ?DateTime
     {
         return $this->scheduledAt;
     }
 
-    public function setScheduledAt(DateTimeImmutable $scheduledAt): self
+    public function setScheduledAt(?DateTime $scheduledAt): self
     {
         $this->scheduledAt = $scheduledAt;
 
@@ -108,5 +108,20 @@ class Appointment extends AbstractEntity
         $this->doctorNotes = $doctorNotes;
 
         return $this;
+    }
+
+    public function toFrontEndPatientArray(): array
+    {
+        return [
+            'id' => $this->id,
+            'scheduledAt' => $this->scheduledAt->format('d.m.Y H:i'),
+            'doctor' => sprintf(
+                '%s %s',
+                $this->doctor->getDoctor()->getFirstName(),
+                $this->doctor->getDoctor()->getLastName()
+            ),
+            'medicalSpecialty' => $this->doctor->getMedicalSpecialty()->getTitle(),
+            'patientReason' => $this->patientReason,
+        ];
     }
 }

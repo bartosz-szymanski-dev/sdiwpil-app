@@ -11,7 +11,6 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\NotBlank;
-use Symfony\Component\Validator\Constraints\NotNull;
 
 class AppointmentNewFormType extends AbstractType
 {
@@ -23,16 +22,16 @@ class AppointmentNewFormType extends AbstractType
                 'widget' => 'single_text',
                 'html5' => false,
                 'format' => 'yyyy-MM-dd HH:mm',
-                'constraints' => [new NotBlank()],
+                'constraints' => [new NotBlank(null, 'Godzina wizyty musi być uzupełniona')],
             ])
             ->add('patientReason', TextType::class, [
                 'required' => true,
-                'constraints' => [new NotBlank()],
+                'constraints' => [new NotBlank(null, 'Powód wizyty musi być uzupełniony')],
             ])
             ->add('doctor', EntityType::class, [
                 'required' => true,
                 'class' => DoctorData::class,
-                'constraints' => [new NotNull(), new NotBlank()],
+                'constraints' => [new NotBlank(null, 'Lekarz musi być wybrany', false)],
             ]);
     }
 
