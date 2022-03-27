@@ -1,6 +1,6 @@
 .idea
 .vagrant
-.env
+#.env
 
 ###> symfony/framework-bundle ###
 /app/.env.local
