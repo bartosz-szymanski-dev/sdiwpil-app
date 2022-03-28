@@ -1,4 +1,5 @@
 <?php
+
 namespace Deployer;
 
 require 'recipe/symfony.php';
@@ -38,7 +39,7 @@ task('prepare', function () {
         'bin/node' => 'node',
         'bin/npm' => 'npm',
         'bin/yarn' => 'yarn',
-        'symfony_cli' => 'symfony',
+        'symfony_cli' => 'symfony console',
         'fastcgi_pass' => 'unix:/run/php/php7.4-fpm.sock',
         'nginx_config_dst_filename' => '', // TODO
         'bin_dir' => 'bin',
@@ -61,59 +62,67 @@ task('prepare', function () {
     ->desc('Update configuration')
     ->once();
 
+task('configure:nginx', function () {
+    run(sprintf(
+        'echo "%s" >> /etc/nginx/sites-available/default',
+        file_get_contents(__DIR__ . '/templates/default')
+    ));
+    run('sudo nginx -s reload');
+});
+
 task('configure:database:migrate', function () {
-    run('{{symfony_cli}} doctrine:migrations:migrate --allow-no-migration');
+    run('cd {{release_path}}/app && {{symfony_cli}} doctrine:migrations:migrate --allow-no-migration');
 })
     ->desc('Database migrations');
 
 task('deploy:assets:install', function () {
-    run('{{symfony_cli}} assets:install {{console_options}} /public');
+    run('cd {{release_path}}/app && {{symfony_cli}} assets:install {{console_options}} /public');
 })
     ->desc('Install bundle assets');
 
 task('configure:database:cache_clear', function () {
-    run('{{symfony_cli}} doctrine:cache:clear-metadata {{console_options}}');
-    run('{{symfony_cli}} doctrine:cache:clear-query {{console_options}}');
-    run('{{symfony_cli}} doctrine:cache:clear-result {{console_options}}');
+    run('cd {{release_path}}/app && {{symfony_cli}} doctrine:cache:clear-metadata {{console_options}}');
+    run('cd {{release_path}}/app && {{symfony_cli}} doctrine:cache:clear-query {{console_options}}');
+    run('cd {{release_path}}/app && {{symfony_cli}} doctrine:cache:clear-result {{console_options}}');
 })
     ->desc('Database cache clear');
 
 task('configure:webpack', function () {
     invoke('prepare');
 
-    run('{{symofny_cli}} fos:js-routing:dump --format=json --target={{release_path}}/app/public/js/fos_js_routes.json');
+    run('cd {{release_path}}/app && {{symofny_cli}} fos:js-routing:dump --format=json --target={{release_path}}/app/public/js/fos_js_routes.json');
     run('cd {{release_path}} && {{bin/yarn}} install --production');
     run('cd {{release_path}} && {{bin/npm}} run-script build');
 })
     ->desc('Configure webpack');
 
 task('configure:cache:clear', function () {
-    run('{{bin/php}} {{symfony_cli}} cache:clear {{console_options}} --no-warmup');
+    run('cd {{release_path}}/app && {{symfony_cli}} cache:clear {{console_options}} --no-warmup');
 })
     ->desc('Clear cache');
 
 task('configure:cache:warmup', function () {
-    run('{{bin/php}} {{symfony_cli}} cache:warmup {{console_options}}');
+    run('cd {{release_path}}/app &&  {{symfony_cli}} cache:warmup {{console_options}}');
 })
     ->desc('Warm up cache');
 
 task('install', function () {
-   invoke('prepare');
+    invoke('prepare');
 
-   $tasks = [
-       'deploy:info',
-       'deploy:prepare',
-       'deploy:lock',
-       'deploy:release',
-       'deploy:update_code',
-       'deploy:shared',
-       'deploy:writable',
-       'deploy:vendors',
-   ];
+    $tasks = [
+        'deploy:info',
+        'deploy:prepare',
+        'deploy:lock',
+        'deploy:release',
+        'deploy:update_code',
+        'deploy:shared',
+        'deploy:writable',
+        'deploy:vendors',
+    ];
 
-   foreach ($tasks as $task) {
-       invoke($task);
-   }
+    foreach ($tasks as $task) {
+        invoke($task);
+    }
 })
     ->desc('Install project');
 
@@ -121,6 +130,7 @@ task('configure', function () {
     invoke('prepare');
 
     $tasks = [
+        'configure:nginx',
         'configure:database:cache_clear',
         'configure:database:migrate',
         'deploy:assets:install',
