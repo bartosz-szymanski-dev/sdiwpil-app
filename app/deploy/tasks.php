@@ -16,7 +16,7 @@ task('deploy:vendors', function () {
     }
 
     run('cd {{release_path}}/app && wget https://getcomposer.org/download/2.2.6/composer.phar -O composer.phar');
-    run('cd {{release_path}}/app && {{bin/php}} composer.phar {{composer_options}} --no-cache');
+    run('cd {{release_path}}/app && {{bin/php}} composer.phar {{composer_options}}');
 });
 
 task('prepare', function () {
@@ -26,6 +26,7 @@ task('prepare', function () {
     set('ssh_multiplexing', true);
     set('writable_mode', 'chmod');
     set('dump_assets', false);
+    set('stage', 'dev');
     set('branch', runLocally('git rev-parse --abbrev-ref HEAD'));
 
     $defaults = [
@@ -46,6 +47,7 @@ task('prepare', function () {
         'var_dir' => 'var',
         'bin/console' => '{{release_path}}/app/bin/console',
         'server_name' => '192.168.0.66',
+        'composer_options' => 'install --verbose --prefer-dist --no-progress --no-interaction --optimize-autoloader --no-suggest --no-cache',
         'parameters' => [
             'branch' => '{{branch}}',
             'router.request_context.host' => '{{server_name}}',
@@ -63,8 +65,10 @@ task('prepare', function () {
     ->once();
 
 task('configure:nginx', function () {
+    run('sudo rm /etc/nginx/sites-available/default');
+    run('sudo touch /etc/nginx/sites-available/default');
     run(sprintf(
-        'echo "%s" >> /etc/nginx/sites-available/default',
+        'sudo echo "%s" >> /etc/nginx/sites-available/default',
         file_get_contents(__DIR__ . '/templates/default')
     ));
     run('sudo nginx -s reload');
@@ -90,9 +94,9 @@ task('configure:database:cache_clear', function () {
 task('configure:webpack', function () {
     invoke('prepare');
 
-    run('cd {{release_path}}/app && {{symofny_cli}} fos:js-routing:dump --format=json --target={{release_path}}/app/public/js/fos_js_routes.json');
-    run('cd {{release_path}} && {{bin/yarn}} install --production');
-    run('cd {{release_path}} && {{bin/npm}} run-script build');
+    run('cd {{release_path}}/app && {{symfony_cli}} fos:js-routing:dump --format=json --target={{release_path}}/app/public/js/fos_js_routes.json');
+    run('cd {{release_path}}/app && {{bin/yarn}} install');
+    run('cd {{release_path}}/app && {{bin/yarn}} encore dev');
 })
     ->desc('Configure webpack');
 
