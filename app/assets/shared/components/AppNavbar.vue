@@ -17,7 +17,30 @@
         {{ title }}
       </v-toolbar-title>
 
-      <v-spacer v-if="breakpoint.mdAndDown" />
+      <v-spacer />
+
+      <v-btn
+        v-if="breakpoint.mdAndUp && !isLoggedIn"
+        :loading="isLogoutButtonLoading"
+        :href="$fosGenerate('front.login')"
+        color="success"
+      >
+        <v-icon class="mr-2">
+          mdi-login
+        </v-icon>
+        Zaloguj się
+      </v-btn>
+      <v-btn
+        v-if="breakpoint.mdAndUp && isLoggedIn"
+        :href="$fosGenerate('front.logout')"
+        :loading="isLogoutButtonLoading"
+        color="accent"
+      >
+        <v-icon class="mr-2">
+          mdi-logout
+        </v-icon>
+        Wyloguj się
+      </v-btn>
     </v-app-bar>
 
     <v-navigation-drawer
@@ -30,11 +53,31 @@
       <mobile-nav-list :title="navTitle" />
 
       <template #append>
-        <div class="pa-2">
+        <div
+          class="pa-2"
+        >
           <v-btn
+            v-if="!isLoggedIn"
+            :loading="isLogoutButtonLoading"
+            :href="$fosGenerate('front.login')"
+            block
+            color="success"
+          >
+            <v-icon class="mr-2">
+              mdi-login
+            </v-icon>
+            Zaloguj się
+          </v-btn>
+          <v-btn
+            v-else
             block
             color="accent"
+            :loading="isLogoutButtonLoading"
+            :href="$fosGenerate('front.logout')"
           >
+            <v-icon class="mr-2">
+              mdi-logout
+            </v-icon>
             Wyloguj się
           </v-btn>
         </div>
@@ -44,6 +87,7 @@
 </template>
 
 <script>
+import axios from 'axios';
 import breakpoint from '../../mixins/breakpoint';
 
 import MobileNavList from './MobileNavList';
@@ -62,6 +106,8 @@ export default {
   data: () => ({
     drawer: false,
     navTitle: 'SDIWPIL',
+    isLoggedIn: false,
+    isLogoutButtonLoading: false,
   }),
   computed: {
     title() {
@@ -78,6 +124,21 @@ export default {
         default:
           return 'primary';
       }
+    },
+  },
+  async mounted() {
+    await this.setIsLoggedIn();
+  },
+  methods: {
+    async setIsLoggedIn() {
+      this.isLogoutButtonLoading = true;
+      try {
+        const { data } = await axios.post(this.$fosGenerate('front.vue.login_check'));
+        this.isLoggedIn = data.isLoggedIn;
+      } catch (e) {
+        console.error(`Set is logged in action error: ${e}`);
+      }
+      this.isLogoutButtonLoading = false;
     },
   },
 };
