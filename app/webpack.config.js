@@ -29,6 +29,7 @@ Encore
   .addEntry('patient_register', './assets/pages/patient/register/index.js')
   .addEntry('patient_dashboard', './assets/pages/patient/dashboard/index.js')
   .addEntry('patient_appointment', './assets/pages/patient/appointment/index.js')
+  .addEntry('patient_settings', './assets/pages/patient/settings/index.js')
   // doctor
   .addEntry('doctor_dashboard', './assets/pages/doctor/dashboard/index.js')
   .addEntry('doctor_documents', './assets/pages/doctor/documents/index.js')
