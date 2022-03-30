@@ -85,6 +85,7 @@
 import { get } from 'lodash';
 import { validationMixin } from 'vuelidate';
 import vuelidateErrors from '../../../../../mixins/vuelidateErrors';
+import WorkingTimeModel from '../../models/WorkingTimeModel';
 
 export default {
   name: 'WorkingTimePart',
@@ -126,7 +127,13 @@ export default {
     },
   },
   mounted() {
-    this.workingTime = get(window, 'state.workingTime', this.workingTime);
+    this.setWorkingTime();
+  },
+  methods: {
+    setWorkingTime() {
+      const stateWorkingTime = get(window, 'state.workingTime');
+      this.workingTime = stateWorkingTime || new WorkingTimeModel();
+    },
   },
 };
 </script>

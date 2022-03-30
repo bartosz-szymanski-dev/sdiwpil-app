@@ -1,3 +1,5 @@
+import WorkingTimeModel from './WorkingTimeModel';
+
 class SettingsModel {
   constructor(
     {
@@ -7,7 +9,7 @@ class SettingsModel {
         second: '',
       },
       medicalSpecialty = '',
-      workingTime = {},
+      workingTime = new WorkingTimeModel(),
     } = {},
   ) {
     this.email = email;
