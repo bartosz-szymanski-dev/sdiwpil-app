@@ -5,8 +5,10 @@ namespace App\Service\Appointment;
 use App\Entity\Appointment;
 use App\Entity\Conversation;
 use App\Entity\User;
+use App\Exception\AppointmentException;
 use App\Form\Appointment\AppointmentNewFormType;
 use App\Service\FormErrorService;
+use Carbon\Carbon;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use GuzzleHttp\Utils;
@@ -159,18 +161,74 @@ class AppointmentNewActionService
         }
     }
 
+    private function isExistingAppointment(Appointment $appointment): bool
+    {
+        return (bool)$this->entityManager->getRepository(Appointment::class)->findOneBy([
+            'scheduledAt' => $appointment->getScheduledAt(),
+            'doctor' => $appointment->getDoctor(),
+        ]);
+    }
+
+    private function isLessThan30MinutesToAppointment(Appointment $appointment): bool
+    {
+        $scheduledAt = new Carbon($appointment->getScheduledAt());
+
+        return $scheduledAt->diffInMinutes(Carbon::now()) < 30;
+    }
+
+    /**
+     * @throws AppointmentException
+     */
+    private function checkIfExists(Appointment $appointment): void
+    {
+        if ($this->isExistingAppointment($appointment)) {
+            throw new AppointmentException(
+                'Wybrany lekarz i godzina wizyty zostały już zarezerwowane, wybierz inny termin.'
+            );
+        }
+    }
+
+    /**
+     * @throws AppointmentException
+     */
+    private function checkIfLessThan30MinutesToAppointment(Appointment $appointment): void
+    {
+        if ($this->isLessThan30MinutesToAppointment($appointment)) {
+            throw new AppointmentException('Nie można zarezerwować wybranego terminu, wybierz inny termin');
+        }
+    }
+
+    /**
+     * @throws AppointmentException
+     */
     private function processForm(): void
     {
         $form = $this->formFactory->create(AppointmentNewFormType::class)->submit(
             Utils::jsonDecode($this->request->getContent(), true)
         );
         if ($form->isSubmitted() && $form->isValid()) {
+            /** @var Appointment $appointment */
+            $appointment = $form->getData();
+            $this->checkIfExists($appointment);
+            $this->checkIfLessThan30MinutesToAppointment($appointment);
             $this->successfulFormAction($form);
             $this->setAppointments();
             $this->result[self::SUCCESS_KEY] = true;
         } else {
             $this->result[self::ERRORS_KEY] = $this->formErrorService->getArray($form);
         }
+    }
+
+    private function handleException(Exception $exception): void
+    {
+        if (!($exception instanceof AppointmentException)) {
+            $this->result[self::ERRORS_KEY][] = ['message' => 'Przepraszamy, wystąpił błąd.'];
+            $this->logger->error($exception->getMessage());
+
+            return;
+        }
+
+        $this->result[self::ERRORS_KEY][] = ['message' => $exception->getMessage()];
     }
 
     private function init(): void
@@ -181,8 +239,7 @@ class AppointmentNewActionService
                 ->setPatient()
                 ->processForm();
         } catch (Exception $exception) {
-            $this->result[self::ERRORS_KEY][] = ['message' => 'Przepraszamy, wystąpił błąd.'];
-            $this->logger->error($exception->getMessage());
+            $this->handleException($exception);
         }
     }
 }
