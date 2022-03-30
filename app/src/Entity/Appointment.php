@@ -124,4 +124,12 @@ class Appointment extends AbstractEntity
             'patientReason' => $this->patientReason,
         ];
     }
+
+    public function getChecksum(): string
+    {
+        return md5(
+            $this->id . $this->scheduledAt->getTimestamp() . $this->doctor->getDoctor()->getId() .
+            $this->patient->getPatient()->getId() . $this->createdAt->getTimestamp()
+        );
+    }
 }

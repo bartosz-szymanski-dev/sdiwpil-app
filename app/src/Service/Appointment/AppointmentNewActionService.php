@@ -3,6 +3,7 @@
 namespace App\Service\Appointment;
 
 use App\Entity\Appointment;
+use App\Entity\Conversation;
 use App\Entity\User;
 use App\Form\Appointment\AppointmentNewFormType;
 use App\Service\FormErrorService;
@@ -88,13 +89,49 @@ class AppointmentNewActionService
         return $this;
     }
 
-    private function successfulFormAction(FormInterface $form): void
+    private function createAppointment(Appointment $appointment): Appointment
     {
-        /** @var Appointment $appointment */
-        $appointment = $form->getData();
         $appointment->setPatient($this->patient->getPatientData());
         $this->entityManager->persist($appointment);
+
+        return $appointment;
+    }
+
+    private function createConversation(Appointment $appointment): void
+    {
+        $doctor = $appointment->getDoctor()->getDoctor();
+        $title = sprintf(
+            '%s %s. i lek. %s %s.',
+            $this->patient->getFirstName(),
+            substr($this->patient->getLastName(), 0, 1),
+            $doctor->getFirstName(),
+            substr($doctor->getLastName(), 0, 1),
+        );
+        $conversation = (new Conversation())
+            ->setPatient($this->patient->getPatientData())
+            ->setDoctor($appointment->getDoctor())
+            ->setTitle($title)
+            ->setChannelId($appointment->getChecksum());
+
+        $this->entityManager->persist($conversation);
+    }
+
+    private function isExistingConversation(Appointment $appointment): bool
+    {
+        return (bool)$this->entityManager->getRepository(Conversation::class)->findOneBy([
+            'patient' => $appointment->getPatient(),
+            'doctor' => $appointment->getDoctor(),
+        ]);
+    }
+
+    private function successfulFormAction(FormInterface $form): void
+    {
+        $appointment = $this->createAppointment($form->getData());
         $this->entityManager->flush();
+        if (!$this->isExistingConversation($appointment)) {
+            $this->createConversation($appointment);
+            $this->entityManager->flush();
+        }
     }
 
     /**
