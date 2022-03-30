@@ -63,7 +63,7 @@ export default {
         ),
         new DashboardFunctionModel(
           'Ustawienia',
-          this.$fosGenerate('front.patient.setting'),
+          this.$fosGenerate('front.patient.settings'),
           '/images/patient-dashboard/settings.png',
         ),
       ];
