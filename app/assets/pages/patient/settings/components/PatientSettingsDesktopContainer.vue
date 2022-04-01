@@ -14,6 +14,8 @@
         header="Ustawienia"
         text="Poniższy formularz udostępnia możliwość edycji danych dotyczących konta w systemie"
       />
+
+      <patient-settings-form />
     </v-container>
   </div>
 </template>
@@ -21,10 +23,11 @@
 <script>
 import AppBackground from '../../../../shared/components/AppBackground';
 import RouteScreen from '../../../../shared/components/RouteScreen';
+import PatientSettingsForm from './PatientSettingsForm';
 
 export default {
   name: 'PatientSettingsDesktopContainer',
-  components: { RouteScreen, AppBackground },
+  components: { PatientSettingsForm, RouteScreen, AppBackground },
   props: {
     navbarHeight: {
       type: Number,

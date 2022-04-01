@@ -1,27 +1,26 @@
 <?php
 
-namespace App\Service\Doctor;
+namespace App\Service\Settings;
 
-use App\Entity\DoctorData;
-use App\Entity\MedicalSpecialty;
 use App\Entity\User;
-use App\Form\Settings\DoctorSettingsFormType;
+use App\Form\Settings\UserSettingsFormType;
 use App\Service\FormErrorService;
 use Doctrine\ORM\EntityManagerInterface;
 use GuzzleHttp\Utils;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Form\FormFactoryInterface;
-use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Security\Core\Security;
 
-class DoctorSettingsSaveService
+class UserSettingsSaveService
 {
     private const SUCCESS_KEY = 'success';
     private const ERRORS_KEY = 'errors';
+
+    protected static string $settingsFormType = UserSettingsFormType::class;
 
     private RequestStack $requestStack;
     private Request $request;
@@ -29,8 +28,9 @@ class DoctorSettingsSaveService
     private FormErrorService $formErrorService;
     private Security $security;
     private UserPasswordHasherInterface $passwordHasher;
-    private EntityManagerInterface $entityManager;
     private LoggerInterface $logger;
+
+    protected EntityManagerInterface $entityManager;
 
     private array $result = [
         self::SUCCESS_KEY => false,
@@ -85,76 +85,50 @@ class DoctorSettingsSaveService
         }
     }
 
-    private function getDoctor(): User
+    private function getUser(): User
     {
-        /** @var User $doctor */
-        $doctor = $this->security->getUser();
-        if (!$doctor) {
+        /** @var User $user */
+        $user = $this->security->getUser();
+        if (!$user) {
             throw new \RuntimeException(sprintf('User must be an instance of %s', User::class));
         }
 
-        return $doctor;
+        return $user;
     }
 
-    private function handleEmailSave(User $doctor, array $data): void
+    private function handleEmailSave(User $user, array $data): void
     {
         $email = $data['email'] ?? '';
         if ($email) {
-            $doctor->setEmail($email);
+            $user->setEmail($email);
         }
     }
 
-    private function handlePasswordSave(User $doctor, array $data): void
+    private function handlePasswordSave(User $user, array $data): void
     {
         $password = $data['password'] ?? '';
         if ($password) {
-            $hashedPassword = $this->passwordHasher->hashPassword($doctor, $password);
-            $doctor->setPassword($hashedPassword);
+            $hashedPassword = $this->passwordHasher->hashPassword($user, $password);
+            $user->setPassword($hashedPassword);
         }
     }
 
-    private function handleMedicalSpecialtySave(User $doctor, array $data): void
+    protected function populateUserData(User $user, array $data): void
     {
-        /** @var MedicalSpecialty $medicalSpecialty */
-        $medicalSpecialty = $data['medicalSpecialty'] ?? null;
-        if ($medicalSpecialty) {
-            /** @var DoctorData $doctorData */
-            $doctorData = $doctor->getDoctorData();
-            $doctorData->setMedicalSpecialty($medicalSpecialty);
-            $this->entityManager->persist($doctorData);
-        }
-    }
-
-    private function handleWorkingTimeSave(User $doctor, array $data): void
-    {
-        $workingTime = $data['workingTime'] ?? null;
-        if ($workingTime) {
-            /** @var DoctorData $doctorData */
-            $doctorData = $doctor->getDoctorData();
-            $doctorData->setWorkingTime($workingTime);
-            $this->entityManager->persist($doctorData);
-        }
-    }
-
-    private function handleDoctorDataSave(FormInterface $form): void
-    {
-        $doctor = $this->getDoctor();
-        $data = $form->getData();
-        $this->handleEmailSave($doctor, $data);
-        $this->handlePasswordSave($doctor, $data);
-        $this->handleMedicalSpecialtySave($doctor, $data);
-        $this->handleWorkingTimeSave($doctor, $data);
-        $this->entityManager->persist($doctor);
-        $this->entityManager->flush();
+        $this->handleEmailSave($user, $data);
+        $this->handlePasswordSave($user, $data);
     }
 
     private function handleForm(): void
     {
-        $form = $this->formFactory->create(DoctorSettingsFormType::class)->submit(
+        $form = $this->formFactory->create(static::$settingsFormType)->submit(
             Utils::jsonDecode($this->request->getContent(), true)
         );
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->handleDoctorDataSave($form);
+            $user = $this->getUser();
+            $this->populateUserData($user, $form->getData());
+            $this->entityManager->persist($user);
+            $this->entityManager->flush();
             $this->result[self::SUCCESS_KEY] = true;
         } else {
             $this->result[self::ERRORS_KEY] = $this->formErrorService->getArray($form);

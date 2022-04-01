@@ -26,8 +26,8 @@
 <script>
 import axios from 'axios';
 import { merge } from 'lodash';
-import SettingsModel from '../models/SettingsModel';
-import GeneralSettingsPart from './FormParts/GeneralSettingsPart';
+import DoctorSettingsModel from '../models/DoctorSettingsModel';
+import GeneralSettingsPart from '../../../../shared/components/Parts/GeneralSettingsPart';
 import ProfessionalSettingsPart from './FormParts/ProfessionalSettingsPart';
 import SendFormPart from './FormParts/SendFormPart';
 
@@ -35,7 +35,7 @@ export default {
   name: 'DoctorSettingsForm',
   components: { ProfessionalSettingsPart, GeneralSettingsPart, SendFormPart },
   data: () => ({
-    settings: new SettingsModel(),
+    settings: new DoctorSettingsModel(),
   }),
   methods: {
     handleSettingsChange(settings) {

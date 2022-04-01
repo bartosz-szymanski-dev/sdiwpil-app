@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Controller\Doctor\Settings;
+namespace App\Controller\Patient\Settings;
 
-use App\Service\Settings\DoctorSettingsSaveService;
+use App\Service\Settings\UserSettingsSaveService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
@@ -11,14 +11,14 @@ class SaveController extends AbstractController
 {
     /**
      * @Route(
-     *     "/doctor/settings/save",
-     *     name="front.doctor.settings.save",
+     *     "/patient/settings/save",
+     *     name="front.patient.settings.save",
      *     methods={"POST"},
      * )
-     * @param DoctorSettingsSaveService $saveService
+     * @param UserSettingsSaveService $saveService
      * @return JsonResponse
      */
-    public function index(DoctorSettingsSaveService $saveService): JsonResponse
+    public function index(UserSettingsSaveService $saveService): JsonResponse
     {
         return $saveService->getJsonResponse();
     }

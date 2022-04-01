@@ -39,7 +39,7 @@ import { validationMixin } from 'vuelidate';
 import {
   email, maxLength, minLength, required, sameAs,
 } from 'vuelidate/lib/validators';
-import vuelidateErrors from '../../../../../mixins/vuelidateErrors';
+import vuelidateErrors from '../../../mixins/vuelidateErrors';
 
 export default {
   name: 'GeneralSettingsPart',

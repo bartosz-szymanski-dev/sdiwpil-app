@@ -7,7 +7,7 @@ use App\Form\Settings\WorkingTime\WorkingTimeFormType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class DoctorSettingsFormType extends AbstractSettingsFormType
+class DoctorSettingsFormType extends UserSettingsFormType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {

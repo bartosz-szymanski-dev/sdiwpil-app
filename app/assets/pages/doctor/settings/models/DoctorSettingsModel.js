@@ -1,22 +1,18 @@
 import WorkingTimeModel from './WorkingTimeModel';
+import UserSettingsModel from '../../../../shared/models/UserSettingsModel';
 
-class SettingsModel {
+class DoctorSettingsModel extends UserSettingsModel {
   constructor(
     {
-      email = '',
-      password = {
-        first: '',
-        second: '',
-      },
       medicalSpecialty = '',
       workingTime = new WorkingTimeModel(),
     } = {},
   ) {
-    this.email = email;
-    this.password = password;
+    super();
+
     this.medicalSpecialty = medicalSpecialty;
     this.workingTime = workingTime;
   }
 }
 
-export default SettingsModel;
+export default DoctorSettingsModel;
