@@ -2,7 +2,7 @@
 
 namespace App\Controller\Patient\Chat;
 
-use App\Entity\Appointment;
+use App\Entity\Conversation;
 use Doctrine\ORM\EntityManagerInterface;
 use GuzzleHttp\Utils;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -20,25 +20,25 @@ class ParticularViewController extends AbstractController
 
     /**
      * @Route(
-     *     "/patient/chat/{appointmentId}/{hash}",
+     *     "/patient/chat/{channelId}",
      *     name="front.patient.chat.particular",
-     *     requirements={"appointmentId"="\d+", "hash"="\w+"},
+     *     requirements={"channelId"="\w+"},
      * )
      */
-    public function index(int $appointmentId, string $hash): Response
+    public function index(string $channelId): Response
     {
-        $this->check($appointmentId, $hash);
+        $this->check($channelId);
 
         return $this->render('patient/particular_chat.html.twig', [
             'state' => Utils::jsonEncode([]),
         ]);
     }
 
-    private function check(int $id, string $hash): void
+    private function check(string $channelId): void
     {
-        /** @var Appointment $appointment */
-        $appointment = $this->entityManager->getRepository(Appointment::class)->find($id);
-        if (!$appointment || $appointment->getChecksum() !== $hash) {
+        $conversation = $this->entityManager->getRepository(Conversation::class)
+            ->findOneBy(['channelId' => $channelId]);
+        if (!$conversation) {
             throw $this->createNotFoundException();
         }
     }

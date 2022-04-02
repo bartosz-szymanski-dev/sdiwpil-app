@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <v-app class="chat--bg">
     <app-navbar ref="navbar" />
 
     <vue-snotify />
@@ -37,6 +37,12 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+@import 'assets/styles/colors';
 
+.chat {
+  &--bg {
+    background-color: rgba($primary, 0.2);
+  }
+}
 </style>

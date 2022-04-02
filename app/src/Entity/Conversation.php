@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass=ConversationRepository::class)
  */
-class Conversation
+class Conversation extends AbstractEntity
 {
     /**
      * @ORM\Id
@@ -48,6 +48,8 @@ class Conversation
 
     public function __construct()
     {
+        parent::__construct();
+
         $this->messages = new ArrayCollection();
     }
 
@@ -130,5 +132,21 @@ class Conversation
         }
 
         return $this;
+    }
+
+    public function toArray(): array
+    {
+        $format = '%s %s';
+        $patient = $this->patient->getPatient();
+        $doctor = $this->doctor->getDoctor();
+
+        return [
+            'id' => $this->id,
+            'title' => $this->title,
+            'patient' => sprintf($format, $patient->getFirstName(), $patient->getLastName()),
+            'doctor' => sprintf($format, $doctor->getFirstName(), $doctor->getLastName()),
+            'channelId' => $this->channelId,
+            'createdAt' => $this->createdAt->format('d.m.Y H:i'),
+        ];
     }
 }

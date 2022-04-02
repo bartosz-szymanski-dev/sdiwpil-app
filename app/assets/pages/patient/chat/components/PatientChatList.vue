@@ -9,6 +9,7 @@
       'items-per-page-options': rowsPerPageItems,
       'page-text': '{0}-{1} z {2}',
     }"
+    @click:row="goToParticularChat"
   >
     <template #top>
       <v-toolbar flat>
@@ -19,6 +20,8 @@
 </template>
 
 <script>
+import { get } from 'lodash';
+
 export default {
   name: 'PatientChatList',
   data: () => ({
@@ -46,6 +49,17 @@ export default {
     },
     rowsPerPageItems: [25, 50, 100, 250],
   }),
+  mounted() {
+    this.setChats();
+  },
+  methods: {
+    setChats() {
+      this.chats = get(window, 'state.chats', []);
+    },
+    goToParticularChat(chat) {
+      window.location.href = this.$fosGenerate('front.patient.chat.particular', { channelId: chat.channelId });
+    },
+  },
 };
 </script>
 

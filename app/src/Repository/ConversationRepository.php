@@ -3,8 +3,11 @@
 namespace App\Repository;
 
 use App\Entity\Conversation;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Persistence\ManagerRegistry;
+use function Doctrine\ORM\QueryBuilder;
 
 /**
  * @method Conversation|null find($id, $lockMode = null, $lockVersion = null)
@@ -19,32 +22,20 @@ class ConversationRepository extends ServiceEntityRepository
         parent::__construct($registry, Conversation::class);
     }
 
-    // /**
-    //  * @return Conversation[] Returns an array of Conversation objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function getPaginatedConversations(User $user, int $min, int $max): Paginator
     {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('c.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+        $qb = $this->createQueryBuilder('c');
+        $query = $qb
+            ->where($qb->expr()->eq('c.patient', ':patient'))
+            ->orWhere($qb->expr()->eq('c.doctor', ':doctor'))
+            ->setParameters([
+                'patient' => $user->getPatientData(),
+                'doctor' => $user->getDoctorData(),
+            ])
+            ->setFirstResult($min)
+            ->setMaxResults($max)
+            ->getQuery();
 
-    /*
-    public function findOneBySomeField($value): ?Conversation
-    {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        return new Paginator($query);
     }
-    */
 }
