@@ -9,7 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class ViewController extends AbstractController
+class ParticularViewController extends AbstractController
 {
     private EntityManagerInterface $entityManager;
 
@@ -21,7 +21,7 @@ class ViewController extends AbstractController
     /**
      * @Route(
      *     "/patient/chat/{appointmentId}/{hash}",
-     *     name="front.patient.chat",
+     *     name="front.patient.chat.particular",
      *     requirements={"appointmentId"="\d+", "hash"="\w+"},
      * )
      */
@@ -29,7 +29,7 @@ class ViewController extends AbstractController
     {
         $this->check($appointmentId, $hash);
 
-        return $this->render('patient/chat.html.twig', [
+        return $this->render('patient/particular_chat.html.twig', [
             'state' => Utils::jsonEncode([]),
         ]);
     }

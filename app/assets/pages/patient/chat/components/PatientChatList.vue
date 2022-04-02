@@ -1,0 +1,54 @@
+<template>
+  <v-data-table
+    :headers="headers"
+    :items="chats"
+    no-data-text="Dla twojego konta nie zostały jeszcze utworzone żadne czaty"
+    :options.sync="options"
+    :footer-props="{
+      'items-per-page-text': 'Ilość wierszy na stronie',
+      'items-per-page-options': rowsPerPageItems,
+      'page-text': '{0}-{1} z {2}',
+    }"
+  >
+    <template #top>
+      <v-toolbar flat>
+        <v-toolbar-title>Dostępne czaty</v-toolbar-title>
+      </v-toolbar>
+    </template>
+  </v-data-table>
+</template>
+
+<script>
+export default {
+  name: 'PatientChatList',
+  data: () => ({
+    headers: [
+      {
+        text: 'Lekarz',
+        sortable: false,
+        value: 'doctor',
+      },
+      {
+        text: 'Czas ostatniej wiadomości',
+        sortable: false,
+        value: 'lastMessageDate',
+      },
+      {
+        text: 'Data utworzenia konwersacji',
+        sortable: false,
+        value: 'createdAt',
+      },
+    ],
+    chats: [],
+    options: {
+      itemsPerPage: 25,
+      page: 1,
+    },
+    rowsPerPageItems: [25, 50, 100, 250],
+  }),
+};
+</script>
+
+<style scoped>
+
+</style>
