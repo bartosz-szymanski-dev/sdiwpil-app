@@ -30,14 +30,16 @@ class ParticularViewController extends AbstractController
     public function index(string $channelId): Response
     {
         $this->setConversation($channelId);
-
         $doctor = $this->conversation->getDoctor()->getDoctor();
+        $header = sprintf('Czat z lek. %s %s', $doctor->getFirstName(), $doctor->getLastName());
 
         return $this->render('patient/particular_chat.html.twig', [
-            'pageTitle' => sprintf('Czat z lek. %s %s', $doctor->getFirstName(), $doctor->getLastName()),
+            'pageTitle' => $header,
             'state' => Utils::jsonEncode([
                 'messages' => $this->getFrontEndMessages(),
-                'channelId' => $channelId,
+                'conversation' => $this->conversation->getId(),
+                'userId' => $this->getUser()->getId(),
+                'routeScreenHeader' => $header,
             ]),
         ]);
     }
