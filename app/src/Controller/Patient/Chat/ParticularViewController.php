@@ -13,6 +13,8 @@ class ParticularViewController extends AbstractController
 {
     private EntityManagerInterface $entityManager;
 
+    private Conversation $conversation;
+
     public function __construct(EntityManagerInterface $entityManager)
     {
         $this->entityManager = $entityManager;
@@ -27,19 +29,36 @@ class ParticularViewController extends AbstractController
      */
     public function index(string $channelId): Response
     {
-        $this->check($channelId);
+        $this->setConversation($channelId);
+
+        $doctor = $this->conversation->getDoctor()->getDoctor();
 
         return $this->render('patient/particular_chat.html.twig', [
-            'state' => Utils::jsonEncode([]),
+            'pageTitle' => sprintf('Czat z lek. %s %s', $doctor->getFirstName(), $doctor->getLastName()),
+            'state' => Utils::jsonEncode([
+                'messages' => $this->getFrontEndMessages(),
+                'channelId' => $channelId,
+            ]),
         ]);
     }
 
-    private function check(string $channelId): void
+    private function setConversation(string $channelId): void
     {
         $conversation = $this->entityManager->getRepository(Conversation::class)
             ->findOneBy(['channelId' => $channelId]);
         if (!$conversation) {
             throw $this->createNotFoundException();
         }
+
+        $this->conversation = $conversation;
+    }
+
+    private function getFrontEndMessages(): array
+    {
+        foreach ($this->conversation->getMessages() as $message) {
+            $result[] = $message->toArray();
+        }
+
+        return $result ?? [];
     }
 }

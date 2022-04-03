@@ -74,4 +74,13 @@ class Message extends AbstractEntity
 
         return $this;
     }
+
+    public function toArray(): array
+    {
+        return [
+            'id' => $this->id,
+            'content' => $this->content,
+            'sender' => $this->sender->getId(),
+        ];
+    }
 }
