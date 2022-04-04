@@ -9,6 +9,7 @@
 /app/config/secrets/prod/prod.decrypt.private.php
 /app/public/bundles/
 /app/public/js/
+/app/public/wss/node_modules/
 /app/var/
 /app/vendor/
 /app/node_modules/

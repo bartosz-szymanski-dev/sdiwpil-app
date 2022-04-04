@@ -39,7 +39,7 @@ class Message extends AbstractEntity
         return $this->id;
     }
 
-    public function getConversation(): ?Conversation
+    public function getConversation(): Conversation
     {
         return $this->conversation;
     }

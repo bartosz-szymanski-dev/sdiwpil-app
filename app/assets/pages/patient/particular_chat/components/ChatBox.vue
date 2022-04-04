@@ -64,6 +64,7 @@ export default {
     this.setUserId();
     this.setMessages();
     this.setConversation();
+    socket.on('message', this.setMessageFromWss);
   },
   methods: {
     setUserId() {
@@ -94,6 +95,11 @@ export default {
 
       socket.emit('message', message);
       this.messageContent = '';
+    },
+    setMessageFromWss(message) {
+      if (this.conversation === message.conversation) {
+        this.messages.push(message);
+      }
     },
   },
 };

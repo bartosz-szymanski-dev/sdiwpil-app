@@ -57,7 +57,10 @@ class MessageNewService extends RequestService
     private function saveMessages(array $messages): void
     {
         foreach ($messages as $message) {
+            $conversation = $message->getConversation();
+            $conversation->addMessage($message);
             $this->entityManager->persist($message);
+            $this->entityManager->persist($conversation);
         }
 
         $this->entityManager->flush();
