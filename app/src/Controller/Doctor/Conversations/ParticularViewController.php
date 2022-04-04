@@ -1,24 +1,24 @@
 <?php
 
-namespace App\Controller\Patient\Chat;
+namespace App\Controller\Doctor\Conversations;
 
 use App\Controller\AbstractParticularConversationController;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/patient")
+ * @Route("/doctor")
  */
 class ParticularViewController extends AbstractParticularConversationController
 {
     protected function getHeader(): string
     {
-        $doctor = $this->conversation->getDoctor()->getDoctor();
-
-        return sprintf('Czat z lek. %s %s', $doctor->getFirstName(), $doctor->getLastName());
+        // TODO: Implement getHeader() method.
+        return '';
     }
 
     protected function getTemplatePath(): string
     {
-        return 'patient/particular_chat.html.twig';
+        // TODO: Implement getTemplatePath() method.
+        return '';
     }
 }

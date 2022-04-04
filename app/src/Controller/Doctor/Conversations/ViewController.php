@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Controller\Doctor\Chats;
+namespace App\Controller\Doctor\Conversations;
 
+use App\Service\Conversation\ConversationService;
 use GuzzleHttp\Utils;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -12,10 +13,12 @@ class ViewController extends AbstractController
     /**
      * @Route("/doctor/chats", name="front.doctor.chats")
      */
-    public function index(): Response
+    public function index(ConversationService $conversationService): Response
     {
         return $this->render('doctor/chats.html.twig', [
-            'state' => Utils::jsonEncode([]),
+            'state' => Utils::jsonEncode([
+                'conversations' => $conversationService->getConversations(),
+            ]),
         ]);
     }
 }
