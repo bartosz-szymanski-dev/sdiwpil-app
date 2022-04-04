@@ -2,7 +2,8 @@
 
 namespace App\Service\Message;
 
-use App\Form\MessageType;
+use App\Entity\Message;
+use App\Form\Message\MessageBulkType;
 use App\Service\FormErrorService;
 use App\Service\RequestService;
 use Doctrine\ORM\EntityManagerInterface;
@@ -47,17 +48,30 @@ class MessageNewService extends RequestService
     {
         $this->processValidation();
 
-        return new JsonResponse();
+        return new JsonResponse($this->result);
+    }
+
+    /**
+     * @param Message[] $messages
+     */
+    private function saveMessages(array $messages): void
+    {
+        foreach ($messages as $message) {
+            $this->entityManager->persist($message);
+        }
+
+        $this->entityManager->flush();
     }
 
     private function processValidation(): void
     {
         try {
-            $form = $this->formFactory->create(MessageType::class)->submit(
+            $form = $this->formFactory->create(MessageBulkType::class)->submit(
                 Utils::jsonDecode($this->request->getContent(), true)
             );
             if ($form->isValid()) {
-                // TODO: handle valid form
+                $this->saveMessages($form->get(MessageBulkType::MESSAGES)->getData());
+                $this->result[self::SUCCESS] = true;
             } else {
                 $this->result[self::ERRORS] = $this->formErrorService->getArray($form);
             }

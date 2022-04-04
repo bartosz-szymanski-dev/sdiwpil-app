@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Form;
+namespace App\Form\Message;
 
 use App\Entity\Conversation;
 use App\Entity\Message;
@@ -35,7 +35,6 @@ class MessageType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Message::class,
-            'csrf_protection' => false,
         ]);
     }
 }
