@@ -28,7 +28,7 @@
 import AppBackground from '../../../../shared/components/AppBackground';
 import RouteScreen from '../../../../shared/components/RouteScreen';
 import chatRouteScreenHeaderMixin from '../mixins/chatRouteScreenHeaderMixin';
-import ChatBox from './ChatBox';
+import ChatBox from '../../../../shared/components/Chat/ChatBox';
 
 export default {
   name: 'DesktopContainer',
