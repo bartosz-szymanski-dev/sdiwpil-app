@@ -120,6 +120,8 @@ export default {
 
     &--text {
       flex-grow: 1;
+      max-height: 400px;
+      overflow-y: auto;
     }
 
     &--message {
