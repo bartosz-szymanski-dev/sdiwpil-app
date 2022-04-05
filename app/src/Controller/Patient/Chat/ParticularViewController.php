@@ -3,13 +3,25 @@
 namespace App\Controller\Patient\Chat;
 
 use App\Controller\AbstractParticularConversationController;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * @Route("/patient")
- */
 class ParticularViewController extends AbstractParticularConversationController
 {
+    /**
+     * @Route(
+     *     "/patient/chat/{channelId}",
+     *     name="front.patient.chat.particular",
+     *     requirements={"channelId"="\w+"},
+     * )
+     */
+    public function index(string $channelId): Response
+    {
+        $this->setConversation($channelId);
+
+        return $this->render($this->getTemplatePath(), $this->getState());
+    }
+
     protected function getHeader(): string
     {
         $doctor = $this->conversation->getDoctor()->getDoctor();

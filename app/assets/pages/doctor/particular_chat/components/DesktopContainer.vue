@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-container fluid>
-      <app-background />
+      <app-background color-schema="doctor" />
     </v-container>
 
     <v-container
@@ -12,7 +12,7 @@
     >
       <route-screen
         :header="routeScreenHeader"
-        text="Poprzez poniższe okienko czatu możesz wysłać wiadomości w czasie rzeczywistym do swojego lekarza."
+        text="Poprzez poniższe okienko czatu możesz wysyłać wiadomości w czasie rzeczywistym do pacjenta."
       />
 
       <v-row>

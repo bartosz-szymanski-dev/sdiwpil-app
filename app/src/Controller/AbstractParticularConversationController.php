@@ -7,7 +7,6 @@ use Doctrine\ORM\EntityManagerInterface;
 use GuzzleHttp\Utils;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
 
 abstract class AbstractParticularConversationController extends AbstractController
 {
@@ -15,26 +14,13 @@ abstract class AbstractParticularConversationController extends AbstractControll
 
     private EntityManagerInterface $entityManager;
 
+    abstract public function index(string $channelId): Response;
     abstract protected function getHeader(): string;
     abstract protected function getTemplatePath(): string;
 
     public function __construct(EntityManagerInterface $entityManager)
     {
         $this->entityManager = $entityManager;
-    }
-
-    /**
-     * @Route(
-     *     "/chat/{channelId}",
-     *     name="front.patient.chat.particular",
-     *     requirements={"channelId"="\w+"},
-     * )
-     */
-    public function index(string $channelId): Response
-    {
-        $this->setConversation($channelId);
-
-        return $this->render($this->getTemplatePath(), $this->getState());
     }
 
     protected function setConversation(string $channelId): void

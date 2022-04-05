@@ -5,11 +5,11 @@
       minHeight: `calc(100vh - ${footerHeight}px)`,
     }"
   >
-    <app-background />
+    <app-background color-schema="doctor" />
 
     <route-screen
       :header="routeScreenHeader"
-      text="Poprzez poniższe okienko czatu możesz wysłać wiadomości w czasie rzeczywistym do swojego lekarza."
+      text="Poprzez poniższe okienko czatu możesz wysyłać wiadomości w czasie rzeczywistym do pacjenta."
     />
 
     <chat-box />
@@ -24,7 +24,7 @@ import ChatBox from '../../../../shared/components/Chat/ChatBox';
 
 export default {
   name: 'MobileContainer',
-  components: { ChatBox, AppBackground, RouteScreen },
+  components: { ChatBox, RouteScreen, AppBackground },
   mixins: [chatRouteScreenHeaderMixin],
   props: {
     navbarHeight: {
