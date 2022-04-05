@@ -21,7 +21,6 @@
 
     <app-footer
       ref="footer"
-      color-schema="doctor"
     />
   </v-app>
 </template>

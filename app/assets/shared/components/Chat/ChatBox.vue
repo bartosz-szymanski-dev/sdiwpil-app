@@ -4,7 +4,10 @@
     elevation="3"
     outlined
   >
-    <v-card-text class="chat-box--text">
+    <v-card-text
+      ref="messagesBox"
+      class="chat-box--text"
+    >
       <chat-message
         v-for="({content, sender}, i) in messages"
         :key="i"
@@ -65,6 +68,7 @@ export default {
     this.setMessages();
     this.setConversation();
     socket.on('message', this.setMessageFromWss);
+    this.$nextTick(() => this.scrollMessagesBoxToBottom());
   },
   methods: {
     setUserId() {
@@ -99,7 +103,16 @@ export default {
     setMessageFromWss(message) {
       if (this.conversation === message.conversation) {
         this.messages.push(message);
+        this.scrollMessagesBoxToBottom();
       }
+    },
+    scrollMessagesBoxToBottom() {
+      const { messagesBox } = this.$refs;
+      if (!messagesBox) {
+        return;
+      }
+
+      messagesBox.scroll({ top: messagesBox.scrollHeight });
     },
   },
 };
