@@ -17,3 +17,8 @@
 /app/npm-debug.log
 /app/yarn-error.log
 ###< symfony/framework-bundle ###
+
+###> phpunit/phpunit ###
+/app/phpunit.xml
+.phpunit.result.cache
+###< phpunit/phpunit ###
