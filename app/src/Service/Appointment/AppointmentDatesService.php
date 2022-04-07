@@ -26,7 +26,7 @@ class AppointmentDatesService
     public function getResult(DoctorData $doctorData): array
     {
         $this->doctorData = $doctorData;
-        $this->setAppointmentDatesForCurrentDay($doctorData->getWorkingTime());
+        $this->setAppointmentDatesForCurrentDay($doctorData->getWorkingTime() ?? []);
 
         return $this->result;
     }
@@ -120,6 +120,10 @@ class AppointmentDatesService
 
     private function setAppointmentDatesForCurrentDay(array $workingTime): void
     {
+        if (empty($workingTime)) {
+            return;
+        }
+
         for ($now = $this->getNow(); $now < Carbon::now()->addMonth(); $now->addMinutes(30)) {
             $textualRepresentationOfCurrentDay = strtolower($now->format(
                 self::TEXTUAL_DAY_REPRESENTATION_FORMAT

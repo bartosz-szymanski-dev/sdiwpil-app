@@ -77,10 +77,10 @@ class FindAppointmentDatesService
             $this->result[self::ERRORS_KEY][] = [
                 'message' => 'Przepraszamy, nie znaleziono propozycji daty wizyty...',
             ];
+        } else {
+            $this->result[self::SUCCESS_KEY] = true;
+            $this->result[self::APPOINTMENT_DATES_KEY] = $result;
         }
-
-        $this->result[self::SUCCESS_KEY] = true;
-        $this->result[self::APPOINTMENT_DATES_KEY] = $result;
     }
 
     private function handleValidForm(array $data): void
@@ -92,6 +92,8 @@ class FindAppointmentDatesService
             $this->result[self::ERRORS_KEY][] = [
                 'message' => 'Wybrany lekarz nie ustawił godzin pracy. Skontaktuj się z administracją w celu rozwiązania tego problemu'
             ];
+
+            return;
         }
 
         $this->setAppointmentDates($doctorData);
