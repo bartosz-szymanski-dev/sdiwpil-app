@@ -6,7 +6,6 @@ use Symfony\Component\Yaml\Yaml;
 
 require_once __DIR__ . '/src/FileHelper.php';
 require_once __DIR__ . '/src/DotEnvHelper.php';
-require_once __DIR__ . '/src/tasks/verify_branch.php';
 require_once 'recipe/common.php';
 
 task(
@@ -37,8 +36,6 @@ task('deploy:vendors', function () {
 task(
     'prepare',
     function () {
-        invoke('prepare:verify-branch');
-
         set('allow_anonymous_stats', false);
         set('ssh_type', 'native');
         set('ssh_multiplexing', true);
