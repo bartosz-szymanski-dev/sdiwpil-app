@@ -2,11 +2,9 @@
 
 namespace Deployer;
 
-use Symfony\Component\Yaml\Yaml;
-
 require_once __DIR__ . '/src/FileHelper.php';
 require_once __DIR__ . '/src/DotEnvHelper.php';
-require_once 'recipe/common.php';
+require 'recipe/common.php';
 
 task(
     'deploy',
@@ -19,9 +17,7 @@ task(
 
 // Symfony console opts
 set('console_options', function () {
-    $options = '--no-interaction --env={{symfony_env}}';
-
-    return get('symfony_env') !== 'prod' ? $options : sprintf('%s --no-debug', $options);
+    return '--no-interaction --env=prod';
 });
 
 task('deploy:vendors', function () {
@@ -29,7 +25,7 @@ task('deploy:vendors', function () {
         writeln('<comment>To speed up composer installation setup "unzip" command with PHP zip extension https://goo.gl/sxzFcD</comment>');
     }
 
-    run("cd {{release_path}} && wget https://getcomposer.org/download/latest-1.x/composer.phar -O composer.phar");
+    run("cd {{release_path}} && wget https://getcomposer.org/download/2.2.6/composer.phar -O composer.phar");
     run('cd {{release_path}} && {{bin/php}} composer.phar {{composer_options}} --no-cache');
 });
 
@@ -59,10 +55,7 @@ task(
             'shared_dirs' => [
                 'public/uploads',
                 'public/data',
-                'var/logs',
-                'var/translations',
-                'var/spool',
-                'var/sessions',
+                'var/log',
             ],
             'writable_dirs' => [
                 'var',
@@ -81,7 +74,6 @@ task(
             'server_name' => 'sdiwpil.online',
             'parameters' => [
                 'branch' => '{{branch}}',
-                'build_time' => '{{build_time}}',
                 'router.request_context.host' => '{{server_name}}',
                 'router.request_context.base_url' => '',
                 'asset.request_context.base_path' => '%router.request_context.base_url%',
@@ -105,33 +97,16 @@ task(
         $srcDir = parse('{{release_path}}/deploy/templates_env/' . $stage);
         $dstDir = parse('{{release_path}}');
         FileHelper::generateFiles($srcDir, $dstDir);
-
-        run('mkdir -p {{release_path}}/var/translations');
-
-        $tmpFilename = tempnam(sys_get_temp_dir(), 'parameters');
-        $parameters = get('parameters');
-        array_walk_recursive(
-            $parameters,
-            static function (&$item) {
-                if (is_scalar($item)) {
-                    $item = parse($item);
-                }
-            }
-        );
-        file_put_contents($tmpFilename, Yaml::dump(['parameters' => $parameters], 2));
-        upload($tmpFilename, '{{release_path}}/config/packages/parameters.yaml');
-        unlink($tmpFilename);
     }
 )
     ->desc('Generate files from templates');
 
 task('configure:database:migrate', function () {
-    run('{{bin/console}} doctrine:migrations:migrate --allow-no-migration');
+    run('{{bin/php}} {{bin/console}} doctrine:migrations:migrate --allow-no-migration');
 })
     ->desc('Database migrations');
 
 task('deploy:assets:install', function () {
-    run('{{bin/php}} {{bin/console}} ckeditor:install {{console_options}}');
     run('{{bin/php}} {{bin/console}} assets:install {{console_options}} {{release_path}}/public');
 })
     ->desc('Install bundle assets');
@@ -153,16 +128,12 @@ task('configure:database:cache_clear', function () {
 task('configure:webpack', function () {
     invoke('prepare');
 
-    run('{{bin/console}} fos:js-routing:dump --format=json --target={{release_path}}/public/js/fos_js_routes.json');
+    run('{{bin/php}} {{bin/console}} fos:js-routing:dump --format=json --target={{release_path}}/public/js/fos_js_routes.json');
 
-    run('cd {{release_path}} && {{bin/yarn}} install --production');
-    run('cd {{release_path}} && {{bin/npm}} run-script build', []);
+    run('cd {{release_path}} && {{bin/yarn}}');
+    run('cd {{release_path}} && {{bin/yarn}} build', []);
 })
     ->desc('Configure webpack');
-
-task('configure:translations', function () {
-    run('{{bin/php}} {{bin/console}} translation:db {{console_options}}');
-});
 
 /**
  * Clear Cache
@@ -180,22 +151,17 @@ task('configure:cache:warmup', function () {
 
 
 task('configure:dotenv', function () {
-    if (get('stage') !== 'dev') {
-        (new DotEnvHelper(parse('{{deploy_path}}/shared/.env')))->handleDifferences();
-    }
+//    if (get('stage') !== 'dev') {
+//        (new DotEnvHelper(parse('{{deploy_path}}/shared/.env')))->handleDifferences();
+//    }
 })
     ->desc('Handle differences in dotenv file');
 
-task('link:crontab:update', function () {
-    run('crontab {{release_path}}/etc/crontab.conf');
-})
-    ->desc('Update crontab');
-
 task('link:services:reload', function () {
-    run('sudo /usr/sbin/service php7.4-fpm reload');
+    run('sudo -S /usr/sbin/service php7.4-fpm reload');
 
-    run('cp {{release_path}}/etc/nginx.conf {{nginx_config_dst_filename}}');
-    run('sudo /usr/sbin/service nginx configtest && sudo /usr/sbin/service nginx reload');
+    run('sudo cp {{release_path}}/etc/nginx.conf {{nginx_config_dst_filename}}');
+    run('sudo nginx -t && sudo nginx -s reload');
 })
     ->desc('Update nginx');
 
@@ -236,7 +202,6 @@ task('configure', function () {
         'deploy:assetic:dump',
         'configure:dotenv',
         'configure:webpack',
-        'configure:translations',
         'configure:cache:clear',
         'configure:cache:warmup',
     ];
@@ -256,7 +221,6 @@ task('link', function () {
 
     $tasks = [
         'deploy:symlink',
-        'link:crontab:update',
         'link:services:reload',
         'deploy:unlock',
         'cleanup',
