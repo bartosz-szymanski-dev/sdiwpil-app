@@ -53,7 +53,7 @@ class FileHelper
         }
         $content = run(sprintf('cat "%s"', $srcFilename));
         $content = parse($content);
-        $command = sprintf('cat > "%s" << %s', $dstFilename, $content);
+        $command = sprintf('cat > "%s" << "%s"', $dstFilename, $content);
         run($command);
         if (is_null($mode)) {
             try {
