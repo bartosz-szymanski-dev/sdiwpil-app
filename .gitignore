@@ -3,22 +3,22 @@
 #.env
 
 ###> symfony/framework-bundle ###
-/app/.env.local
-/app/.env.local.php
-/app/.env.*.local
-/app/config/secrets/prod/prod.decrypt.private.php
-/app/public/bundles/
-/app/public/js/
-/app/public/wss/node_modules/
-/app/var/
-/app/vendor/
-/app/node_modules/
-/app/public/build/
-/app/npm-debug.log
-/app/yarn-error.log
+.env.local
+.env.local.php
+.env.*.local
+config/secrets/prod/prod.decrypt.private.php
+public/bundles/
+public/js/
+public/wss/node_modules/
+var/
+vendor/
+node_modules/
+public/build/
+npm-debug.log
+yarn-error.log
 ###< symfony/framework-bundle ###
 
 ###> phpunit/phpunit ###
-/app/phpunit.xml
+phpunit.xml
 .phpunit.result.cache
 ###< phpunit/phpunit ###
