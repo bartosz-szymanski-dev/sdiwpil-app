@@ -1,0 +1,30 @@
+# visudo -f /etc/sudoers.d/sdiwpil
+
+# Nginx Commands
+Cmnd_Alias NGINX_RESTART = /usr/sbin/service nginx restart
+Cmnd_Alias NGINX_RELOAD  = /usr/sbin/service nginx reload
+Cmnd_Alias NGINX_CONFIGTEST  = /usr/sbin/service nginx configtest
+
+# No-Password Commands
+sdiwpil ALL=NOPASSWD: NGINX_RESTART, NGINX_RELOAD, NGINX_CONFIGTEST
+
+# PHP Commands
+Cmnd_Alias PHP_RESTART = /usr/sbin/service php7.2-fpm restart
+Cmnd_Alias PHP_RELOAD  = /usr/sbin/service php7.2-fpm reload
+
+# No-Password Commands
+sdiwpil ALL=NOPASSWD: PHP_RESTART, PHP_RELOAD
+
+# PHP 7.4 Commands
+Cmnd_Alias PHP74_RESTART = /usr/sbin/service php7.4-fpm restart
+Cmnd_Alias PHP74_RELOAD  = /usr/sbin/service php7.4-fpm reload
+
+# No-Password Commands
+sdiwpil ALL=NOPASSWD: PHP74_RESTART, PHP74_RELOAD
+
+# MySQL
+Cmnd_Alias MYSQL_STOP  = /usr/sbin/service mysql stop
+Cmnd_Alias MYSQL_START  = /usr/sbin/service mysql start
+
+# No-Password Commands
+sdiwpil ALL=NOPASSWD: MYSQL_STOP, MYSQL_START

@@ -21,12 +21,19 @@ add('writable_dirs', []);
 
 // Hosts
 
-host('raspberry')
-    ->hostname('192.168.0.66')
+//host('raspberry')
+//    ->hostname('192.168.0.66')
+//    ->user('sdiwpil')
+//    ->identityFile('~/.ssh/id_rsa')
+//    ->addSshOption('IdentitiesOnly', 'yes')
+//    ->set('deploy_path', '/home/sdiwpil/www/app');
+
+host('vps')
+    ->hostname('146.59.17.120')
     ->user('sdiwpil')
     ->identityFile('~/.ssh/id_rsa')
     ->addSshOption('IdentitiesOnly', 'yes')
-    ->set('deploy_path', '/home/sdiwpil/www/app');
+    ->set('deploy_path', '/home/sdiwpil/www');
 
 // Tasks
 
