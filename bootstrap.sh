@@ -23,6 +23,9 @@ sudo apt-get update && sudo apt-get install yarn
 # ip and ports
 sudo apt-get install fail2ban
 sudo ufw allow ssh
+sudo ufw allow http
+sudo ufw allow https
+sudo ufw allow 3306
 sudo ufw enable
 sudo cp /etc/fail2ban/fail2ban.conf /etc/fail2ban/fail2ban.local
 sudo cp /etc/fail2ban/jail.conf /etc/fail2ban/jail.local
