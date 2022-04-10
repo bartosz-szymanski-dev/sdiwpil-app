@@ -235,6 +235,9 @@
             "tests/bootstrap.php"
         ]
     },
+    "picqer/php-barcode-generator": {
+        "version": "v2.2.1"
+    },
     "pimple/pimple": {
         "version": "v3.5.0"
     },
