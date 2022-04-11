@@ -3,10 +3,90 @@
 {% block body %}
     {% set barcode = get_random_barcode() %}
     <div style="padding: 5mm 5mm 0;">
-        <h1 class="b" style="font-size: 24px; padding-left: 5mm;">recepta</h1>
+        <h1
+                class="b"
+                style="font-size: 24px; padding-left: 5mm;"
+        >
+            recepta
+        </h1>
     </div>
     <div style="padding: 2mm 5mm 0;">
-        <img style="width: 100%; height: 10mm;" src="{{ barcode.file }}" alt="barcode" />
-        <p style="letter-spacing: .5px; font-size: 8.7px; margin-top: -2px;">{{ barcode.code }}</p>
+        <img
+                style="width: 100%; height: 10mm;"
+                src="{{ barcode.file }}"
+                alt="barcode"
+        />
+
+        <p
+                style="letter-spacing: .5px; font-size: 8.7px; margin-top: -2px;"
+        >
+            {{ barcode.code }}
+        </p>
+
+        <p
+                style="text-align: right; font-size: 9px; margin-top: -8px;"
+        >
+            Preifks ID {{ get_random_prefix_id() }}
+        </p>
+
+        <div>
+            <p class="b" style="display: inline-block; width: 50%; font-size: 12px; margin-bottom: 0;"><span class="b" style="font-weight: bold;">Kod dostępu</span> {{ get_random_access_code() }}</>
+
+            <p class="b" style="display: inline-block; width: 50%; font-size: 12px; text-align: right; margin-bottom: 0;"><span class="b" style="font-weight: bold;">Wystawiono</span> {{ get_random_date_in_past() }}</p>
+
+            <hr style="margin-top: -2px;" />
+        </div>
+
+        <table>
+
+            <tr>
+                <th style="width: 50%;"></th>
+
+                <th style="width: 50%;"></th>
+            </tr>
+
+            <tr style="margin-bottom: 5mm;">
+                <td class="b" style="padding-bottom: 5mm; font-weight: bold; font-size: 12px;">Pacjent</td>
+
+                <td style="padding-bottom: 5mm; font-size: 13px;">Jan Kowalski</td>
+            </tr>
+            <tr>
+                <td class="b" style="font-weight: bold; font-size: 12px; vertical-align: top;">Wystawca</td>
+
+                <td style="font-size: 13px;">
+                    <div>lek. Andrzej Szamotuła</div>
+                    <div>PWZ lekarza 2929296</div>
+                    <div>tel: 123123123 (rejestracja)</div>
+                </td>
+            </tr>
+        </table>
+
+        <hr />
+
+        <div style="margin-top: -20px;">
+            <p class="b" style="display: inline-block; width: 50%; font-size: 12px; margin-bottom: 0;"><span class="b" style="font-weight: bold;">Recepta 1 z 1</span></>
+
+            <p class="b" style="display: inline-block; width: 50%; font-size: 12px; text-align: right; margin-bottom: 0;">{{ get_random_prescription_id() }}</p>
+        </div>
+
+        <table>
+
+            <tr>
+                <th style="width: 80%;"></th>
+
+                <th style="width: 20%; text-align: right;"></th>
+            </tr>
+
+            <tr>
+                <td style="width: 80%; font-size: 13px;">
+                    <div>Elocom krem (1 mg/g)</div>
+                    <div>1 op. po 1 krem15g</div>
+                    <div>D.S. <span class="b" style="font-weight: bold;">smarować 2xdz</span></div>
+                    <div>Odpłatność <span class="b" style="font-weight: bold;">100%</span></div>
+                </td>
+
+                <td class="b" style="width: 20%; font-size: 12px; text-align: right; vertical-align: top;">| 100%</td>
+            </tr>
+        </table>
     </div>
 {% endblock %}

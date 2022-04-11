@@ -54,6 +54,11 @@ class Document extends AbstractEntity
      */
     private PatientData $patient;
 
+    /**
+     * @ORM\OneToOne(targetEntity=Prescription::class, mappedBy="document", cascade={"persist", "remove"})
+     */
+    private Prescription $prescription;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -119,6 +124,28 @@ class Document extends AbstractEntity
     public function setPatient(?PatientData $patient): self
     {
         $this->patient = $patient;
+
+        return $this;
+    }
+
+    public function getPrescription(): ?Prescription
+    {
+        return $this->prescription;
+    }
+
+    public function setPrescription(?Prescription $prescription): self
+    {
+        // unset the owning side of the relation if necessary
+        if ($prescription === null && $this->prescription !== null) {
+            $this->prescription->setDocument(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($prescription !== null && $prescription->getDocument() !== $this) {
+            $prescription->setDocument($this);
+        }
+
+        $this->prescription = $prescription;
 
         return $this;
     }
