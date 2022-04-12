@@ -28,16 +28,6 @@ class Document extends AbstractEntity
     private ?int $id;
 
     /**
-     * @ORM\Column(type="string", length=80)
-     */
-    private string $name;
-
-    /**
-     * @ORM\Column(type="blob")
-     */
-    private string $content;
-
-    /**
      * @ORM\Column(type="string", length=12)
      */
     private string $type;
@@ -56,36 +46,13 @@ class Document extends AbstractEntity
 
     /**
      * @ORM\OneToOne(targetEntity=Prescription::class, mappedBy="document", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=true)
      */
     private Prescription $prescription;
 
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getName(): ?string
-    {
-        return $this->name;
-    }
-
-    public function setName(string $name): self
-    {
-        $this->name = $name;
-
-        return $this;
-    }
-
-    public function getContent(): string
-    {
-        return $this->content;
-    }
-
-    public function setContent(string $content): self
-    {
-        $this->content = $content;
-
-        return $this;
     }
 
     public function getType(): ?string
