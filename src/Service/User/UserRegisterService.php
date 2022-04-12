@@ -57,6 +57,16 @@ class UserRegisterService
         $this->entityManager->persist($data);
     }
 
+    private function getPwzId(): string
+    {
+        $pwzId = random_int(1000000, 9999999);
+        while ($this->entityManager->getRepository(DoctorData::class)->findOneBy(['pwzId' => $pwzId])) {
+            $pwzId = random_int(1000000, 9999999);
+        }
+
+        return $pwzId;
+    }
+
     private function handleDoctorData(User $user, array $userData): void
     {
         /** @var Clinic $clinic */
@@ -64,7 +74,8 @@ class UserRegisterService
         $data = (new DoctorData())
             ->setDoctor($user)
             ->setClinic($clinic)
-            ->setMedicalSpecialty($userData['medicalSpecialty']);
+            ->setMedicalSpecialty($userData['medicalSpecialty'])
+            ->setPwzId($this->getPwzId());
         $clinic->addDoctor($data);
         $user->setDoctorData($data);
         $this->entityManager->persist($data);

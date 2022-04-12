@@ -56,6 +56,11 @@ class DoctorData extends AbstractEntity
      */
     private ?array $workingTime = [];
 
+    /**
+     * @ORM\Column(type="string", length=7, unique=true)
+     */
+    private string $pwzId;
+
     public function __construct()
     {
         parent::__construct();
@@ -206,6 +211,18 @@ class DoctorData extends AbstractEntity
     public function setWorkingTime(?array $workingTime): self
     {
         $this->workingTime = $workingTime;
+
+        return $this;
+    }
+
+    public function getPwzId(): ?string
+    {
+        return $this->pwzId;
+    }
+
+    public function setPwzId(string $pwzId): self
+    {
+        $this->pwzId = $pwzId;
 
         return $this;
     }
