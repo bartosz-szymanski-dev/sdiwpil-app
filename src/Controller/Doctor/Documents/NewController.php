@@ -2,6 +2,7 @@
 
 namespace App\Controller\Doctor\Documents;
 
+use App\Service\Document\CreateNewDocumentService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
@@ -15,8 +16,8 @@ class NewController extends AbstractController
      *     methods={"POST"},
      * )
      */
-    public function index(): JsonResponse
+    public function index(CreateNewDocumentService $newDocumentService): JsonResponse
     {
-        return new JsonResponse();
+        return $newDocumentService->getJsonResponse();
     }
 }
