@@ -53,7 +53,7 @@ class Document extends AbstractEntity
     private ?Prescription $prescription = null;
 
     /**
-     * @ORM\Column(type="string", length=32, nullable=false)
+     * @ORM\Column(type="string", length=32, nullable=false, unique=true)
      */
     private string $hash;
 

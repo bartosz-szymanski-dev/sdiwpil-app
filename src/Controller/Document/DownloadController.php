@@ -13,7 +13,7 @@ class DownloadController extends AbstractController
      * @Route(
      *     "/document/{hash}",
      *     name="front.document.generate",
-     *     requirements={"hash"="\w"},
+     *     requirements={"hash"="\w+"},
      * )
      */
     public function index(string $hash, PrintService $printService): Response

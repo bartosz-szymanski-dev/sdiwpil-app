@@ -1,7 +1,6 @@
 {% extends 'print/base.html.twig' %}
 
 {% block body %}
-    {% set barcode = get_random_barcode() %}
     <div style="padding: 5mm 5mm 0;">
         <h1
                 class="b"
@@ -26,13 +25,13 @@
         <p
                 style="text-align: right; font-size: 9px; margin-top: -8px;"
         >
-            Prefiks ID {{ get_random_prefix_id() }}
+            Prefiks ID {{ prefix_id }}
         </p>
 
         <div>
-            <p class="b" style="display: inline-block; width: 50%; font-size: 12px; margin-bottom: 0;"><span class="b" style="font-weight: bold;">Kod dostępu</span> {{ get_random_access_code() }}</>
+            <p class="b" style="display: inline-block; width: 50%; font-size: 12px; margin-bottom: 0;"><span class="b" style="font-weight: bold;">Kod dostępu</span> {{ access_code }}</>
 
-            <p class="b" style="display: inline-block; width: 50%; font-size: 12px; text-align: right; margin-bottom: 0;"><span class="b" style="font-weight: bold;">Wystawiono</span> {{ get_random_date_in_past() }}</p>
+            <p class="b" style="display: inline-block; width: 50%; font-size: 12px; text-align: right; margin-bottom: 0;"><span class="b" style="font-weight: bold;">Wystawiono</span> {{ created_at }}</p>
 
             <hr style="margin-top: -2px;" />
         </div>
@@ -48,15 +47,15 @@
             <tr style="margin-bottom: 5mm;">
                 <td class="b" style="padding-bottom: 5mm; font-weight: bold; font-size: 12px;">Pacjent</td>
 
-                <td style="padding-bottom: 5mm; font-size: 13px;">Jan Kowalski</td>
+                <td style="padding-bottom: 5mm; font-size: 13px;">{{ patient }}</td>
             </tr>
             <tr>
                 <td class="b" style="font-weight: bold; font-size: 12px; vertical-align: top;">Wystawca</td>
 
                 <td style="font-size: 13px;">
-                    <div>lek. Andrzej Szamotuła</div>
-                    <div>PWZ lekarza 2929296</div>
-                    <div>tel: 123123123 (rejestracja)</div>
+                    <div>lek. {{ doctor }}</div>
+                    <div>PWZ lekarza {{ doctor_pwz }}</div>
+                    <div>e-mail: {{ clinic_email }} (rejestracja)</div>
                 </td>
             </tr>
         </table>
@@ -66,7 +65,7 @@
         <div style="margin-top: -20px;">
             <p class="b" style="display: inline-block; width: 50%; font-size: 12px; margin-bottom: 0;"><span class="b" style="font-weight: bold;">Recepta 1 z 1</span></>
 
-            <p class="b" style="display: inline-block; width: 50%; font-size: 12px; text-align: right; margin-bottom: 0;">{{ get_random_prescription_id() }}</p>
+            <p class="b" style="display: inline-block; width: 50%; font-size: 12px; text-align: right; margin-bottom: 0;">{{ prescription_id }}</p>
         </div>
 
         <table>
@@ -79,13 +78,13 @@
 
             <tr>
                 <td style="width: 80%; font-size: 13px;">
-                    <div>Elocom krem (1 mg/g)</div>
-                    <div>1 op. po 1 krem15g</div>
-                    <div>D.S. <span class="b" style="font-weight: bold;">smarować 2xdz</span></div>
-                    <div>Odpłatność <span class="b" style="font-weight: bold;">100%</span></div>
+                    <div>{{ medicament_name }}</div>
+                    <div>{{ medicament_description }}</div>
+                    <div><span class="b" style="font-weight: bold;">{{ medicament_usage_description }}</span></div>
+                    <div>Odpłatność <span class="b" style="font-weight: bold;">{{ medicament_remission }}</span></div>
                 </td>
 
-                <td class="b" style="width: 20%; font-size: 12px; text-align: right; vertical-align: top;">| 100%</td>
+                <td class="b" style="width: 20%; font-size: 12px; text-align: right; vertical-align: top;">| {{ medicament_remission }}</td>
             </tr>
         </table>
     </div>
