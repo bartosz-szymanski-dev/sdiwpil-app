@@ -116,4 +116,19 @@ class Document extends AbstractEntity
 
         return $this;
     }
+
+    public function toArray(): array
+    {
+        $doctor = $this->doctor->getDoctor();
+        $patient = $this->patient->getPatient();
+
+        return [
+            'id' => $this->id,
+            'type' => $this->type,
+            'doctor' => $doctor->getFirstName() . ' ' . $doctor->getLastName(),
+            'patient' => $patient->getFirstName() . ' ' . $patient->getLastName(),
+            'prescription' => $this->prescription->toArray(),
+
+        ];
+    }
 }

@@ -9,7 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass=PrescriptionRepository::class)
  */
-class Prescription
+class Prescription extends AbstractEntity
 {
     /**
      * @ORM\Id
@@ -32,11 +32,6 @@ class Prescription
      * @ORM\Column(type="string", length=4)
      */
     private string $accessCode;
-
-    /**
-     * @ORM\Column(type="datetime_immutable")
-     */
-    private DateTimeImmutable $createdAt;
 
     /**
      * @ORM\Column(type="string", length=22)
@@ -105,18 +100,6 @@ class Prescription
     public function setAccessCode(string $accessCode): self
     {
         $this->accessCode = $accessCode;
-
-        return $this;
-    }
-
-    public function getCreatedAt(): ?DateTimeImmutable
-    {
-        return $this->createdAt;
-    }
-
-    public function setCreatedAt(DateTimeImmutable $createdAt): self
-    {
-        $this->createdAt = $createdAt;
 
         return $this;
     }
@@ -191,5 +174,20 @@ class Prescription
         $this->document = $document;
 
         return $this;
+    }
+
+    public function toArray(): array
+    {
+        $timeFormat = 'd.m.Y H:i';
+
+        return [
+            'id' => $this->id,
+            'medicamentName' => $this->medicamentName,
+            'medicamentDescription' => $this->medicamentDescription,
+            'medicamentUsageDescription' => $this->medicamentUsageDescription,
+            'medicamentRemission' => $this->medicamentRemission,
+            'createdAt' => $this->createdAt->format($timeFormat),
+            'updatedAt' => $this->updatedAt->format($timeFormat),
+        ];
     }
 }

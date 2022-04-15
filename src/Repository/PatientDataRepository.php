@@ -2,9 +2,11 @@
 
 namespace App\Repository;
 
+use App\Entity\DoctorData;
 use App\Entity\PatientData;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use function Doctrine\ORM\QueryBuilder;
 
 /**
  * @method PatientData|null find($id, $lockMode = null, $lockVersion = null)
@@ -19,32 +21,14 @@ class PatientDataRepository extends ServiceEntityRepository
         parent::__construct($registry, PatientData::class);
     }
 
-    // /**
-    //  * @return PatientData[] Returns an array of PatientData objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function findPatientsDataByDoctorDataInAppointment(DoctorData $doctor)
     {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('p.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+        $qb = $this->createQueryBuilder('pd');
 
-    /*
-    public function findOneBySomeField($value): ?PatientData
-    {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
+        return $qb->join('pd.appointments', 'a')
+            ->where($qb->expr()->eq('a.doctor', ':doctor'))
+            ->setParameter('doctor', $doctor)
             ->getQuery()
-            ->getOneOrNullResult()
-        ;
+            ->getResult();
     }
-    */
 }
