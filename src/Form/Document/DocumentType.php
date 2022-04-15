@@ -4,12 +4,17 @@ namespace App\Form\Document;
 
 use App\Entity\DoctorData;
 use App\Entity\Document;
+use App\Entity\PatientData;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Length;
 
 class DocumentType extends AbstractType
 {
@@ -26,15 +31,40 @@ class DocumentType extends AbstractType
             ])
             ->add('patient', EntityType::class, [
                 'required' => true,
+                'class' => PatientData::class
             ])
-            ->add('prescription')
-        ;
+            ->addEventListener(FormEvents::PRE_SUBMIT, [$this, 'addFieldsBasedOnType']);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Document::class,
+            'csrf_protection' => false,
         ]);
+    }
+
+    private function addPrescriptionFields(FormInterface $form): void
+    {
+        $mapping = [
+            'medicamentName' => 255,
+            'medicamentDescription' => 255,
+            'medicamentUsageDescription' => 255,
+            'medicamentRemission' => 4,
+        ];
+
+        foreach ($mapping as $fieldName => $constraintLength) {
+            $form->add($fieldName, TextType::class, [
+                'required' => true,
+                'constraints' => [new Length($constraintLength)],
+            ]);
+        }
+    }
+
+    private function addFieldsBasedOnType(FormEvent $event): void
+    {
+        $type = $event->getData()['type'] ?? '';
+        if ($type === Document::PRESCRIPTION_TYPE) {
+            $this->addPrescriptionFields($event->getForm());
+        }
     }
 }

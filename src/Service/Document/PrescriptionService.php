@@ -4,16 +4,46 @@ namespace App\Service\Document;
 
 use App\Entity\Document;
 use App\Entity\Prescription;
+use Doctrine\ORM\EntityManagerInterface;
 
 class PrescriptionService
 {
-    public function createPrescription(Document $document): void
+    private EntityManagerInterface $entityManager;
+
+    public function __construct(EntityManagerInterface $entityManager)
     {
+        $this->entityManager = $entityManager;
+    }
+
+    public function createPrescription(array $documentData): void
+    {
+        $document = $this->createDocument($documentData);
+        $this->entityManager->persist($document);
+
         $prescription = (new Prescription())
             ->setBarcode($this->getBarcode())
             ->setPrefixId($this->getPrefixId())
             ->setAccessCode($this->getAccessCode())
-            ->setPrescriptionFileId($this->getPrescriptionFileId());
+            ->setPrescriptionFileId($this->getPrescriptionFileId())
+            ->setMedicamentName($documentData['medicamentName'])
+            ->setMedicamentDescription($documentData['medicamentDescription'])
+            ->setMedicamentUsageDescription($documentData['medicamentUsageDescription'])
+            ->setMedicamentRemission($documentData['medicamentRemission'])
+            ->setDocument($document);
+
+        $document->setPrescription($prescription);
+
+        $this->entityManager->persist($prescription);
+        $this->entityManager->persist($document);
+        $this->entityManager->flush();
+    }
+
+    private function createDocument(array $documentData): Document
+    {
+        return (new Document())
+            ->setType($documentData['type'])
+            ->setDoctor($documentData['doctor'])
+            ->setPatient($documentData['patient']);
     }
 
     private function getBarcode(): string

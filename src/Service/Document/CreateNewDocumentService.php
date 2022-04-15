@@ -3,11 +3,9 @@
 namespace App\Service\Document;
 
 use App\Entity\Document;
-use App\Entity\Prescription;
 use App\Form\Document\DocumentType;
 use App\Service\FormErrorService;
 use App\Service\RequestService;
-use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use GuzzleHttp\Utils;
 use Psr\Log\LoggerInterface;
@@ -32,7 +30,6 @@ class CreateNewDocumentService extends RequestService
     private Client $sentry;
     private FormFactoryInterface $formFactory;
     private FormErrorService $formErrorService;
-    private EntityManagerInterface $entityManager;
     private PrescriptionService $prescriptionService;
 
     public function __construct(
@@ -41,7 +38,6 @@ class CreateNewDocumentService extends RequestService
         Client $sentry,
         FormFactoryInterface $formFactory,
         FormErrorService $formErrorService,
-        EntityManagerInterface $entityManager,
         PrescriptionService $prescriptionService
     ) {
         parent::__construct($requestStack);
@@ -50,7 +46,6 @@ class CreateNewDocumentService extends RequestService
         $this->sentry = $sentry;
         $this->formFactory = $formFactory;
         $this->formErrorService = $formErrorService;
-        $this->entityManager = $entityManager;
         $this->prescriptionService = $prescriptionService;
     }
 
@@ -68,10 +63,10 @@ class CreateNewDocumentService extends RequestService
         $this->response[self::ERRORS][] = ['message' => 'Coś poszło nie tak, przepraszamy.'];
     }
 
-    private function createDocument(Document $document): void
+    private function createDocument(array $documentData): void
     {
-        if ($document->getType() === Document::PRESCRIPTION_TYPE) {
-            $this->prescriptionService->createPrescription($document);
+        if ($documentData['type'] === Document::PRESCRIPTION_TYPE) {
+            $this->prescriptionService->createPrescription($documentData);
         }
     }
 
@@ -80,6 +75,7 @@ class CreateNewDocumentService extends RequestService
         $form = $this->formFactory->create(DocumentType::class)->submit(
             Utils::jsonDecode($this->request->getContent(), true)
         );
+
         if ($form->isValid()) {
             $this->createDocument($form->getData());
         } else {
