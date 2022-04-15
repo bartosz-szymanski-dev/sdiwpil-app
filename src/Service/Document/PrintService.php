@@ -2,6 +2,8 @@
 
 namespace App\Service\Document;
 
+use App\Entity\Document;
+use Doctrine\ORM\EntityManagerInterface;
 use Knp\Snappy\Pdf;
 use Symfony\Component\HttpFoundation\Response;
 use Twig\Environment;
@@ -27,18 +29,18 @@ class PrintService
 
     private Pdf $pdf;
     private Environment $twig;
+    private EntityManagerInterface $entityManager;
 
-    public function __construct(Pdf $pdf, Environment $twig)
+    public function __construct(Pdf $pdf, Environment $twig, EntityManagerInterface $entityManager)
     {
         $this->pdf = $pdf;
         $this->twig = $twig;
+        $this->entityManager = $entityManager;
     }
 
-    public function getDocumentResponse(string $type): Response
+    public function getDocumentResponse(string $hash): Response
     {
-        if ($type === self::PRINT_PRESCRIPTION) {
-            return $this->getResponse($type, $this->generatePrescriptionContent());
-        }
+        $document = $this->entityManager->getRepository(Document::class)->findOneBy(['hash' => $hash]);
 
         return new Response();
     }

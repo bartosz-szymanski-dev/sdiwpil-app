@@ -11,13 +11,13 @@ class DownloadController extends AbstractController
 {
     /**
      * @Route(
-     *     "/document/{type}",
+     *     "/document/{hash}",
      *     name="front.document.generate",
-     *     requirements={"type"="(prescription|leave)"},
+     *     requirements={"hash"="\w"},
      * )
      */
-    public function index(string $type, PrintService $printService): Response
+    public function index(string $hash, PrintService $printService): Response
     {
-        return $printService->getDocumentResponse($type);
+        return $printService->getDocumentResponse($hash);
     }
 }

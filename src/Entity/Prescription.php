@@ -181,7 +181,6 @@ class Prescription extends AbstractEntity
         $timeFormat = 'd.m.Y H:i';
 
         return [
-            'id' => $this->id,
             'medicamentName' => $this->medicamentName,
             'medicamentDescription' => $this->medicamentDescription,
             'medicamentUsageDescription' => $this->medicamentUsageDescription,

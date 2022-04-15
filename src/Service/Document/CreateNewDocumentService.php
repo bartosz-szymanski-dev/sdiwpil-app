@@ -2,14 +2,16 @@
 
 namespace App\Service\Document;
 
+use App\Entity\DoctorData;
 use App\Entity\Document;
 use App\Form\Document\DocumentType;
 use App\Service\FormErrorService;
 use App\Service\RequestService;
+use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use GuzzleHttp\Utils;
 use Psr\Log\LoggerInterface;
-use Sentry\Client;
+use Sentry\ClientInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -27,18 +29,20 @@ class CreateNewDocumentService extends RequestService
     ];
 
     private LoggerInterface $logger;
-    private Client $sentry;
+    private ClientInterface $sentry;
     private FormFactoryInterface $formFactory;
     private FormErrorService $formErrorService;
     private PrescriptionService $prescriptionService;
+    private EntityManagerInterface $entityManager;
 
     public function __construct(
         RequestStack $requestStack,
         LoggerInterface $logger,
-        Client $sentry,
+        ClientInterface $sentry,
         FormFactoryInterface $formFactory,
         FormErrorService $formErrorService,
-        PrescriptionService $prescriptionService
+        PrescriptionService $prescriptionService,
+        EntityManagerInterface $entityManager
     ) {
         parent::__construct($requestStack);
 
@@ -47,6 +51,7 @@ class CreateNewDocumentService extends RequestService
         $this->formFactory = $formFactory;
         $this->formErrorService = $formErrorService;
         $this->prescriptionService = $prescriptionService;
+        $this->entityManager = $entityManager;
     }
 
     public function getJsonResponse(): JsonResponse
@@ -70,6 +75,14 @@ class CreateNewDocumentService extends RequestService
         }
     }
 
+    private function setList(DoctorData $doctor): void
+    {
+        $documents = $this->entityManager->getRepository(Document::class)->findBy(['doctor' => $doctor]);
+        foreach ($documents as $document) {
+            $this->response[self::LIST][] = $document->toArray();
+        }
+    }
+
     private function processDataWithForm(): void
     {
         $form = $this->formFactory->create(DocumentType::class)->submit(
@@ -77,7 +90,10 @@ class CreateNewDocumentService extends RequestService
         );
 
         if ($form->isValid()) {
+            $doctor = $form->get('doctor')->getData();
             $this->createDocument($form->getData());
+            $this->setList($doctor);
+            $this->response[self::SUCCESS] = true;
         } else {
             $this->response[self::ERRORS] = $this->formErrorService->getArray($form);
         }

@@ -33,9 +33,7 @@
             </v-btn>
           </template>
 
-          <v-card>
-            <v-card-title>Wypełnij formularz kreacji dokumentu</v-card-title>
-          </v-card>
+          <new-document-form />
         </v-dialog>
       </v-toolbar>
     </template>
@@ -60,9 +58,11 @@
 
 <script>
 import { get } from 'lodash';
+import NewDocumentForm from './Forms/NewDocumentForm';
 
 export default {
   name: 'DoctorDocumentsList',
+  components: { NewDocumentForm },
   data: () => ({
     headers: [
       {
@@ -76,22 +76,11 @@ export default {
         value: 'patient',
       },
       {
-        text: 'Data utworzenia dokumentu',
-        sortable: false,
-        value: 'createdAt',
-      },
-      {
-        text: 'Data edycji dokumentu',
-        sortable: false,
-        value: 'updatedAt',
-      },
-      {
         text: 'Akcje',
         sortable: false,
         value: 'actions',
       },
     ],
-    documents: [],
     options: {
       itemsPerPage: 25,
       page: 1,
@@ -99,12 +88,9 @@ export default {
     rowsPerPageItems: [25, 50, 100, 250],
     isNewDialogOpen: false,
   }),
-  mounted() {
-    this.setDocuments();
-  },
-  methods: {
-    setDocuments() {
-      this.documents = get(window, 'state.documents', []);
+  computed: {
+    documents() {
+      return get(window, 'state.documents', []);
     },
   },
 };

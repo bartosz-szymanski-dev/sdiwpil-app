@@ -4,9 +4,11 @@ namespace App\Entity;
 
 use App\Repository\DocumentRepository;
 use Doctrine\ORM\Mapping as ORM;
+use GuzzleHttp\Utils;
 
 /**
  * @ORM\Entity(repositoryClass=DocumentRepository::class)
+ * @ORM\HasLifecycleCallbacks()
  */
 class Document extends AbstractEntity
 {
@@ -48,7 +50,12 @@ class Document extends AbstractEntity
      * @ORM\OneToOne(targetEntity=Prescription::class, mappedBy="document", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=true)
      */
-    private Prescription $prescription;
+    private ?Prescription $prescription = null;
+
+    /**
+     * @ORM\Column(type="string", length=32, nullable=false)
+     */
+    private string $hash;
 
     public function getId(): ?int
     {
@@ -123,12 +130,39 @@ class Document extends AbstractEntity
         $patient = $this->patient->getPatient();
 
         return [
-            'id' => $this->id,
             'type' => $this->type,
             'doctor' => $doctor->getFirstName() . ' ' . $doctor->getLastName(),
             'patient' => $patient->getFirstName() . ' ' . $patient->getLastName(),
-            'prescription' => $this->prescription->toArray(),
-
+            'prescription' => $this->prescription ? $this->prescription->toArray() : [],
+            'hash' => $this->hash,
         ];
+    }
+
+    public function getHash(): string
+    {
+        return $this->hash;
+    }
+
+    public function setHash(string $hash): Document
+    {
+        $this->hash = $hash;
+
+        return $this;
+    }
+
+    /**
+     * @ORM\PrePersist()
+     */
+    public function saveHash(): void
+    {
+        $doctor = $this->doctor->getDoctor();
+        $patient = $this->patient->getPatient();
+
+        $this->hash = md5(Utils::jsonEncode([
+            'type' => $this->type,
+            'doctor' => $doctor->getFirstName() . ' ' . $doctor->getLastName(),
+            'patient' => $patient->getFirstName() . ' ' . $patient->getLastName(),
+            'prescription' => $this->prescription ? $this->prescription->toArray() : [],
+        ]));
     }
 }

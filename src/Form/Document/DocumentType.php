@@ -33,7 +33,9 @@ class DocumentType extends AbstractType
                 'required' => true,
                 'class' => PatientData::class
             ])
-            ->addEventListener(FormEvents::PRE_SUBMIT, [$this, 'addFieldsBasedOnType']);
+            ->addEventListener(FormEvents::PRE_SUBMIT, function (FormEvent $event) {
+                $this->addFieldsBasedOnType($event);
+            });
     }
 
     public function configureOptions(OptionsResolver $resolver): void
@@ -55,7 +57,7 @@ class DocumentType extends AbstractType
         foreach ($mapping as $fieldName => $constraintLength) {
             $form->add($fieldName, TextType::class, [
                 'required' => true,
-                'constraints' => [new Length($constraintLength)],
+                'constraints' => [new Length(null, null, $constraintLength)],
             ]);
         }
     }
