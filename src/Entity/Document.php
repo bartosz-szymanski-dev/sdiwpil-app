@@ -128,12 +128,16 @@ class Document extends AbstractEntity
     {
         $doctor = $this->doctor->getDoctor();
         $patient = $this->patient->getPatient();
+        $dateFormat = 'd.m.Y';
 
         return [
+            'id' => $this->id,
             'type' => $this->type,
             'doctor' => $doctor->getFirstName() . ' ' . $doctor->getLastName(),
             'patient' => $patient->getFirstName() . ' ' . $patient->getLastName(),
             'prescription' => $this->prescription ? $this->prescription->toArray() : [],
+            'createdAt' => $this->createdAt->format($dateFormat),
+            'updatedAt' => $this->updatedAt->format($dateFormat),
             'hash' => $this->hash,
         ];
     }
@@ -163,6 +167,8 @@ class Document extends AbstractEntity
             'doctor' => $doctor->getFirstName() . ' ' . $doctor->getLastName(),
             'patient' => $patient->getFirstName() . ' ' . $patient->getLastName(),
             'prescription' => $this->prescription ? $this->prescription->toArray() : [],
+            'createdAt' => $this->createdAt->format('YmdHis'),
+            'updatedAt' => $this->updatedAt->format('YmdHis'),
         ]));
     }
 }

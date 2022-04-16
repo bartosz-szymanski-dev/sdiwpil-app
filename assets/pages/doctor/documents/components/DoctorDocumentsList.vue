@@ -42,6 +42,7 @@
       <v-btn
         text
         color="primary"
+        @click="showDocument(item)"
       >
         <v-icon>mdi-file-find</v-icon>
       </v-btn>
@@ -49,6 +50,7 @@
       <v-btn
         text
         color="warning"
+        @click="editDocument(item)"
       >
         <v-icon>mdi-file-edit</v-icon>
       </v-btn>
@@ -76,6 +78,16 @@ export default {
         value: 'patient',
       },
       {
+        text: 'Data utworzenia dokumentu',
+        sortable: false,
+        value: 'createdAt',
+      },
+      {
+        text: 'Data edytowania dokumentu',
+        sortable: false,
+        value: 'updatedAt',
+      },
+      {
         text: 'Akcje',
         sortable: false,
         value: 'actions',
@@ -91,6 +103,14 @@ export default {
   computed: {
     documents() {
       return get(window, 'state.documents', []);
+    },
+  },
+  methods: {
+    showDocument({ hash }) {
+      window.open(this.$fosGenerate('front.document.generate', { hash }), '_blank');
+    },
+    editDocument(document) {
+
     },
   },
 };
