@@ -4,7 +4,7 @@ namespace App\Service\Document;
 
 use App\Entity\DoctorData;
 use App\Entity\Document;
-use App\Form\Document\DocumentType;
+use App\Form\Document\NewDocumentType;
 use App\Service\FormErrorService;
 use App\Service\RequestService;
 use Doctrine\ORM\EntityManagerInterface;
@@ -85,7 +85,7 @@ class CreateNewDocumentService extends RequestService
 
     private function processDataWithForm(): void
     {
-        $form = $this->formFactory->create(DocumentType::class)->submit(
+        $form = $this->formFactory->create(NewDocumentType::class)->submit(
             Utils::jsonDecode($this->request->getContent(), true)
         );
 

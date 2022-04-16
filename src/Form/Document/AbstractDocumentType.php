@@ -2,7 +2,6 @@
 
 namespace App\Form\Document;
 
-use App\Entity\DoctorData;
 use App\Entity\Document;
 use App\Entity\PatientData;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -16,7 +15,7 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Length;
 
-class DocumentType extends AbstractType
+abstract class AbstractDocumentType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -24,10 +23,6 @@ class DocumentType extends AbstractType
             ->add('type', ChoiceType::class, [
                 'required' => true,
                 'choices' => Document::ALLOWED_TYPES,
-            ])
-            ->add('doctor', EntityType::class, [
-                'required' => true,
-                'class' => DoctorData::class,
             ])
             ->add('patient', EntityType::class, [
                 'required' => true,
