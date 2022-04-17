@@ -1,6 +1,6 @@
 <template>
   <v-card>
-    <v-card-title>Wypełnij formularz kreacji dokumentu</v-card-title>
+    <v-card-title>Wypełnij formularz edycji dokumentu</v-card-title>
 
     <v-card-text>
       <v-select
@@ -66,12 +66,21 @@
 
     <v-card-actions>
       <v-btn
-        block
+        color="warning"
+        :disabled="loading"
+        @click.prevent="$emit('editDialogClose')"
+      >
+        Anuluj
+      </v-btn>
+
+      <v-spacer />
+
+      <v-btn
         color="success"
         :disabled="loading"
-        @click.prevent="createDocument"
+        @click.prevent="editDocument"
       >
-        Stwórz dokument
+        Zapisz
       </v-btn>
     </v-card-actions>
   </v-card>
@@ -79,17 +88,24 @@
 
 <script>
 import axios from 'axios';
-import { assignIn, get } from 'lodash';
+import { assignIn, get, set } from 'lodash';
 import { validationMixin } from 'vuelidate';
 import { maxLength, required } from 'vuelidate/lib/validators';
 import vuelidateErrors from '../../../../../mixins/vuelidateErrors';
-import NewDocumentModel from '../../models/NewDocumentModel';
+import EditDocumentModel from '../../models/EditDocumentModel';
 
 export default {
-  name: 'NewDocumentForm',
+  name: 'EditDocumentForm',
   mixins: [validationMixin, vuelidateErrors],
+  props: {
+    document: {
+      type: Object,
+      // eslint-disable-next-line vue/require-valid-default-prop
+      default: {},
+    },
+  },
   data: () => ({
-    value: new NewDocumentModel(),
+    value: new EditDocumentModel(),
     loading: false,
   }),
   validations() {
@@ -120,14 +136,13 @@ export default {
       return this.value.type === 'prescription';
     },
   },
+  mounted() {
+    this.setValue();
+  },
   methods: {
-    getDoctorFromState() {
-      return get(window, 'state.doctor', 0);
-    },
-    async sendCreateDocumentRequest() {
+    async sendEditDocumentRequest() {
       this.loading = true;
       try {
-        this.value.doctor = this.getDoctorFromState();
         const { data } = await axios.post(this.$fosGenerate('front.doctor.documents.new'), { ...this.value });
         if (data.success) {
           this.$snotify.success('Pomyślnie utworzono dokument!');
@@ -140,7 +155,7 @@ export default {
       }
       this.loading = false;
     },
-    async createDocument() {
+    async editDocument() {
       this.$v.$touch();
       if (this.$v.$invalid) {
         this.$snotify.error('Formularz nie został wypełniony poprawnie.');
@@ -148,7 +163,31 @@ export default {
         return;
       }
 
-      await this.sendCreateDocumentRequest();
+      await this.sendEditDocumentRequest();
+    },
+    setType() {
+      const typeObject = this.types.find((type) => type.text.toLowerCase() === this.document.type);
+      this.value.type = typeObject.value;
+    },
+    setPatient() {
+      const patientObject = this.patients.find((patient) => patient.text === this.document.patient);
+      this.value.patient = patientObject.value;
+    },
+    setValue() {
+      this.value.document = this.document.id;
+      this.setType();
+      this.setPatient();
+      const mappings = {
+        medicamentDescription: 'prescription.medicamentDescription',
+        medicamentName: 'prescription.medicamentName',
+        medicamentRemission: 'prescription.medicamentRemission',
+        medicamentUsageDescription: 'prescription.medicamentUsageDescription',
+      };
+
+      // eslint-disable-next-line no-restricted-syntax
+      for (const [valuePath, documentPath] of Object.entries(mappings)) {
+        set(this.value, valuePath, get(this.document, documentPath));
+      }
     },
   },
 };

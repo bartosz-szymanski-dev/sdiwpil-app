@@ -1,22 +1,14 @@
-class NewDocumentModel {
+import DocumentModel from './DocumentModel';
+
+class NewDocumentModel extends DocumentModel {
   constructor(
     {
-      type = '',
       doctor = 0,
-      patient = 0,
-      medicamentName = '',
-      medicamentDescription = '',
-      medicamentUsageDescription = '',
-      medicamentRemission = '',
     } = {},
   ) {
-    this.type = type;
+    super();
+
     this.doctor = doctor;
-    this.patient = patient;
-    this.medicamentName = medicamentName;
-    this.medicamentDescription = medicamentDescription;
-    this.medicamentUsageDescription = medicamentUsageDescription;
-    this.medicamentRemission = medicamentRemission;
   }
 }
 
