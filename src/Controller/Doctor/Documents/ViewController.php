@@ -5,6 +5,7 @@ namespace App\Controller\Doctor\Documents;
 use App\Entity\Document;
 use App\Entity\PatientData;
 use App\Entity\User;
+use App\Service\Document\DocumentFrontEndStructureService;
 use Doctrine\ORM\EntityManagerInterface;
 use GuzzleHttp\Utils;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -14,10 +15,14 @@ use Symfony\Component\Routing\Annotation\Route;
 class ViewController extends AbstractController
 {
     private EntityManagerInterface $entityManager;
+    private DocumentFrontEndStructureService $documentFrontEndStructureService;
 
-    public function __construct(EntityManagerInterface $entityManager)
-    {
+    public function __construct(
+        EntityManagerInterface $entityManager,
+        DocumentFrontEndStructureService $documentFrontEndStructureService
+    ) {
         $this->entityManager = $entityManager;
+        $this->documentFrontEndStructureService = $documentFrontEndStructureService;
     }
 
     /**
@@ -63,26 +68,16 @@ class ViewController extends AbstractController
         ];
     }
 
-    private function getFrontEndType(Document $document): string
-    {
-        if ($document->getType() === Document::PRESCRIPTION_TYPE) {
-            return 'recepta';
-        }
-
-        return $document->getType();
-    }
-
     private function getDocuments(): array
     {
         /** @var User $doctor */
         $doctor = $this->getUser();
-        $documents = $this->entityManager->getRepository(Document::class)->findBy(['doctor' => $doctor]);
-        foreach ($documents as $document) {
-            $tmpDocument = $document->toArray();
-            $tmpDocument['type'] = $this->getFrontEndType($document);
-            $result[] = $tmpDocument;
-        }
 
-        return $result ?? [];
+        return $this->documentFrontEndStructureService->getFrontEndStructure(
+            $this->entityManager->getRepository(Document::class)->getPaginatedDocuments(
+                ['min' => 0, 'max' => 25],
+                $doctor->getDoctorData()
+            )
+        );
     }
 }

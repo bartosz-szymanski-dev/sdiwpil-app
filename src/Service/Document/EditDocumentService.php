@@ -2,9 +2,11 @@
 
 namespace App\Service\Document;
 
+use App\Entity\DoctorData;
 use App\Entity\Document;
 use App\Form\Document\EditDocumentType;
 use App\Service\FormErrorService;
+use App\Service\PaginatedRequestService;
 use App\Service\RequestService;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
@@ -33,6 +35,8 @@ class EditDocumentService extends RequestService
     private EntityManagerInterface $entityManager;
     private ClientInterface $sentry;
     private LoggerInterface $logger;
+    private PaginatedRequestService $paginatedRequestService;
+    private DocumentFrontEndStructureService $documentFrontEndStructureService;
 
     public function __construct(
         FormFactoryInterface $formFactory,
@@ -40,7 +44,9 @@ class EditDocumentService extends RequestService
         EntityManagerInterface $entityManager,
         RequestStack $requestStack,
         ClientInterface $sentry,
-        LoggerInterface $logger
+        LoggerInterface $logger,
+        PaginatedRequestService $paginatedRequestService,
+        DocumentFrontEndStructureService $documentFrontEndStructureService
     ) {
         parent::__construct($requestStack);
 
@@ -49,6 +55,8 @@ class EditDocumentService extends RequestService
         $this->entityManager = $entityManager;
         $this->sentry = $sentry;
         $this->logger = $logger;
+        $this->paginatedRequestService = $paginatedRequestService;
+        $this->documentFrontEndStructureService = $documentFrontEndStructureService;
     }
 
     public function getJsonResponse(): JsonResponse
@@ -90,6 +98,14 @@ class EditDocumentService extends RequestService
         }
     }
 
+    private function setList(DoctorData $doctor): void
+    {
+        $minMax = $this->paginatedRequestService->getMinMax();
+        $this->response[self::LIST] = $this->documentFrontEndStructureService->getFrontEndStructure(
+            $this->entityManager->getRepository(Document::class)->getPaginatedDocuments($minMax, $doctor)
+        );
+    }
+
     private function processDataWithForm(): void
     {
         $form = $this->formFactory->create(EditDocumentType::class)->submit(
@@ -98,6 +114,7 @@ class EditDocumentService extends RequestService
 
         if ($form->isValid()) {
             $this->saveData($form->getData());
+            $this->setList($form->get('doctor')->getData());
         } else {
             $this->response[self::ERRORS] = $this->formErrorService->getArray($form);
         }
