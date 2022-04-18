@@ -115,6 +115,7 @@ class EditDocumentService extends RequestService
         try {
             $this->checkRequest();
             $this->processDataWithForm();
+            $this->response[self::SUCCESS] = true;
         } catch (BadRequestHttpException $badRequestHttpException) {
             $this->response[self::ERRORS][] = ['message' => 'Nieprawidłowe zapytanie'];
         } catch (Exception $exception) {

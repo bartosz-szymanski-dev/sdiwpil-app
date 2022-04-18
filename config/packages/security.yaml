@@ -45,7 +45,7 @@ security:
          - { path: ^/doctor/register, roles: IS_AUTHENTICATED_ANONYMOUSLY }
          - { path: ^/doctor, roles: ROLE_DOCTOR }
 
-         - { path: ^/document/edit, roles: ROLE_DOCTOR }
+         - { path: ^/document-edit, roles: ROLE_DOCTOR }
 
          - { path: ^/.*, roles: IS_AUTHENTICATED_ANONYMOUSLY }
 

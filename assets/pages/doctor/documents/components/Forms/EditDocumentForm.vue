@@ -136,6 +136,14 @@ export default {
       return this.value.type === 'prescription';
     },
   },
+  watch: {
+    document: {
+      deep: true,
+      handler() {
+        this.setValue();
+      },
+    },
+  },
   mounted() {
     this.setValue();
   },
@@ -143,15 +151,16 @@ export default {
     async sendEditDocumentRequest() {
       this.loading = true;
       try {
-        const { data } = await axios.post(this.$fosGenerate('front.doctor.documents.new'), { ...this.value });
+        const { data } = await axios.post(this.$fosGenerate('front.document.edit'), { ...this.value });
         if (data.success) {
-          this.$snotify.success('Pomyślnie utworzono dokument!');
+          this.$snotify.success('Pomyślnie edytowano dokument!');
+          this.$emit('editDialogClose');
         } else {
           data.errors.forEach((error) => this.$snotify.error(error.message));
         }
       } catch (e) {
         this.$snotify.error('Coś poszło nie tak, przepraszamy...');
-        console.error(`Send create document request error: ${e}`);
+        console.error(`Send edit document request error: ${e}`);
       }
       this.loading = false;
     },
