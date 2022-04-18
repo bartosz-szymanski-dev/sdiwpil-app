@@ -103,6 +103,10 @@ export default {
       // eslint-disable-next-line vue/require-valid-default-prop
       default: {},
     },
+    options: {
+      type: Object,
+      required: true,
+    },
   },
   data: () => ({
     value: new EditDocumentModel(),
@@ -151,10 +155,11 @@ export default {
     async sendEditDocumentRequest() {
       this.loading = true;
       try {
-        const { data } = await axios.post(this.$fosGenerate('front.document.edit'), { ...this.value });
+        const { data } = await axios.post(this.$fosGenerate('front.document.edit', this.options), { ...this.value });
         if (data.success) {
           this.$snotify.success('Pomyślnie edytowano dokument!');
           this.$emit('editDialogClose');
+          this.$emit('documentsChanged', data.list);
         } else {
           data.errors.forEach((error) => this.$snotify.error(error.message));
         }

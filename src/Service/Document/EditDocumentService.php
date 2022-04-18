@@ -2,8 +2,8 @@
 
 namespace App\Service\Document;
 
-use App\Entity\DoctorData;
 use App\Entity\Document;
+use App\Entity\User;
 use App\Form\Document\EditDocumentType;
 use App\Service\FormErrorService;
 use App\Service\PaginatedRequestService;
@@ -12,11 +12,13 @@ use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use GuzzleHttp\Utils;
 use Psr\Log\LoggerInterface;
+use RuntimeException;
 use Sentry\ClientInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use Symfony\Component\Security\Core\Security;
 
 class EditDocumentService extends RequestService
 {
@@ -37,6 +39,7 @@ class EditDocumentService extends RequestService
     private LoggerInterface $logger;
     private PaginatedRequestService $paginatedRequestService;
     private DocumentFrontEndStructureService $documentFrontEndStructureService;
+    private Security $security;
 
     public function __construct(
         FormFactoryInterface $formFactory,
@@ -46,7 +49,8 @@ class EditDocumentService extends RequestService
         ClientInterface $sentry,
         LoggerInterface $logger,
         PaginatedRequestService $paginatedRequestService,
-        DocumentFrontEndStructureService $documentFrontEndStructureService
+        DocumentFrontEndStructureService $documentFrontEndStructureService,
+        Security $security
     ) {
         parent::__construct($requestStack);
 
@@ -57,6 +61,7 @@ class EditDocumentService extends RequestService
         $this->logger = $logger;
         $this->paginatedRequestService = $paginatedRequestService;
         $this->documentFrontEndStructureService = $documentFrontEndStructureService;
+        $this->security = $security;
     }
 
     public function getJsonResponse(): JsonResponse
@@ -98,11 +103,25 @@ class EditDocumentService extends RequestService
         }
     }
 
-    private function setList(DoctorData $doctor): void
+    private function getDoctorUser(): User
     {
+        /** @var User $doctorUser */
+        $doctorUser = $this->security->getUser();
+        if (!$doctorUser || !$doctorUser->getDoctorData()) {
+            throw new RuntimeException('Musisz być zalogowany jako lekarz, by wykonać tę akcję.');
+        }
+
+        return $doctorUser;
+    }
+
+    private function setList(): void
+    {
+        $doctorUser = $this->getDoctorUser();
         $minMax = $this->paginatedRequestService->getMinMax();
         $this->response[self::LIST] = $this->documentFrontEndStructureService->getFrontEndStructure(
-            $this->entityManager->getRepository(Document::class)->getPaginatedDocuments($minMax, $doctor)
+            $this->entityManager->getRepository(Document::class)->getPaginatedDocuments(
+                $minMax, $doctorUser->getDoctorData()
+            )
         );
     }
 
@@ -114,7 +133,7 @@ class EditDocumentService extends RequestService
 
         if ($form->isValid()) {
             $this->saveData($form->getData());
-            $this->setList($form->get('doctor')->getData());
+            $this->setList();
         } else {
             $this->response[self::ERRORS] = $this->formErrorService->getArray($form);
         }

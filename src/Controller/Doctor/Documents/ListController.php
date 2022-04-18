@@ -10,7 +10,11 @@ use Symfony\Component\Routing\Annotation\Route;
 class ListController extends AbstractController
 {
     /**
-     * @Route("/doctor/documents/list")
+     * @Route(
+     *     "/doctor/documents/list",
+     *     name="front.doctor.documents.list",
+     *     methods={"GET"}
+     * )
      */
     public function index(DocumentListService $documentListService): JsonResponse
     {

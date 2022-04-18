@@ -10,6 +10,7 @@
         'items-per-page-options': rowsPerPageItems,
         'page-text': '{0}-{1} z {2}',
       }"
+      :loading="loading"
     >
       <template #top>
         <v-toolbar flat>
@@ -34,7 +35,11 @@
               </v-btn>
             </template>
 
-            <new-document-form />
+            <new-document-form
+              :options="options"
+              @closeNewDocumentDialog="isNewDialogOpen = false"
+              @documentsChanged="setDocuments"
+            />
           </v-dialog>
         </v-toolbar>
       </template>
@@ -65,14 +70,17 @@
     >
       <edit-document-form
         :document="editItem"
+        :options="options"
         @editDialogClose="isEditDialogOpen = false"
+        @documentsChanged="setDocuments"
       />
     </v-dialog>
   </div>
 </template>
 
 <script>
-import { get } from 'lodash';
+import axios from 'axios';
+import { get, has } from 'lodash';
 import NewDocumentForm from './Forms/NewDocumentForm';
 import EditDocumentForm from './Forms/EditDocumentForm';
 
@@ -115,11 +123,26 @@ export default {
     isNewDialogOpen: false,
     isEditDialogOpen: false,
     editItem: {},
+    loading: false,
+    documents: [],
   }),
-  computed: {
-    documents() {
-      return get(window, 'state.documents', []);
+  watch: {
+    options: {
+      deep: true,
+      async handler(newValue) {
+        const rowsPerPageKey = 'itemsPerPage';
+        const pageKey = 'page';
+        if (has(newValue, rowsPerPageKey) && has(newValue, pageKey)) {
+          await this.updatePagination({
+            page: get(newValue, pageKey),
+            rows_per_page: get(newValue, rowsPerPageKey),
+          });
+        }
+      },
     },
+  },
+  mounted() {
+    this.setDocuments(get(window, 'state.documents', []));
   },
   methods: {
     showDocument({ hash }) {
@@ -128,6 +151,27 @@ export default {
     editDocument(document) {
       this.editItem = document;
       this.isEditDialogOpen = true;
+    },
+    async updatePagination(pagination) {
+      if (this.loading) {
+        return;
+      }
+
+      this.loading = true;
+      try {
+        const { data } = await axios.get(this.$fosGenerate('front.doctor.documents.list', pagination));
+        if (data.success) {
+          this.documents = data.list;
+        } else {
+          data.errors.forEach((error) => this.$snotify.error(error.message));
+        }
+      } catch (e) {
+        console.error(`Pagination update error: ${e}`);
+      }
+      this.loading = false;
+    },
+    setDocuments(documents) {
+      this.documents = documents;
     },
   },
 };

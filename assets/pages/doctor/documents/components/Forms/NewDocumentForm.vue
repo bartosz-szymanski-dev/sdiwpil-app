@@ -88,6 +88,12 @@ import NewDocumentModel from '../../models/NewDocumentModel';
 export default {
   name: 'NewDocumentForm',
   mixins: [validationMixin, vuelidateErrors],
+  props: {
+    options: {
+      type: Object,
+      required: true,
+    },
+  },
   data: () => ({
     value: new NewDocumentModel(),
     loading: false,
@@ -128,9 +134,11 @@ export default {
       this.loading = true;
       try {
         this.value.doctor = this.getDoctorFromState();
-        const { data } = await axios.post(this.$fosGenerate('front.doctor.documents.new'), { ...this.value });
+        const { data } = await axios.post(this.$fosGenerate('front.doctor.documents.new', this.options), { ...this.value });
         if (data.success) {
           this.$snotify.success('Pomyślnie utworzono dokument!');
+          this.$emit('closeNewDocumentDialog');
+          this.$emit('documentsChanged', data.list);
         } else {
           data.errors.forEach((error) => this.$snotify.error(error.message));
         }

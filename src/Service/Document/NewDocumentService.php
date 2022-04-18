@@ -6,6 +6,7 @@ use App\Entity\DoctorData;
 use App\Entity\Document;
 use App\Form\Document\NewDocumentType;
 use App\Service\FormErrorService;
+use App\Service\PaginatedRequestService;
 use App\Service\RequestService;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
@@ -16,7 +17,7 @@ use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RequestStack;
 
-class CreateNewDocumentService extends RequestService
+class NewDocumentService extends RequestService
 {
     private const SUCCESS = 'success';
     private const LIST = 'list';
@@ -34,6 +35,8 @@ class CreateNewDocumentService extends RequestService
     private FormErrorService $formErrorService;
     private PrescriptionService $prescriptionService;
     private EntityManagerInterface $entityManager;
+    private DocumentFrontEndStructureService $documentFrontEndStructureService;
+    private PaginatedRequestService $paginatedRequestService;
 
     public function __construct(
         RequestStack $requestStack,
@@ -42,7 +45,9 @@ class CreateNewDocumentService extends RequestService
         FormFactoryInterface $formFactory,
         FormErrorService $formErrorService,
         PrescriptionService $prescriptionService,
-        EntityManagerInterface $entityManager
+        EntityManagerInterface $entityManager,
+        DocumentFrontEndStructureService $documentFrontEndStructureService,
+        PaginatedRequestService $paginatedRequestService
     ) {
         parent::__construct($requestStack);
 
@@ -52,6 +57,8 @@ class CreateNewDocumentService extends RequestService
         $this->formErrorService = $formErrorService;
         $this->prescriptionService = $prescriptionService;
         $this->entityManager = $entityManager;
+        $this->documentFrontEndStructureService = $documentFrontEndStructureService;
+        $this->paginatedRequestService = $paginatedRequestService;
     }
 
     public function getJsonResponse(): JsonResponse
@@ -77,10 +84,12 @@ class CreateNewDocumentService extends RequestService
 
     private function setList(DoctorData $doctor): void
     {
-        $documents = $this->entityManager->getRepository(Document::class)->findBy(['doctor' => $doctor]);
-        foreach ($documents as $document) {
-            $this->response[self::LIST][] = $document->toArray();
-        }
+        $this->response[self::LIST] = $this->documentFrontEndStructureService->getFrontEndStructure(
+            $this->entityManager->getRepository(Document::class)->getPaginatedDocuments(
+                $this->paginatedRequestService->getMinMax(),
+                $doctor
+            )
+        );
     }
 
     private function processDataWithForm(): void
