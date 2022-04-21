@@ -17,6 +17,11 @@
         {{ title }}
       </v-toolbar-title>
 
+      <menu-items
+        v-if="breakpoint.width > 1376"
+        class="ml-4 menu-items"
+      />
+
       <v-spacer />
 
       <v-btn
@@ -91,10 +96,11 @@ import axios from 'axios';
 import breakpoint from '../../mixins/breakpoint';
 
 import MobileNavList from './MobileNavList';
+import MenuItems from './MenuItems';
 
 export default {
   name: 'AppNavbar',
-  components: { MobileNavList },
+  components: { MenuItems, MobileNavList },
   mixins: [breakpoint],
   props: {
     colorSchema: {
@@ -149,5 +155,9 @@ export default {
   &-btn {
     position: absolute;
   }
+}
+
+.menu-items {
+  border-left: 1px solid #fff;
 }
 </style>

@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Service\Menu\MenuService;
 use GuzzleHttp\Utils;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -12,10 +13,12 @@ class HomePageViewController extends AbstractController
     /**
      * @Route("/", name="front.home_page")
      */
-    public function index(): Response
+    public function index(MenuService $menuService): Response
     {
         return $this->render('home_page/index.html.twig', [
-            'state' => Utils::jsonEncode([]),
+            'state' => Utils::jsonEncode([
+                'menu' => $menuService->getMenu(),
+            ]),
         ]);
     }
 }
