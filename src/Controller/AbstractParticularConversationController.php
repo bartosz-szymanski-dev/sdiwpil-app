@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Conversation;
+use App\Service\Menu\MenuService;
 use Doctrine\ORM\EntityManagerInterface;
 use GuzzleHttp\Utils;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -13,14 +14,16 @@ abstract class AbstractParticularConversationController extends AbstractControll
     protected Conversation $conversation;
 
     private EntityManagerInterface $entityManager;
+    private MenuService $menuService;
 
     abstract public function index(string $channelId): Response;
     abstract protected function getHeader(): string;
     abstract protected function getTemplatePath(): string;
 
-    public function __construct(EntityManagerInterface $entityManager)
+    public function __construct(EntityManagerInterface $entityManager, MenuService $menuService)
     {
         $this->entityManager = $entityManager;
+        $this->menuService = $menuService;
     }
 
     protected function setConversation(string $channelId): void
@@ -53,6 +56,7 @@ abstract class AbstractParticularConversationController extends AbstractControll
                 'userId' => $this->getUser()->getId(),
                 'routeScreenHeader' => $this->getHeader(),
             ]),
+            'menu' => $this->menuService->getMenu(),
         ];
     }
 }

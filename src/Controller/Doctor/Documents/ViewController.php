@@ -6,6 +6,7 @@ use App\Entity\Document;
 use App\Entity\PatientData;
 use App\Entity\User;
 use App\Service\Document\DocumentFrontEndStructureService;
+use App\Service\Menu\MenuService;
 use Doctrine\ORM\EntityManagerInterface;
 use GuzzleHttp\Utils;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -28,7 +29,7 @@ class ViewController extends AbstractController
     /**
      * @Route("/doctor/documents", name="front.doctor.documents")
      */
-    public function index(): Response
+    public function index(MenuService $menuService): Response
     {
         return $this->render('doctor/documents.html.twig', [
             'state' => Utils::jsonEncode([
@@ -36,6 +37,7 @@ class ViewController extends AbstractController
                 'documentTypes' => $this->getDocumentTypes(),
                 'doctor' => $this->getUser()->getDoctorData()->getId(),
                 'documents' => $this->getDocuments(),
+                'menu' => $menuService->getMenu(),
             ]),
         ]);
     }

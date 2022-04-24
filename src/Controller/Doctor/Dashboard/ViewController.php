@@ -2,6 +2,7 @@
 
 namespace App\Controller\Doctor\Dashboard;
 
+use App\Service\Menu\MenuService;
 use GuzzleHttp\Utils;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,12 +14,13 @@ class ViewController extends AbstractController
 
     /**
      * @Route("/doctor", name="front.doctor.dashboard")
-     * @return Response
      */
-    public function index(): Response
+    public function index(MenuService $menuService): Response
     {
         return $this->render('doctor/dashboard.html.twig', [
-            'state' => Utils::jsonEncode([]),
+            'state' => Utils::jsonEncode([
+                'menu' => $menuService->getMenu(),
+            ]),
         ]);
     }
 }

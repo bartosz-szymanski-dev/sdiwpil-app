@@ -5,6 +5,7 @@ namespace App\Controller\Patient\Appointment;
 use App\Entity\Appointment;
 use App\Entity\User;
 use App\Service\MedicalSpecialty\FrontEndMedicalSpecialtyService;
+use App\Service\Menu\MenuService;
 use Doctrine\ORM\EntityManagerInterface;
 use GuzzleHttp\Utils;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -24,12 +25,14 @@ class ViewController extends AbstractController
      * @Route("/patient/appointment", name="front.patient.appointment")
      */
     public function index(
-        FrontEndMedicalSpecialtyService $medicalSpecialtyService
+        FrontEndMedicalSpecialtyService $medicalSpecialtyService,
+        MenuService $menuService
     ): Response {
         return $this->render('patient/appointment.html.twig', [
             'state' => Utils::jsonEncode([
                 'medical_specialties' => $medicalSpecialtyService->getResult(),
                 'appointments' => $this->getAppointments(),
+                'menu' => $menuService->getMenu(),
             ]),
         ]);
     }

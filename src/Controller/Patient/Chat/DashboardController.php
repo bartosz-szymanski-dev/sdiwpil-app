@@ -3,6 +3,7 @@
 namespace App\Controller\Patient\Chat;
 
 use App\Service\Conversation\ConversationService;
+use App\Service\Menu\MenuService;
 use GuzzleHttp\Utils;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,11 +16,12 @@ class DashboardController extends AbstractController
      * @param ConversationService $conversationService
      * @return Response
      */
-    public function index(ConversationService $conversationService): Response
+    public function index(ConversationService $conversationService, MenuService $menuService): Response
     {
         return $this->render('patient/chat.html.twig', [
             'state' => Utils::jsonEncode([
                 'chats' => $conversationService->getConversations(),
+                'menu' => $menuService->getMenu(),
             ]),
         ]);
     }
