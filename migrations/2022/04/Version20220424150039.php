@@ -67,12 +67,12 @@ final class Version20220424150039 extends AbstractMigration
     private function getInsertParams(array $row): array
     {
         return [
-            $row['name'],
-            $row['country'],
-            $row['city'],
-            $row['email'],
-            $row['zip_code'],
-            $row['street_address'],
+            'name' => $row['name'],
+            'country' => $row['country'],
+            'city' => $row['city'],
+            'email' => $row['email'],
+            'zip_code' => $row['zip_code'],
+            'street_address' => $row['street_address'],
         ];
     }
 }
