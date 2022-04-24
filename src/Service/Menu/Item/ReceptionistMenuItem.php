@@ -7,18 +7,14 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 class ReceptionistMenuItem extends AbstractMenuItem
 {
-    public function __construct()
-    {
-        $this->nextItem = new ManagementMenuItem();
-    }
-
-    public function add(ArrayCollection $menu): void
+    public function addToMenu(ArrayCollection $menu): void
     {
         $menu->add(new MenuItemModel(
             'front.receptionist.dashboard',
-            'Recepcja'
+            'Recepcja',
+            'mdi-account-group'
         ));
 
-        $this->nextItem->add($menu);
+        parent::addToMenu($menu);
     }
 }

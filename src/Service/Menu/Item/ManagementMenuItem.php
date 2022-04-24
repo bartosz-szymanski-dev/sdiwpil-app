@@ -7,11 +7,12 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 class ManagementMenuItem extends AbstractMenuItem
 {
-    public function add(ArrayCollection $menu): void
+    public function addToMenu(ArrayCollection $menu): void
     {
         $menu->add(new MenuItemModel(
             'front.management.dashboard',
-            'Administracja placówki'
+            'Administracja placówki',
+            'mdi-account-tie'
         ));
     }
 }

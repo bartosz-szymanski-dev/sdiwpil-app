@@ -18,8 +18,9 @@
 
       <v-divider />
       <v-list-item
-        v-for="({ icon, name }, i) in items"
+        v-for="({ icon, name, route }, i) in items"
         :key="i"
+        :href="$fosGenerate(route)"
       >
         <v-list-item-icon>
           <v-icon>{{ icon }}</v-icon>
@@ -31,6 +32,8 @@
 </template>
 
 <script>
+import { get } from 'lodash';
+
 export default {
   name: 'MobileNavList',
   props: {
@@ -41,29 +44,12 @@ export default {
   },
   data: () => ({
     group: null,
-    items: [
-      {
-        icon: 'mdi-home',
-        name: 'Strona główna',
-      },
-      {
-        icon: 'mdi-account',
-        name: 'Strefa pacjenta',
-      },
-      {
-        icon: 'mdi-doctor',
-        name: 'Strefa lekarza',
-      },
-      {
-        icon: 'mdi-account-group',
-        name: 'Strefa recepcji',
-      },
-      {
-        icon: 'mdi-account-tie',
-        name: 'Strefa administracji',
-      },
-    ],
   }),
+  computed: {
+    items() {
+      return get(window, 'state.menu', []);
+    },
+  },
 };
 </script>
 

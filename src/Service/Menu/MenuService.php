@@ -2,7 +2,10 @@
 
 namespace App\Service\Menu;
 
+use App\Service\Menu\Item\DoctorMenuItem;
+use App\Service\Menu\Item\ManagementMenuItem;
 use App\Service\Menu\Item\PatientMenuItem;
+use App\Service\Menu\Item\ReceptionistMenuItem;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Cache\Adapter\AdapterInterface;
 
@@ -23,7 +26,15 @@ class MenuService
 
         $menu = new ArrayCollection();
         $patientMenuItem = new PatientMenuItem();
-        $patientMenuItem->add($menu);
+        $doctorMenuItem = new DoctorMenuItem();
+        $receptionistMenuItem = new ReceptionistMenuItem();
+        $managementMenuItem = new ManagementMenuItem();
+
+        $patientMenuItem
+            ->setNextItem($doctorMenuItem)
+            ->setNextItem($receptionistMenuItem)
+            ->setNextItem($managementMenuItem);
+        $patientMenuItem->addToMenu($menu);
         $menuArray = $menu->toArray();
         $this->saveCachedMenu($menuArray);
 

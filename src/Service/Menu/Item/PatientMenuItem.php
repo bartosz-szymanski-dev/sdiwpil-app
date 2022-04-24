@@ -8,18 +8,14 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 class PatientMenuItem extends AbstractMenuItem
 {
-    public function __construct()
-    {
-        $this->nextItem = new DoctorMenuItem();
-    }
-
-    public function add(ArrayCollection $menu): void
+    public function addToMenu(ArrayCollection $menu): void
     {
         $menu->add(new MenuItemModel(
             ViewController::ROUTE_NAME,
-            'Pacjent'
+            'Pacjent',
+            'mdi-account'
         ));
 
-        $this->nextItem->add($menu);
+        parent::addToMenu($menu);
     }
 }
