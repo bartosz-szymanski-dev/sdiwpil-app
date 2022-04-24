@@ -17,6 +17,8 @@
       />
 
       <login-form />
+
+      <register-interlinking />
     </v-container>
   </div>
 </template>
@@ -25,10 +27,13 @@
 import AppBackground from '../../../shared/components/AppBackground';
 import RouteScreen from '../../../shared/components/RouteScreen';
 import LoginForm from './LoginForm';
+import RegisterInterlinking from '../../../shared/components/RegisterInterlinking';
 
 export default {
   name: 'DesktopContainer',
-  components: { LoginForm, RouteScreen, AppBackground },
+  components: {
+    RegisterInterlinking, LoginForm, RouteScreen, AppBackground,
+  },
   props: {
     navbarHeight: {
       type: Number,
