@@ -3,6 +3,7 @@
 namespace App\Service\Doctor;
 
 use App\Service\MedicalSpecialty\FrontEndMedicalSpecialtyService;
+use App\Service\Menu\MenuService;
 use App\Service\Settings\UserSettingsStateService;
 use Symfony\Component\Security\Core\Security;
 
@@ -10,9 +11,12 @@ class DoctorSettingsStateService extends UserSettingsStateService
 {
     private FrontEndMedicalSpecialtyService $medicalSpecialtyService;
 
-    public function __construct(Security $security, FrontEndMedicalSpecialtyService $medicalSpecialtyService)
-    {
-        parent::__construct($security);
+    public function __construct(
+        Security $security,
+        MenuService $menuService,
+        FrontEndMedicalSpecialtyService $medicalSpecialtyService
+    ) {
+        parent::__construct($security,$menuService);
 
         $this->medicalSpecialtyService = $medicalSpecialtyService;
     }
