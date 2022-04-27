@@ -158,10 +158,17 @@ task('configure:dotenv', function () {
     ->desc('Handle differences in dotenv file');
 
 task('link:services:reload', function () {
-    run('sudo -S /usr/sbin/service php7.4-fpm reload');
+    $commands = [
+        'sudo -S /usr/sbin/service php7.4-fpm reload',
+        'sudo cp {{release_path}}/etc/nginx.conf {{nginx_config_dst_filename}}',
+        'sudo nginx -t && sudo nginx -s reload',
+        'sudo systemctl stop nginx',
+        'sudo systemctl start nginx',
+    ];
 
-    run('sudo cp {{release_path}}/etc/nginx.conf {{nginx_config_dst_filename}}');
-    run('sudo nginx -t && sudo nginx -s reload');
+    foreach ($commands as $command) {
+        run($command);
+    }
 })
     ->desc('Update nginx');
 
