@@ -132,7 +132,7 @@ class PrintService
     {
         $tmpProjectDir = sprintf('%s/tmp/', $this->kernel->getProjectDir());
         if (!$this->filesystem->exists($tmpProjectDir)) {
-            $this->filesystem->mkdir($tmpProjectDir, 0644);
+            $this->filesystem->mkdir($tmpProjectDir, 0664);
         }
     }
 }
