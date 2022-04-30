@@ -2,6 +2,8 @@
   <v-app class="home-page--bg">
     <app-navbar ref="navbar" />
 
+    <vue-snotify />
+
     <mobile-container
       v-if="breakpoint.mdAndDown"
       :navbar-height="navbarHeight"
@@ -19,6 +21,7 @@
 </template>
 
 <script>
+import { get } from 'lodash';
 import AppNavbar from '../../../shared/components/AppNavbar';
 import AppFooter from '../../../shared/components/AppFooter';
 import MobileContainer from './MobileContainer';
@@ -32,6 +35,15 @@ export default {
     AppNavbar, AppFooter, MobileContainer, MainContainer,
   },
   mixins: [breakpoint, mainComponentHelper],
+  mounted() {
+    this.handleAccessDeniedErrors();
+  },
+  methods: {
+    handleAccessDeniedErrors() {
+      const errors = get(window, 'state.errors', []);
+      errors.forEach((error) => this.$snotify.error(error.message));
+    },
+  },
 };
 </script>
 
