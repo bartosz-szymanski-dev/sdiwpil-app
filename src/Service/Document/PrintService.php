@@ -6,6 +6,7 @@ use App\Entity\Document;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Snappy\Pdf;
 use Picqer\Barcode\BarcodeGeneratorPNG;
+use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\KernelInterface;
@@ -34,17 +35,20 @@ class PrintService
     private Environment $twig;
     private EntityManagerInterface $entityManager;
     private KernelInterface $kernel;
+    private Filesystem $filesystem;
 
     public function __construct(
         Pdf $pdf,
         Environment $twig,
         EntityManagerInterface $entityManager,
-        KernelInterface $kernel
+        KernelInterface $kernel,
+        Filesystem $filesystem
     ) {
         $this->pdf = $pdf;
         $this->twig = $twig;
         $this->entityManager = $entityManager;
         $this->kernel = $kernel;
+        $this->filesystem = $filesystem;
     }
 
     public function getDocumentResponse(string $hash): Response
@@ -82,6 +86,7 @@ class PrintService
 
     private function getBarcode(Document $document): array
     {
+        $this->createDir();
         $this->removeExistingBarcodes();
         $generator = new BarcodeGeneratorPNG();
         $barcode = $document->getPrescription()->getBarcode();
@@ -121,5 +126,13 @@ class PrintService
         $html = $this->twig->render('/print/prescription.html.twig', $this->getPrescriptionContext($document));
 
         return $this->pdf->getOutputFromHtml($html, self::DOCUMENT_SETTINGS[self::PRINT_PRESCRIPTION]);
+    }
+
+    private function createDir(): void
+    {
+        $tmpProjectDir = sprintf('%s/tmp/', $this->kernel->getProjectDir());
+        if (!$this->filesystem->exists($tmpProjectDir)) {
+            $this->filesystem->mkdir($tmpProjectDir, 0644);
+        }
     }
 }
