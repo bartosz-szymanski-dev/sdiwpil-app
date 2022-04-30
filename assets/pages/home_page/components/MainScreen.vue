@@ -12,7 +12,7 @@
 
         <p class="main-white mb-0">
           Przed tobą system wspomagający pacjenta i lekarza. Aplikacja ta została stworzona z myślą o darmowym
-          rozwiązaniu usprawniającym rejestrację wizyt, korzystanie z dokumentacji pacjenta i szereg innych funkcji.
+          rozwiązaniu usprawniającym rejestrację wizyt, korzystanie z dokumentacji pacjenta i szeregu innych funkcji.
         </p>
       </v-col>
 

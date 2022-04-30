@@ -1,7 +1,7 @@
 <template>
   <v-row justify="center">
     <v-col
-      v-for="({image, title, description}, i) in functions"
+      v-for="({ image, title, description, url }, i) in functions"
       :key="i"
       cols="auto"
     >
@@ -9,6 +9,7 @@
         :image="image"
         :title="title"
         :description="description"
+        :url="url"
       />
     </v-col>
   </v-row>

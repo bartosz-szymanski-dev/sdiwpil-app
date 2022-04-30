@@ -22,6 +22,7 @@
       <v-btn
         color="secondary"
         block
+        :href="url"
       >
         Sprawdź
       </v-btn>
@@ -42,6 +43,10 @@ export default {
       required: true,
     },
     description: {
+      type: String,
+      required: true,
+    },
+    url: {
       type: String,
       required: true,
     },
