@@ -1,7 +1,7 @@
 <?php
 namespace Deployer;
 
-Deployer::setDefault('default_timeout', 3000);
+set('default_timeout', 3000);
 
 require_once __DIR__ . '/deploy/tasks.php';
 
@@ -29,10 +29,10 @@ add('writable_dirs', []);
 //    ->set('deploy_path', '/home/sdiwpil/www/app');
 
 host('vps')
-    ->hostname('146.59.17.120')
-    ->user('sdiwpil')
-    ->identityFile('~/.ssh/id_rsa')
-    ->addSshOption('IdentitiesOnly', 'yes')
+    ->setHostname('146.59.17.120')
+    ->setRemoteUser('sdiwpil')
+    ->setIdentityFile('~/.ssh/id_rsa')
+//    ->addSshOption('IdentitiesOnly', 'yes')
     ->set('deploy_path', '/home/sdiwpil/www');
 
 // Tasks

@@ -26,7 +26,7 @@ task('deploy:vendors', function () {
     }
 
     run("cd {{release_path}} && wget https://getcomposer.org/download/2.2.6/composer.phar -O composer.phar");
-    run('cd {{release_path}} && {{bin/php}} composer.phar {{composer_options}} --no-cache');
+    run('cd {{release_path}} && {{bin/php}} composer.phar install {{composer_options}} --no-cache');
 });
 
 task(
@@ -178,7 +178,7 @@ task('install', function () {
     $tasks = [
         'deploy:info',
         'deploy:prepare',
-        'deploy:lock',
+//        'deploy:lock',
         'deploy:release',
         'deploy:update_code',
         'deploy:shared',
@@ -230,7 +230,7 @@ task('link', function () {
         'deploy:symlink',
         'link:services:reload',
         'deploy:unlock',
-        'cleanup',
+//        'cleanup',
     ];
 
     foreach ($tasks as $task) {
