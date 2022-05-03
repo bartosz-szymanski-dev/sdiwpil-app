@@ -4,6 +4,8 @@ namespace App\Factory;
 
 use App\Entity\Clinic;
 use App\Repository\ClinicRepository;
+use Exception;
+use JetBrains\PhpStorm\ArrayShape;
 use Zenstruck\Foundry\RepositoryProxy;
 use Zenstruck\Foundry\ModelFactory;
 use Zenstruck\Foundry\Proxy;
@@ -28,7 +30,14 @@ use Zenstruck\Foundry\Proxy;
  */
 final class ClinicFactory extends ModelFactory
 {
-    protected function getDefaults(): array
+    #[ArrayShape([
+        'name' => "string",
+        'country' => "string",
+        'city' => "string",
+        'email' => "string",
+        'zipCode' => "string",
+        'streetAddress' => "string"
+    ])] protected function getDefaults(): array
     {
         return [
             'name' => self::faker()->company(),
@@ -53,6 +62,9 @@ final class ClinicFactory extends ModelFactory
         return Clinic::class;
     }
 
+    /**
+     * @throws Exception
+     */
     private function getRandomCracowPostCode(): string
     {
         $first = '3';
