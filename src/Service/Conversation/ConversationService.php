@@ -12,21 +12,13 @@ use Symfony\Component\Security\Core\Security;
 
 class ConversationService
 {
-    private Security $security;
-    private PaginatedRequestService $paginatedRequestService;
-    private EntityManagerInterface $entityManager;
-
     private User $user;
 
     public function __construct(
-        Security $security,
-        PaginatedRequestService $paginatedRequestService,
-        EntityManagerInterface $entityManager
+        private readonly Security $security,
+        private readonly PaginatedRequestService $paginatedRequestService,
+        private readonly EntityManagerInterface $entityManager
     ) {
-        $this->security = $security;
-        $this->paginatedRequestService = $paginatedRequestService;
-        $this->entityManager = $entityManager;
-
         $this->setUser();
     }
 
