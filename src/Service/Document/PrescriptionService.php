@@ -5,16 +5,17 @@ namespace App\Service\Document;
 use App\Entity\Document;
 use App\Entity\Prescription;
 use Doctrine\ORM\EntityManagerInterface;
+use Exception;
 
 class PrescriptionService
 {
-    private EntityManagerInterface $entityManager;
-
-    public function __construct(EntityManagerInterface $entityManager)
+    public function __construct(private readonly EntityManagerInterface $entityManager)
     {
-        $this->entityManager = $entityManager;
     }
 
+    /**
+     * @throws Exception
+     */
     public function createPrescription(array $documentData): void
     {
         $document = $this->createDocument($documentData);
@@ -57,6 +58,9 @@ class PrescriptionService
         return $result;
     }
 
+    /**
+     * @throws Exception
+     */
     private function getPrefixId(): string
     {
         $mapping = [
@@ -85,11 +89,17 @@ class PrescriptionService
         return $result;
     }
 
+    /**
+     * @throws Exception
+     */
     private function getAccessCode(): string
     {
         return random_int(1000, 9999);
     }
 
+    /**
+     * @throws Exception
+     */
     private function getPrescriptionFileId(): string
     {
         $alphabet = 'qwertyuiopasdfghjklzxcvbnm';
