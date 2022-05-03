@@ -21,11 +21,8 @@ use Symfony\Component\Security\Http\EntryPoint\AuthenticationEntryPointInterface
 
 class JsonLoginAuthenticator extends AbstractAuthenticator implements AuthenticationEntryPointInterface
 {
-    private UrlGeneratorInterface $urlGenerator;
-
-    public function __construct(UrlGeneratorInterface $urlGenerator)
+    public function __construct(private readonly UrlGeneratorInterface $urlGenerator)
     {
-        $this->urlGenerator = $urlGenerator;
     }
 
     public function supports(Request $request): ?bool
@@ -77,18 +74,13 @@ class JsonLoginAuthenticator extends AbstractAuthenticator implements Authentica
                 continue;
             }
 
-            switch ($role) {
-                case User::ROLE_PATIENT:
-                    return $this->urlGenerator->generate('front.patient.dashboard');
-                case User::ROLE_DOCTOR:
-                    return $this->urlGenerator->generate('front.doctor.dashboard');
-                case User::ROLE_RECEPTIONIST:
-                    return $this->urlGenerator->generate('front.receptionist.dashboard');
-                case User::ROLE_MANAGER:
-                    return $this->urlGenerator->generate('front.manager.dashboard');
-                default:
-                    throw new RuntimeException('Nie znaleziono strefy podanego użytkownika');
-            }
+            return match ($role) {
+                User::ROLE_PATIENT => $this->urlGenerator->generate('front.patient.dashboard'),
+                User::ROLE_DOCTOR => $this->urlGenerator->generate('front.doctor.dashboard'),
+                User::ROLE_RECEPTIONIST => $this->urlGenerator->generate('front.receptionist.dashboard'),
+                User::ROLE_MANAGER => $this->urlGenerator->generate('front.manager.dashboard'),
+                default => throw new RuntimeException('Nie znaleziono strefy podanego użytkownika'),
+            };
         }
 
         throw new RuntimeException('Użytkownik nie ma przypisanej żadnej roli w systemie');
