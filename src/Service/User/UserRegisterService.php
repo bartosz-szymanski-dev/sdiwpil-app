@@ -8,24 +8,16 @@ use App\Entity\PatientData;
 use App\Entity\User;
 use App\Service\Patient\PeselDataHelper;
 use Doctrine\ORM\EntityManagerInterface;
+use Exception;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class UserRegisterService
 {
-    private EntityManagerInterface $entityManager;
-
-    private UserPasswordHasherInterface $passwordHasher;
-
-    private PeselDataHelper $peselDataHelper;
-
     public function __construct(
-        EntityManagerInterface $entityManager,
-        UserPasswordHasherInterface $passwordHasher,
-        PeselDataHelper $peselDataHelper
+        private readonly EntityManagerInterface $entityManager,
+        private readonly UserPasswordHasherInterface $passwordHasher,
+        private readonly PeselDataHelper $peselDataHelper
     ) {
-        $this->entityManager = $entityManager;
-        $this->passwordHasher = $passwordHasher;
-        $this->peselDataHelper = $peselDataHelper;
     }
 
     public function registerUser(array $userData, string $role): User
@@ -59,9 +51,13 @@ class UserRegisterService
 
     private function getPwzId(): string
     {
-        $pwzId = random_int(1000000, 9999999);
-        while ($this->entityManager->getRepository(DoctorData::class)->findOneBy(['pwzId' => $pwzId])) {
+        try {
             $pwzId = random_int(1000000, 9999999);
+            while ($this->entityManager->getRepository(DoctorData::class)->findOneBy(['pwzId' => $pwzId])) {
+                $pwzId = random_int(1000000, 9999999);
+            }
+        } catch (Exception $exception) {
+            $this->getPwzId();
         }
 
         return $pwzId;
