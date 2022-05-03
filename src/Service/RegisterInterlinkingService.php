@@ -2,6 +2,7 @@
 
 namespace App\Service;
 
+use JetBrains\PhpStorm\ArrayShape;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class RegisterInterlinkingService
@@ -20,11 +21,8 @@ class RegisterInterlinkingService
         ],
     ];
 
-    private UrlGeneratorInterface $router;
-
-    public function __construct(UrlGeneratorInterface $router)
+    public function __construct(private readonly UrlGeneratorInterface $router)
     {
-        $this->router = $router;
     }
 
     public function get(string $name = ''): array
@@ -38,7 +36,11 @@ class RegisterInterlinkingService
         return $result ?? [];
     }
 
-    private function getInterlink(string $name, array $params): array
+    #[ArrayShape([
+        self::NAME => "string",
+        self::ROUTE => "string",
+        self::COLOR => "string"
+    ])] private function getInterlink(string $name, array $params): array
     {
         return [
             self::NAME => $params['title'],
