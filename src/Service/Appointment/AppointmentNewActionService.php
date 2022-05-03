@@ -12,6 +12,7 @@ use Carbon\Carbon;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use GuzzleHttp\Utils;
+use JetBrains\PhpStorm\ArrayShape;
 use Psr\Log\LoggerInterface;
 use RuntimeException;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -27,13 +28,6 @@ class AppointmentNewActionService
     private const APPOINTMENTS_KEY = 'appointments';
     private const ERRORS_KEY = 'errors';
 
-    private RequestStack $requestStack;
-    private Security $security;
-    private FormFactoryInterface $formFactory;
-    private FormErrorService $formErrorService;
-    private EntityManagerInterface $entityManager;
-    private LoggerInterface $logger;
-
     private Request $request;
     private User $patient;
 
@@ -44,19 +38,13 @@ class AppointmentNewActionService
     ];
 
     public function __construct(
-        RequestStack $requestStack,
-        Security $security,
-        FormFactoryInterface $formFactory,
-        FormErrorService $formErrorService,
-        EntityManagerInterface $entityManager,
-        LoggerInterface $logger
+        private readonly RequestStack $requestStack,
+        private readonly Security $security,
+        private readonly FormFactoryInterface $formFactory,
+        private readonly FormErrorService $formErrorService,
+        private readonly EntityManagerInterface $entityManager,
+        private readonly LoggerInterface $logger
     ) {
-        $this->requestStack = $requestStack;
-        $this->security = $security;
-        $this->formFactory = $formFactory;
-        $this->formErrorService = $formErrorService;
-        $this->entityManager = $entityManager;
-        $this->logger = $logger;
     }
 
     public function getJsonResponse(): JsonResponse
@@ -136,10 +124,7 @@ class AppointmentNewActionService
         }
     }
 
-    /**
-     * @return array{min: int, max: int}
-     */
-    private function getMinMax(): array
+    #[ArrayShape(['min' => "float|int", 'max' => "int"])] private function getMinMax(): array
     {
         $page = (int)$this->request->get('page', 1);
         $perPage = (int)$this->request->get('per_page', 25);
