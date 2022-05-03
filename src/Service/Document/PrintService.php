@@ -31,24 +31,13 @@ class PrintService
         ],
     ];
 
-    private Pdf $pdf;
-    private Environment $twig;
-    private EntityManagerInterface $entityManager;
-    private KernelInterface $kernel;
-    private Filesystem $filesystem;
-
     public function __construct(
-        Pdf $pdf,
-        Environment $twig,
-        EntityManagerInterface $entityManager,
-        KernelInterface $kernel,
-        Filesystem $filesystem
+        private readonly Pdf $pdf,
+        private readonly Environment $twig,
+        private readonly EntityManagerInterface $entityManager,
+        private readonly KernelInterface $kernel,
+        private readonly Filesystem $filesystem
     ) {
-        $this->pdf = $pdf;
-        $this->twig = $twig;
-        $this->entityManager = $entityManager;
-        $this->kernel = $kernel;
-        $this->filesystem = $filesystem;
     }
 
     public function getDocumentResponse(string $hash): Response
