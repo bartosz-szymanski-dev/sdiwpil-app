@@ -21,21 +21,7 @@ abstract class AbstractRegisterService
     private const ROUTE_KEY = 'route';
     private const ERRORS_KEY = 'errors';
 
-    private UrlGeneratorInterface $urlGenerator;
-
     private Request $request;
-
-    private LoggerInterface $logger;
-
-    private FormFactoryInterface $formFactory;
-
-    private FormErrorService $formErrorService;
-
-    private UserRegisterService $registerService;
-
-    private UserAuthenticatorInterface $authenticator;
-
-    private JsonLoginAuthenticator $loginAuthenticator;
 
     private array $state = [
         self::SUCCESS_KEY => false,
@@ -45,21 +31,14 @@ abstract class AbstractRegisterService
     ];
 
     public function __construct(
-        UrlGeneratorInterface $urlGenerator,
-        LoggerInterface $logger,
-        FormFactoryInterface $formFactory,
-        FormErrorService $formErrorService,
-        UserRegisterService $registerService,
-        UserAuthenticatorInterface $authenticator,
-        JsonLoginAuthenticator $loginAuthenticator
+        private readonly UrlGeneratorInterface $urlGenerator,
+        private readonly LoggerInterface $logger,
+        private readonly FormFactoryInterface $formFactory,
+        private readonly FormErrorService $formErrorService,
+        private readonly UserRegisterService $registerService,
+        private readonly UserAuthenticatorInterface $authenticator,
+        private readonly JsonLoginAuthenticator $loginAuthenticator
     ) {
-        $this->urlGenerator = $urlGenerator;
-        $this->logger = $logger;
-        $this->formFactory = $formFactory;
-        $this->formErrorService = $formErrorService;
-        $this->registerService = $registerService;
-        $this->authenticator = $authenticator;
-        $this->loginAuthenticator = $loginAuthenticator;
     }
 
     public function handleRequest(Request $request): array
@@ -77,8 +56,11 @@ abstract class AbstractRegisterService
     }
 
     abstract protected function getRole(): string;
+
     abstract protected function getRegisterNewRoute(): string;
+
     abstract protected function getFormClass(): string;
+
     abstract protected function getRedirectRouteName(): string;
 
     private function supports(): bool
