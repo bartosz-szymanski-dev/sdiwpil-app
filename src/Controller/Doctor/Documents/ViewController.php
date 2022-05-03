@@ -15,15 +15,10 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ViewController extends AbstractController
 {
-    private EntityManagerInterface $entityManager;
-    private DocumentFrontEndStructureService $documentFrontEndStructureService;
-
     public function __construct(
-        EntityManagerInterface $entityManager,
-        DocumentFrontEndStructureService $documentFrontEndStructureService
+        private readonly EntityManagerInterface $entityManager,
+        private readonly DocumentFrontEndStructureService $documentFrontEndStructureService
     ) {
-        $this->entityManager = $entityManager;
-        $this->documentFrontEndStructureService = $documentFrontEndStructureService;
     }
 
     /**

@@ -6,6 +6,7 @@ use App\Entity\Conversation;
 use App\Service\Menu\MenuService;
 use Doctrine\ORM\EntityManagerInterface;
 use GuzzleHttp\Utils;
+use JetBrains\PhpStorm\ArrayShape;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -13,17 +14,16 @@ abstract class AbstractParticularConversationController extends AbstractControll
 {
     protected Conversation $conversation;
 
-    private EntityManagerInterface $entityManager;
-    private MenuService $menuService;
-
     abstract public function index(string $channelId): Response;
+
     abstract protected function getHeader(): string;
+
     abstract protected function getTemplatePath(): string;
 
-    public function __construct(EntityManagerInterface $entityManager, MenuService $menuService)
-    {
-        $this->entityManager = $entityManager;
-        $this->menuService = $menuService;
+    public function __construct(
+        private readonly EntityManagerInterface $entityManager,
+        private readonly MenuService $menuService
+    ) {
     }
 
     protected function setConversation(string $channelId): void
@@ -46,7 +46,11 @@ abstract class AbstractParticularConversationController extends AbstractControll
         return $result ?? [];
     }
 
-    protected function getState(): array
+    #[ArrayShape([
+        'pageTitle' => "string",
+        'state' => "string",
+        'menu' => "array",
+    ])] protected function getState(): array
     {
         return [
             'pageTitle' => $this->getHeader(),
