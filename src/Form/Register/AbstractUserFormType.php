@@ -20,11 +20,8 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 abstract class AbstractUserFormType extends AbstractType
 {
-    protected EntityManagerInterface $entityManager;
-
-    public function __construct(EntityManagerInterface $entityManager)
+    public function __construct(protected readonly EntityManagerInterface $entityManager)
     {
-        $this->entityManager = $entityManager;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
