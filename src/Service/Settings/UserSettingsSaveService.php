@@ -22,15 +22,7 @@ class UserSettingsSaveService
 
     protected static string $settingsFormType = UserSettingsFormType::class;
 
-    private RequestStack $requestStack;
     private Request $request;
-    private FormFactoryInterface $formFactory;
-    private FormErrorService $formErrorService;
-    private Security $security;
-    private UserPasswordHasherInterface $passwordHasher;
-    private LoggerInterface $logger;
-
-    protected EntityManagerInterface $entityManager;
 
     private array $result = [
         self::SUCCESS_KEY => false,
@@ -38,22 +30,15 @@ class UserSettingsSaveService
     ];
 
     public function __construct(
-        RequestStack $requestStack,
-        FormFactoryInterface $formFactory,
-        FormErrorService $formErrorService,
-        Security $security,
-        UserPasswordHasherInterface $passwordHasher,
-        EntityManagerInterface $entityManager,
-        LoggerInterface $logger
+        protected readonly EntityManagerInterface $entityManager,
+        private readonly RequestStack $requestStack,
+        private readonly FormFactoryInterface $formFactory,
+        private readonly FormErrorService $formErrorService,
+        private readonly Security $security,
+        private readonly UserPasswordHasherInterface $passwordHasher,
+        private readonly LoggerInterface $logger,
     ) {
-        $this->requestStack = $requestStack;
         $this->request = $this->getRequest();
-        $this->formFactory = $formFactory;
-        $this->formErrorService = $formErrorService;
-        $this->security = $security;
-        $this->passwordHasher = $passwordHasher;
-        $this->entityManager = $entityManager;
-        $this->logger = $logger;
     }
 
     public function getJsonResponse(): JsonResponse
@@ -80,7 +65,8 @@ class UserSettingsSaveService
         } catch (\Exception $exception) {
             $this->logger->error($exception->getMessage());
             $this->result[self::ERRORS_KEY][] = [
-                'message' => 'Wystąpił błąd zapisania danych, spróbuj ponownie lub skontaktuj się z administratorem systemu',
+                'message' => 'Wystąpił błąd zapisania danych, spróbuj ponownie lub skontaktuj się z administratorem ' .
+                    'systemu',
             ];
         }
     }
