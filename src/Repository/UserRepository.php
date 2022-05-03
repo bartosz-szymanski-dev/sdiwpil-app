@@ -4,11 +4,11 @@ namespace App\Repository;
 
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
-use function Doctrine\ORM\QueryBuilder;
 
 /**
  * @method User|null find($id, $lockMode = null, $lockVersion = null)
@@ -46,6 +46,16 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
             ->join('u.doctorData', 'dd')
             ->orderBy('u.firstName', 'ASC');
 
+        $this
+            ->applyMedicalSpecialtyFilter($qb, $params)
+            ->applyCityFilter($qb, $params)
+            ->applyLastNameFilter($qb, $params);
+
+        return $qb->getQuery()->getResult();
+    }
+
+    private function applyMedicalSpecialtyFilter(QueryBuilder $qb, array $params): self
+    {
         $medicalSpecialty = $params['medicalSpecialty'] ?? 0;
         if ($medicalSpecialty) {
             $qb
@@ -53,6 +63,11 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
                 ->setParameter('medicalSpecialty', $medicalSpecialty);
         }
 
+        return $this;
+    }
+
+    private function applyCityFilter(QueryBuilder $qb, array $params): self
+    {
         $city = $params['city'] ?? '';
         if ($city) {
             $qb
@@ -61,6 +76,11 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
                 ->setParameter('city', $city);
         }
 
+        return $this;
+    }
+
+    private function applyLastNameFilter(QueryBuilder $qb, array $params): self
+    {
         $lastName = $params['lastName'] ?? '';
         if ($lastName) {
             $qb
@@ -69,35 +89,6 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
                 ->setParameter('lastName', $lastName);
         }
 
-        return $qb->getQuery()->getResult();
+        return $this;
     }
-
-    // /**
-    //  * @return User[] Returns an array of User objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('u')
-            ->andWhere('u.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('u.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?User
-    {
-        return $this->createQueryBuilder('u')
-            ->andWhere('u.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }
