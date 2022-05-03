@@ -20,10 +20,6 @@ class FindDoctorActionService
     private const DOCTORS_KEY = 'doctors';
     private const ERRORS_KEY = 'errors';
 
-    private FormFactoryInterface $formFactory;
-    private FormErrorService $formErrorService;
-    private EntityManagerInterface $entityManager;
-    private LoggerInterface $logger;
     private Request $request;
 
     private array $result = [
@@ -33,15 +29,11 @@ class FindDoctorActionService
     ];
 
     public function __construct(
-        FormFactoryInterface $formFactory,
-        FormErrorService $formErrorService,
-        EntityManagerInterface $entityManager,
-        LoggerInterface $logger
+        private readonly FormFactoryInterface $formFactory,
+        private readonly FormErrorService $formErrorService,
+        private readonly EntityManagerInterface $entityManager,
+        private readonly LoggerInterface $logger
     ) {
-        $this->formFactory = $formFactory;
-        $this->formErrorService = $formErrorService;
-        $this->entityManager = $entityManager;
-        $this->logger = $logger;
     }
 
     public function getJsonResponse(Request $request): JsonResponse
