@@ -47,24 +47,20 @@ class WorkingDayValidator extends ConstraintValidator
 
     private function getInvalidValue($value): string
     {
+        return sprintf(
+            '%s i %s',
+            $this->getInvalidPartialValue($value, 'start'),
+            $this->getInvalidPartialValue($value, 'end')
+        );
+    }
+
+    private function getInvalidPartialValue($value, $key): string
+    {
         $emptyResult = 'brak godziny oraz minuty';
         $format = 'H:i';
-        /** @var DateTime $start */
-        $start = $value['start'] ?? null;
-        if ($start) {
-            $startResult = $start->format($format);
-        } else {
-            $startResult = $emptyResult;
-        }
+        /** @var DateTime $partialValue */
+        $partialValue = $value[$key] ?? null;
 
-        /** @var DateTime $end */
-        $end = $value['end'] ?? null;
-        if ($end) {
-            $endResult = $end->format($format);
-        } else {
-            $endResult = $emptyResult;
-        }
-
-        return sprintf('%s i %s', $startResult, $endResult);
+        return $partialValue ? $partialValue->format($format) : $emptyResult;
     }
 }
