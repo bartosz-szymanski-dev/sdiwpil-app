@@ -10,23 +10,21 @@ abstract class AbstractFrontEndCachableService
 {
     protected const CACHE_EXPIRATION_TIME = 600;
 
-    private EntityManagerInterface $entityManager;
-
-    private AdapterInterface $cache;
-
     private array $result = [];
 
-    public function __construct(EntityManagerInterface $entityManager, AdapterInterface $cache)
-    {
-        $this->entityManager = $entityManager;
-        $this->cache = $cache;
+    public function __construct(
+        private readonly EntityManagerInterface $entityManager,
+        private readonly AdapterInterface $cache
+    ) {
     }
+
     protected function getCacheExpirationTime(): int
     {
         return self::CACHE_EXPIRATION_TIME;
     }
 
     abstract protected function getCacheKey(): string;
+
     abstract protected function getEntityClass(): string;
 
     public function getResult(): array
