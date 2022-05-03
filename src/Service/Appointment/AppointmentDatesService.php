@@ -7,20 +7,18 @@ use App\Entity\DoctorData;
 use Carbon\Carbon;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
+use JetBrains\PhpStorm\ArrayShape;
 
 class AppointmentDatesService
 {
     private const TEXTUAL_DAY_REPRESENTATION_FORMAT = 'l';
 
-    private EntityManagerInterface $entityManager;
-
     private DoctorData $doctorData;
 
     private array $result = [];
 
-    public function __construct(EntityManagerInterface $entityManager)
+    public function __construct(private readonly EntityManagerInterface $entityManager)
     {
-        $this->entityManager = $entityManager;
     }
 
     public function getResult(DoctorData $doctorData): array
@@ -91,7 +89,7 @@ class AppointmentDatesService
             $now->eq(Carbon::now());
     }
 
-    private function buildFrontEndValue(Carbon $now): array
+    #[ArrayShape(['text' => "string", 'value' => "string"])] private function buildFrontEndValue(Carbon $now): array
     {
         return [
             'text' => sprintf('%s na godz.: %s', $now->format('d.m.Y'), $now->format('H:i')),
