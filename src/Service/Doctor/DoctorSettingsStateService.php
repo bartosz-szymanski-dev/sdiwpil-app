@@ -14,7 +14,7 @@ class DoctorSettingsStateService extends UserSettingsStateService
         MenuService $menuService,
         private readonly FrontEndMedicalSpecialtyService $medicalSpecialtyService
     ) {
-        parent::__construct($security,$menuService);
+        parent::__construct($security, $menuService);
     }
 
     private function getFrontEndWorkingTime(?array $workingTime): ?array
