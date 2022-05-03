@@ -14,11 +14,8 @@ class PeselValidator extends ConstraintValidator
      */
     private const POSITION_WAGES = [1, 3, 7, 9, 1, 3, 7, 9, 1, 3];
 
-    private EntityManagerInterface $entityManager;
-
-    public function __construct(EntityManagerInterface $entityManager)
+    public function __construct(private readonly EntityManagerInterface $entityManager)
     {
-        $this->entityManager = $entityManager;
     }
 
     public function validate($value, Constraint $constraint): void
