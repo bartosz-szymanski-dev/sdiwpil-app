@@ -8,14 +8,10 @@ use Symfony\Component\HttpFoundation\RequestStack;
 
 class RequestService
 {
-    private RequestStack $requestStack;
-
     protected Request $request;
 
-    public function __construct(RequestStack $requestStack)
+    public function __construct(private readonly RequestStack $requestStack)
     {
-        $this->requestStack = $requestStack;
-
         $this->setRequest();
     }
 
