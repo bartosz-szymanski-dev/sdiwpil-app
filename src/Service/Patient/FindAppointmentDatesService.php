@@ -20,11 +20,6 @@ class FindAppointmentDatesService
     private const APPOINTMENT_DATES_KEY = 'appointmentDates';
     private const ERRORS_KEY = 'errors';
 
-    private FormFactoryInterface $formFactory;
-    private FormErrorService $formErrorService;
-    private LoggerInterface $logger;
-    private RequestStack $requestStack;
-    private AppointmentDatesService $datesService;
     private Request $request;
 
     private array $result = [
@@ -34,17 +29,12 @@ class FindAppointmentDatesService
     ];
 
     public function __construct(
-        FormFactoryInterface $formFactory,
-        FormErrorService $formErrorService,
-        LoggerInterface $logger,
-        RequestStack $requestStack,
-        AppointmentDatesService $datesService
+        private readonly FormFactoryInterface $formFactory,
+        private readonly FormErrorService $formErrorService,
+        private readonly LoggerInterface $logger,
+        private readonly RequestStack $requestStack,
+        private readonly AppointmentDatesService $datesService
     ) {
-        $this->formFactory = $formFactory;
-        $this->formErrorService = $formErrorService;
-        $this->logger = $logger;
-        $this->requestStack = $requestStack;
-        $this->datesService = $datesService;
     }
 
     public function getJsonResponse(): JsonResponse
