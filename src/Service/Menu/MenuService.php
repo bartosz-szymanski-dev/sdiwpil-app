@@ -11,11 +11,8 @@ use Symfony\Component\Cache\Adapter\AdapterInterface;
 
 class MenuService
 {
-    private AdapterInterface $cache;
-
-    public function __construct(AdapterInterface $cache)
+    public function __construct(private readonly AdapterInterface $cache)
     {
-        $this->cache = $cache;
     }
 
     public function getMenu(): array

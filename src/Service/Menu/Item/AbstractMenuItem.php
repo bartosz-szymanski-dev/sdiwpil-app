@@ -10,9 +10,7 @@ abstract class AbstractMenuItem
 
     public function addToMenu(ArrayCollection $menu): void
     {
-        if ($this->nextItem) {
-            $this->nextItem->addToMenu($menu);
-        }
+        $this->nextItem?->addToMenu($menu);
     }
 
     public function setNextItem(AbstractMenuItem $nextItem): AbstractMenuItem
