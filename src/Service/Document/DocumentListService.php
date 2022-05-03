@@ -19,13 +19,6 @@ class DocumentListService
     private const LIST = 'list';
     private const ERRORS = 'errors';
 
-    private EntityManagerInterface $entityManager;
-    private PaginatedRequestService $paginatedRequestService;
-    private DocumentFrontEndStructureService $documentFrontEndStructureService;
-    private LoggerInterface $logger;
-    private ClientInterface $sentry;
-    private Security $security;
-
     private array $response = [
         self::SUCCESS => false,
         self::LIST => [],
@@ -33,19 +26,13 @@ class DocumentListService
     ];
 
     public function __construct(
-        EntityManagerInterface $entityManager,
-        PaginatedRequestService $paginatedRequestService,
-        DocumentFrontEndStructureService $documentFrontEndStructureService,
-        LoggerInterface $logger,
-        ClientInterface $sentry,
-        Security $security
+        private readonly EntityManagerInterface $entityManager,
+        private readonly PaginatedRequestService $paginatedRequestService,
+        private readonly DocumentFrontEndStructureService $documentFrontEndStructureService,
+        private readonly LoggerInterface $logger,
+        private readonly ClientInterface $sentry,
+        private readonly Security $security
     ) {
-        $this->entityManager = $entityManager;
-        $this->paginatedRequestService = $paginatedRequestService;
-        $this->documentFrontEndStructureService = $documentFrontEndStructureService;
-        $this->logger = $logger;
-        $this->sentry = $sentry;
-        $this->security = $security;
     }
 
     public function getJsonResponse(): JsonResponse
