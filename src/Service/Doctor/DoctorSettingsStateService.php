@@ -9,16 +9,12 @@ use Symfony\Component\Security\Core\Security;
 
 class DoctorSettingsStateService extends UserSettingsStateService
 {
-    private FrontEndMedicalSpecialtyService $medicalSpecialtyService;
-
     public function __construct(
         Security $security,
         MenuService $menuService,
-        FrontEndMedicalSpecialtyService $medicalSpecialtyService
+        private readonly FrontEndMedicalSpecialtyService $medicalSpecialtyService
     ) {
         parent::__construct($security,$menuService);
-
-        $this->medicalSpecialtyService = $medicalSpecialtyService;
     }
 
     private function getFrontEndWorkingTime(?array $workingTime): ?array
