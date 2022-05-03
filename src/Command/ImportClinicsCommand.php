@@ -20,15 +20,11 @@ class ImportClinicsCommand extends Command
     protected static $defaultName = 'app:import-clinics-from-csv';
     protected static $defaultDescription = 'Imports Clinic entities from CSV file';
 
-    private EntityManagerInterface $entityManager;
-    private KernelInterface $kernel;
-
-    public function __construct(EntityManagerInterface $entityManager, KernelInterface $kernel)
-    {
+    public function __construct(
+        private readonly EntityManagerInterface $entityManager,
+        private readonly KernelInterface $kernel
+    ) {
         parent::__construct(self::$defaultName);
-
-        $this->entityManager = $entityManager;
-        $this->kernel = $kernel;
     }
 
     protected function configure(): void

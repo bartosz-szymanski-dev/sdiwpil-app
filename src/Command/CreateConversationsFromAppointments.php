@@ -14,18 +14,12 @@ use function Doctrine\ORM\QueryBuilder;
 class CreateConversationsFromAppointments extends Command
 {
     protected static $defaultName = 'app:create-conversations-from-appointments';
-    protected static $defaultDescription = 'Creates conversations from appointments which didn\'t have them created at first';
+    protected static $defaultDescription = 'Creates conversations from appointments which didn\'t have them ' .
+    'created at first';
 
-    private EntityManagerInterface $entityManager;
-
-    /**
-     * @param EntityManagerInterface $entityManager
-     */
-    public function __construct(EntityManagerInterface $entityManager)
+    public function __construct(private readonly EntityManagerInterface $entityManager)
     {
         parent::__construct(self::$defaultName);
-
-        $this->entityManager = $entityManager;
     }
 
     protected function configure(): void

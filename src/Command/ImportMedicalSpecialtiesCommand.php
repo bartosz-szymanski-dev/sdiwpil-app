@@ -16,16 +16,11 @@ class ImportMedicalSpecialtiesCommand extends Command
     protected static $defaultName = 'app:import-medical-specialties';
     protected static $defaultDescription = 'Imports list of medical specialties into database';
 
-    private KernelInterface $kernel;
-
-    private EntityManagerInterface $entityManager;
-
-    public function __construct(KernelInterface $kernel, EntityManagerInterface $entityManager)
-    {
+    public function __construct(
+        private readonly KernelInterface $kernel,
+        private readonly EntityManagerInterface $entityManager
+    ) {
         parent::__construct(self::$defaultName);
-
-        $this->kernel = $kernel;
-        $this->entityManager = $entityManager;
     }
 
     protected function configure(): void
