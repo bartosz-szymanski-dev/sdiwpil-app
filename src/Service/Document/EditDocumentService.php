@@ -32,36 +32,18 @@ class EditDocumentService extends RequestService
         self::ERRORS => [],
     ];
 
-    private FormFactoryInterface $formFactory;
-    private FormErrorService $formErrorService;
-    private EntityManagerInterface $entityManager;
-    private ClientInterface $sentry;
-    private LoggerInterface $logger;
-    private PaginatedRequestService $paginatedRequestService;
-    private DocumentFrontEndStructureService $documentFrontEndStructureService;
-    private Security $security;
-
     public function __construct(
-        FormFactoryInterface $formFactory,
-        FormErrorService $formErrorService,
-        EntityManagerInterface $entityManager,
         RequestStack $requestStack,
-        ClientInterface $sentry,
-        LoggerInterface $logger,
-        PaginatedRequestService $paginatedRequestService,
-        DocumentFrontEndStructureService $documentFrontEndStructureService,
-        Security $security
+        private readonly FormFactoryInterface $formFactory,
+        private readonly FormErrorService $formErrorService,
+        private readonly EntityManagerInterface $entityManager,
+        private readonly ClientInterface $sentry,
+        private readonly LoggerInterface $logger,
+        private readonly PaginatedRequestService $paginatedRequestService,
+        private readonly DocumentFrontEndStructureService $documentFrontEndStructureService,
+        private readonly Security $security
     ) {
         parent::__construct($requestStack);
-
-        $this->formFactory = $formFactory;
-        $this->formErrorService = $formErrorService;
-        $this->entityManager = $entityManager;
-        $this->sentry = $sentry;
-        $this->logger = $logger;
-        $this->paginatedRequestService = $paginatedRequestService;
-        $this->documentFrontEndStructureService = $documentFrontEndStructureService;
-        $this->security = $security;
     }
 
     public function getJsonResponse(): JsonResponse
