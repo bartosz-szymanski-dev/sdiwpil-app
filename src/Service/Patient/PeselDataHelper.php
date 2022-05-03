@@ -4,6 +4,7 @@ namespace App\Service\Patient;
 
 use App\Entity\PatientData;
 use DateTimeImmutable;
+use Exception;
 use RuntimeException;
 
 class PeselDataHelper
@@ -13,6 +14,9 @@ class PeselDataHelper
         return (int)($pesel[9]) % 2 === 0 ? PatientData::GENDER_FEMALE : PatientData::GENDER_MALE;
     }
 
+    /**
+     * @throws Exception
+     */
     public function getBornDate(string $pesel): DateTimeImmutable
     {
         $year = (int)substr($pesel, 0, 2);
