@@ -11,19 +11,16 @@ use Symfony\Component\Security\Http\Authorization\AccessDeniedHandlerInterface;
 
 class AccessDeniedHandler implements AccessDeniedHandlerInterface
 {
-    private FlashBagInterface $flashBag;
-    private UrlGeneratorInterface $router;
-
-    public function __construct(FlashBagInterface $flashBag, UrlGeneratorInterface $router)
-    {
-        $this->flashBag = $flashBag;
-        $this->router = $router;
+    public function __construct(
+        private readonly FlashBagInterface $flashBag,
+        private readonly UrlGeneratorInterface $router
+    ) {
     }
 
     /**
      * @inheritDoc
      */
-    public function handle(Request $request, AccessDeniedException $accessDeniedException)
+    public function handle(Request $request, AccessDeniedException $accessDeniedException): RedirectResponse
     {
         $this->flashBag->add('error', 'Nie masz uprawnień, by przejść do tej zawartości.');
 
