@@ -29,36 +29,18 @@ class NewDocumentService extends RequestService
         self::ERRORS => [],
     ];
 
-    private LoggerInterface $logger;
-    private ClientInterface $sentry;
-    private FormFactoryInterface $formFactory;
-    private FormErrorService $formErrorService;
-    private PrescriptionService $prescriptionService;
-    private EntityManagerInterface $entityManager;
-    private DocumentFrontEndStructureService $documentFrontEndStructureService;
-    private PaginatedRequestService $paginatedRequestService;
-
     public function __construct(
         RequestStack $requestStack,
-        LoggerInterface $logger,
-        ClientInterface $sentry,
-        FormFactoryInterface $formFactory,
-        FormErrorService $formErrorService,
-        PrescriptionService $prescriptionService,
-        EntityManagerInterface $entityManager,
-        DocumentFrontEndStructureService $documentFrontEndStructureService,
-        PaginatedRequestService $paginatedRequestService
+        private readonly LoggerInterface $logger,
+        private readonly ClientInterface $sentry,
+        private readonly FormFactoryInterface $formFactory,
+        private readonly FormErrorService $formErrorService,
+        private readonly PrescriptionService $prescriptionService,
+        private readonly EntityManagerInterface $entityManager,
+        private readonly DocumentFrontEndStructureService $documentFrontEndStructureService,
+        private readonly PaginatedRequestService $paginatedRequestService
     ) {
         parent::__construct($requestStack);
-
-        $this->logger = $logger;
-        $this->sentry = $sentry;
-        $this->formFactory = $formFactory;
-        $this->formErrorService = $formErrorService;
-        $this->prescriptionService = $prescriptionService;
-        $this->entityManager = $entityManager;
-        $this->documentFrontEndStructureService = $documentFrontEndStructureService;
-        $this->paginatedRequestService = $paginatedRequestService;
     }
 
     public function getJsonResponse(): JsonResponse
