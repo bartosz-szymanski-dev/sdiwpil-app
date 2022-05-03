@@ -19,29 +19,19 @@ class MessageNewService extends RequestService
     private const SUCCESS = 'success';
     private const ERRORS = 'errors';
 
-    private FormFactoryInterface $formFactory;
-    private FormErrorService $formErrorService;
-    private EntityManagerInterface $entityManager;
-    private LoggerInterface $logger;
-
     private array $result = [
         self::SUCCESS => false,
         self::ERRORS => [],
     ];
 
     public function __construct(
-        FormFactoryInterface $formFactory,
-        FormErrorService $formErrorService,
-        EntityManagerInterface $entityManager,
         RequestStack $requestStack,
-        LoggerInterface $logger
+        private readonly FormFactoryInterface $formFactory,
+        private readonly FormErrorService $formErrorService,
+        private readonly EntityManagerInterface $entityManager,
+        private readonly LoggerInterface $logger
     ) {
         parent::__construct($requestStack);
-
-        $this->formFactory = $formFactory;
-        $this->formErrorService = $formErrorService;
-        $this->entityManager = $entityManager;
-        $this->logger = $logger;
     }
 
     public function getJsonResponse(): JsonResponse
