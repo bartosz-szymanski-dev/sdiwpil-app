@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller\Patient\Referral;
+namespace App\Controller\Patient\Documents;
 
 use App\Service\Menu\MenuService;
 use GuzzleHttp\Utils;
@@ -11,11 +11,11 @@ use Symfony\Component\Routing\Annotation\Route;
 class ViewController extends AbstractController
 {
     /**
-     * @Route("/patient/referral", name="front.patient.referral")
+     * @Route("/patient/documents", name="front.patient.documents")
      */
     public function index(MenuService $menuService): Response
     {
-        return $this->render('patient/referral.html.twig', [
+        return $this->render('patient/documents.html.twig', [
             'state' => Utils::jsonEncode([
                 'menu' => $menuService->getMenu(),
             ]),

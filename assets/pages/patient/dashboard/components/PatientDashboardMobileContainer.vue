@@ -43,8 +43,8 @@ export default {
     functions() {
       return [
         new DashboardFunctionModel(
-          'Skierowania',
-          this.$fosGenerate('front.patient.referral'),
+          'Dokumenty',
+          this.$fosGenerate('front.patient.documents'),
           '/images/patient-dashboard/referral.png',
         ),
         new DashboardFunctionModel(
