@@ -13,9 +13,11 @@
 
       <v-spacer v-if="breakpoint.mdAndDown" />
 
-      <v-toolbar-title class="white--text">
-        {{ title }}
-      </v-toolbar-title>
+      <a :href="$fosGenerate('front.home_page')">
+        <v-toolbar-title class="white--text">
+          {{ title }}
+        </v-toolbar-title>
+      </a>
 
       <menu-items
         v-if="breakpoint.width > 1376"
