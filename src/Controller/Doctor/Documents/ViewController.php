@@ -2,25 +2,17 @@
 
 namespace App\Controller\Doctor\Documents;
 
+use App\Controller\AbstractViewDocumentsListController;
 use App\Entity\Document;
 use App\Entity\PatientData;
 use App\Entity\User;
-use App\Service\Document\DocumentFrontEndStructureService;
 use App\Service\Menu\MenuService;
-use Doctrine\ORM\EntityManagerInterface;
 use GuzzleHttp\Utils;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class ViewController extends AbstractController
+class ViewController extends AbstractViewDocumentsListController
 {
-    public function __construct(
-        private readonly EntityManagerInterface $entityManager,
-        private readonly DocumentFrontEndStructureService $documentFrontEndStructureService
-    ) {
-    }
-
     /**
      * @Route("/doctor/documents", name="front.doctor.documents")
      */
@@ -63,18 +55,5 @@ class ViewController extends AbstractController
                 'value' => Document::PRESCRIPTION_TYPE,
             ]
         ];
-    }
-
-    private function getDocuments(): array
-    {
-        /** @var User $doctor */
-        $doctor = $this->getUser();
-
-        return $this->documentFrontEndStructureService->getFrontEndStructure(
-            $this->entityManager->getRepository(Document::class)->getPaginatedDocuments(
-                ['min' => 0, 'max' => 25],
-                $doctor->getDoctorData()
-            )
-        );
     }
 }

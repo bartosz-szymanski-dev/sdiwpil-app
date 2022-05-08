@@ -2,13 +2,13 @@
 
 namespace App\Controller\Patient\Documents;
 
+use App\Controller\AbstractViewDocumentsListController;
 use App\Service\Menu\MenuService;
 use GuzzleHttp\Utils;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class ViewController extends AbstractController
+class ViewController extends AbstractViewDocumentsListController
 {
     /**
      * @Route("/patient/documents", name="front.patient.documents")
@@ -18,6 +18,7 @@ class ViewController extends AbstractController
         return $this->render('patient/documents.html.twig', [
             'state' => Utils::jsonEncode([
                 'menu' => $menuService->getMenu(),
+                'documents' => $this->getDocuments(),
             ]),
         ]);
     }
