@@ -16,6 +16,16 @@
         <v-toolbar-title>Dostępne czaty</v-toolbar-title>
       </v-toolbar>
     </template>
+
+    <template #item.actions="{ item }">
+      <v-btn
+        text
+        color="primary"
+        @click="goToParticularChat(item)"
+      >
+        <v-icon>mdi-forum</v-icon>
+      </v-btn>
+    </template>
   </v-data-table>
 </template>
 
@@ -40,6 +50,11 @@ export default {
         text: 'Data utworzenia konwersacji',
         sortable: false,
         value: 'createdAt',
+      },
+      {
+        text: 'Akcje',
+        sortable: false,
+        value: 'actions',
       },
     ],
     chats: [],
