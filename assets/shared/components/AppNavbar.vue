@@ -13,7 +13,10 @@
 
       <v-spacer v-if="breakpoint.mdAndDown" />
 
-      <a :href="$fosGenerate('front.home_page')">
+      <a
+        style="text-decoration: none;"
+        :href="$fosGenerate('front.home_page')"
+      >
         <v-toolbar-title class="white--text">
           {{ title }}
         </v-toolbar-title>
