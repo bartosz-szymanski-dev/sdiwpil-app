@@ -32,7 +32,8 @@
 </template>
 
 <script>
-import { get } from 'lodash';
+import { mapState } from 'vuex';
+import { MENU } from '../../store/module-namespaces';
 
 export default {
   name: 'MobileNavList',
@@ -46,9 +47,7 @@ export default {
     group: null,
   }),
   computed: {
-    items() {
-      return get(window, 'state.menu', []);
-    },
+    ...mapState(MENU, ['items']),
   },
 };
 </script>

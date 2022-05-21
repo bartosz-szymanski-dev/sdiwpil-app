@@ -1,7 +1,7 @@
 <template>
   <v-row>
     <v-col
-      v-for="({ route, name }, key) in menuItems"
+      v-for="({ route, name }, key) in items"
       :key="key"
       cols="auto"
     >
@@ -17,14 +17,13 @@
 </template>
 
 <script>
-import { get } from 'lodash';
+import { mapState } from 'vuex';
+import { MENU } from '../../store/module-namespaces';
 
 export default {
   name: 'MenuItems',
   computed: {
-    menuItems() {
-      return get(window, 'state.menu', []);
-    },
+    ...mapState(MENU, ['items']),
   },
 };
 </script>

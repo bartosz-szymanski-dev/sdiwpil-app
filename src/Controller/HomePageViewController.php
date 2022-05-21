@@ -2,11 +2,10 @@
 
 namespace App\Controller;
 
-use App\Service\Menu\MenuService;
-use GuzzleHttp\Utils;
+use App\Service\Vuex\Module\HomePageModule;
+use App\Service\Vuex\StateGenerator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 class HomePageViewController extends AbstractController
@@ -14,22 +13,10 @@ class HomePageViewController extends AbstractController
     /**
      * @Route("/", name="front.home_page")
      */
-    public function index(MenuService $menuService, FlashBagInterface $flashBag): Response
+    public function __invoke(StateGenerator $stateGenerator, HomePageModule $homePageModule): Response
     {
-        return $this->render('home_page/index.html.twig', [
-            'state' => Utils::jsonEncode([
-                'menu' => $menuService->getMenu(),
-                'errors' => $this->getErrorsPreparedForVue($flashBag->get('error')),
-            ]),
-        ]);
-    }
+        $stateGenerator->addToStateModules($homePageModule);
 
-    private function getErrorsPreparedForVue(array $errors): array
-    {
-        foreach ($errors as $error) {
-            $result[]['message'] = $error;
-        }
-
-        return $result ?? [];
+        return $this->render('home_page/index.html.twig', $stateGenerator->getState());
     }
 }

@@ -3,6 +3,7 @@ import Vuetify from 'vuetify';
 import Snotify, { SnotifyPosition } from 'vue-snotify';
 import vuetify from '../../plugins/vuetify';
 import '../../plugins/router';
+import store from '../../store';
 
 import HomePage from './components/HomePage';
 
@@ -17,6 +18,7 @@ Vue.use(Snotify, {
 new Vue({
   el: '#main',
   vuetify,
+  store,
   render(h) {
     return h(HomePage);
   },

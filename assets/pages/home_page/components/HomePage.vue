@@ -21,13 +21,14 @@
 </template>
 
 <script>
-import { get } from 'lodash';
+import { mapState } from 'vuex';
 import AppNavbar from '../../../shared/components/AppNavbar';
 import AppFooter from '../../../shared/components/AppFooter';
 import MobileContainer from './MobileContainer';
 import MainContainer from './MainContainer';
 import breakpoint from '../../../mixins/breakpoint';
 import mainComponentHelper from '../../../mixins/mainComponentHelper';
+import { HOME_PAGE } from '../../../store/module-namespaces';
 
 export default {
   name: 'HomePage',
@@ -35,13 +36,15 @@ export default {
     AppNavbar, AppFooter, MobileContainer, MainContainer,
   },
   mixins: [breakpoint, mainComponentHelper],
+  computed: {
+    ...mapState(HOME_PAGE, ['errors']),
+  },
   mounted() {
     this.handleAccessDeniedErrors();
   },
   methods: {
     handleAccessDeniedErrors() {
-      const errors = get(window, 'state.errors', []);
-      errors.forEach((error) => this.$snotify.error(error.message));
+      this.errors.forEach((error) => this.$snotify.error(error.message));
     },
   },
 };
