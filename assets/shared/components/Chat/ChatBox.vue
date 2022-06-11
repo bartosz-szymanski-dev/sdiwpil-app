@@ -52,7 +52,7 @@ import { get } from 'lodash';
 import { io } from 'socket.io-client';
 import ChatMessage from './ChatMessage';
 
-const socket = io(`${window.location.protocol}//localhost:3000/`);
+const socket = io(`${window.location.protocol}//${window.location.host}:3000/`);
 
 export default {
   name: 'ChatBox',

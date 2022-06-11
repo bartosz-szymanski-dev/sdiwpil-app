@@ -18,7 +18,7 @@ const server = app.listen(PORT, () => {
 // Socket setup
 const io = socket(server, {
   cors: {
-    origin: 'http://localhost:80',
+    origin: 'http://www.sdiwpil.online',
     methods: ["GET", "POST"]
   }
 });
@@ -30,7 +30,7 @@ const saveMessages = async () => {
   }
 
   try {
-    const { data } = await axios.post('http://localhost:80/message/new', { messages });
+    const { data } = await axios.post('http://www.sdiwpil.online/message/new', { messages });
     const responseData = new ResponseDataModel(data);
     if (responseData.success) {
       messages = [];
