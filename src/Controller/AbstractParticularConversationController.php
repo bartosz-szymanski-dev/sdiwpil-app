@@ -52,6 +52,7 @@ abstract class AbstractParticularConversationController extends AbstractControll
         'menu' => "array",
     ])] protected function getState(): array
     {
+        // TODO: Make a state model out of it.
         return [
             'pageTitle' => $this->getHeader(),
             'state' => Utils::jsonEncode([
@@ -59,8 +60,8 @@ abstract class AbstractParticularConversationController extends AbstractControll
                 'conversation' => $this->conversation->getId(),
                 'userId' => $this->getUser()->getId(),
                 'routeScreenHeader' => $this->getHeader(),
+                'menu' => $this->menuService->getMenu(),
             ]),
-            'menu' => $this->menuService->getMenu(),
         ];
     }
 }
