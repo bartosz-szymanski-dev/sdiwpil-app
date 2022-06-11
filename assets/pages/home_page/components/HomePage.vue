@@ -29,6 +29,7 @@ import MainContainer from './MainContainer';
 import breakpoint from '../../../mixins/breakpoint';
 import mainComponentHelper from '../../../mixins/mainComponentHelper';
 import { HOME_PAGE } from '../../../store/module-namespaces';
+import { ERRORS } from '../../../store/module-state-properties';
 
 export default {
   name: 'HomePage',
@@ -37,7 +38,9 @@ export default {
   },
   mixins: [breakpoint, mainComponentHelper],
   computed: {
-    ...mapState(HOME_PAGE, ['errors']),
+    ...mapState(HOME_PAGE, {
+      errors: ERRORS,
+    }),
   },
   mounted() {
     this.handleAccessDeniedErrors();

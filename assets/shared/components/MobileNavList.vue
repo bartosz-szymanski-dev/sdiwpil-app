@@ -18,7 +18,7 @@
 
       <v-divider />
       <v-list-item
-        v-for="({ icon, name, route }, i) in items"
+        v-for="({ icon, name, route }, i) in menuItems"
         :key="i"
         :href="$fosGenerate(route)"
       >
@@ -32,8 +32,10 @@
 </template>
 
 <script>
+import { get } from 'lodash';
 import { mapState } from 'vuex';
 import { MENU } from '../../store/module-namespaces';
+import { ITEMS } from '../../store/module-state-properties';
 
 export default {
   name: 'MobileNavList',
@@ -47,7 +49,21 @@ export default {
     group: null,
   }),
   computed: {
-    ...mapState(MENU, ['items']),
+    ...mapState(MENU, {
+      items: ITEMS,
+    }),
+    /**
+     * @deprecated
+     * Due to the lack of time to prepare all modules for Vuex I'm forced to use this.
+     * TODO: delete this and use only this.items
+     */
+    menuItems() {
+      if (this.items) {
+        return this.items;
+      }
+
+      return get(window, 'state.menu', []);
+    },
   },
 };
 </script>

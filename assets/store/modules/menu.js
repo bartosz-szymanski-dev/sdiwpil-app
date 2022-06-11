@@ -1,7 +1,9 @@
+import { ITEMS } from '../module-state-properties';
+
 export default {
   namespaced: true,
   state: {
-    items: [],
+    [ITEMS]: [],
   },
   mutations: {},
   actions: {},

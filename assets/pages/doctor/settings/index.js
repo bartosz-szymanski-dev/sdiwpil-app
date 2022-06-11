@@ -4,6 +4,7 @@ import Snotify, { SnotifyPosition } from 'vue-snotify';
 import vuetify from '../../../plugins/vuetify';
 import '../../../plugins/router';
 import '../../../plugins/v-mask';
+import store from '../../../store';
 
 import DoctorSettings from './components/DoctorSettings';
 
@@ -18,6 +19,7 @@ Vue.use(Snotify, {
 new Vue({
   el: '#main',
   vuetify,
+  store,
   render(h) {
     return h(DoctorSettings);
   },

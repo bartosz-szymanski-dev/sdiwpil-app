@@ -2,9 +2,8 @@
 
 namespace App\Controller\Doctor\Conversations;
 
-use App\Service\Conversation\ConversationService;
-use App\Service\Menu\MenuService;
-use GuzzleHttp\Utils;
+use App\Service\Vuex\Module\DoctorChatsModule;
+use App\Service\Vuex\StateGenerator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -14,13 +13,10 @@ class ViewController extends AbstractController
     /**
      * @Route("/doctor/chats", name="front.doctor.chats")
      */
-    public function index(ConversationService $conversationService, MenuService $menuService): Response
+    public function index(StateGenerator $stateGenerator, DoctorChatsModule $doctorChatsModule): Response
     {
-        return $this->render('doctor/chats.html.twig', [
-            'state' => Utils::jsonEncode([
-                'conversations' => $conversationService->getConversations(),
-                'menu' => $menuService->getMenu(),
-            ]),
-        ]);
+        $stateGenerator->addToStateModules($doctorChatsModule);
+
+        return $this->render('doctor/chats.html.twig', $stateGenerator->getState());
     }
 }
