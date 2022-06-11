@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Appointment;
+use App\Entity\DoctorData;
 use App\Entity\PatientData;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Tools\Pagination\Paginator;
@@ -22,12 +23,16 @@ class AppointmentRepository extends ServiceEntityRepository
         parent::__construct($registry, Appointment::class);
     }
 
-    public function getPaginatedAppointments(PatientData $patientData, int $min, int $max): Paginator
-    {
+    public function getPaginatedAppointments(
+        PatientData|DoctorData $userData,
+        int $min,
+        int $max,
+    ): Paginator {
         $qb = $this->createQueryBuilder('a');
         $query = $qb
-            ->where($qb->expr()->eq('a.patient', ':patient'))
-            ->setParameter('patient', $patientData)
+            ->where($qb->expr()->eq('a.patient', ':userData'))
+            ->orWhere($qb->expr()->eq('a.doctor', ':userData'))
+            ->setParameter('userData', $userData)
             ->setFirstResult($min)
             ->setMaxResults($max)
             ->getQuery();

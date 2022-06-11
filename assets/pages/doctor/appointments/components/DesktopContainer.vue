@@ -14,6 +14,8 @@
         header="Lista umówionych wizyt"
         text="Poniższa lista przedstawia umówione w systemie wizyty lekarskie przez pacjentów."
       />
+
+      <doctor-appointments-list />
     </v-container>
   </div>
 </template>
@@ -22,10 +24,11 @@
 import AppBackground from '../../../../shared/components/AppBackground';
 import RouteScreen from '../../../../shared/components/RouteScreen';
 import containerHelper from '../../../../mixins/containerHelper';
+import DoctorAppointmentsList from './DoctorAppointmentsList';
 
 export default {
   name: 'DesktopContainer',
-  components: { AppBackground, RouteScreen },
+  components: { DoctorAppointmentsList, AppBackground, RouteScreen },
   mixins: [containerHelper],
 };
 </script>

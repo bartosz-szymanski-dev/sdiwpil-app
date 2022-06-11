@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\AppointmentRepository;
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
+use JetBrains\PhpStorm\ArrayShape;
 
 /**
  * @ORM\Entity(repositoryClass=AppointmentRepository::class)
@@ -110,7 +111,13 @@ class Appointment extends AbstractEntity
         return $this;
     }
 
-    public function toFrontEndPatientArray(): array
+    #[ArrayShape([
+        'id' => "int|null",
+        'scheduledAt' => "string",
+        'doctor' => "string",
+        'medicalSpecialty' => "string",
+        'patientReason' => "string"
+    ])] public function toFrontEndPatientArray(): array
     {
         return [
             'id' => $this->id,
@@ -121,6 +128,27 @@ class Appointment extends AbstractEntity
                 $this->doctor->getDoctor()->getLastName()
             ),
             'medicalSpecialty' => $this->doctor->getMedicalSpecialty()->getTitle(),
+            'patientReason' => $this->patientReason,
+        ];
+    }
+
+    #[ArrayShape([
+        'id' => "int|null",
+        'scheduledAt' => "string",
+        'patient' => "string",
+        'medicalSpecialty' => "null|string",
+        'patientReason' => "string"
+    ])] public function toFrontEndDoctorArray(): array
+    {
+        return [
+            'id' => $this->id,
+            'scheduledAt' => $this->scheduledAt->format('d.m.Y H:i'),
+            'patient' => sprintf(
+                '%s %s',
+                $this->patient->getPatient()?->getFirstName(),
+                $this->patient->getPatient()?->getLastName()
+            ),
+            'medicalSpecialty' => $this->doctor->getMedicalSpecialty()?->getTitle(),
             'patientReason' => $this->patientReason,
         ];
     }
