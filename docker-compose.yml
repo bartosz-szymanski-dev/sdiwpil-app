@@ -1,0 +1,35 @@
+version:  '3.8'
+services:
+  web:
+    image: ubuntu:22.04
+    build:
+      context: docker
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    ports:
+      - "8080:80" # web
+      - "2022:22" # ssh
+    volumes:
+      - ~/.composer:/home/homestead/.composer # composer caching
+      - ~/.gitconfig:/home/homestead/.gitconfig # Git configuration ( access alias && config )
+      - ~/.ssh:/home/homestead/.ssh # Ssh keys for easy deployment inside the container
+      - ./docker/nginx/sites-available:/etc/nginx/sites-available # nginx sites ( in case you recreate the container )
+      - ./docker/nginx/ssl:/etc/nginx/ssl
+      - .:/var/www/html
+    links:
+      - mysql
+    depends_on:
+      - mysql
+    command: "tail -f /dev/null"
+
+  mysql:
+    image: mysql:8.0
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_USER: root
+      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_DATABASE: sdiwpil_test
+      MYSQL_USER: sdiwpil
+      MYSQL_PASSWORD: secret
+    ports:
+      - "9906:3306"
