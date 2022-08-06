@@ -8,6 +8,7 @@ RUN apt-get update && \
 
 # Install packages
 ADD provision.sh /provision.sh
+ADD supervisor.conf /etc/supervisor/conf.d/supervisor.conf
 
 RUN chmod +x /*.sh
 RUN ./provision.sh
@@ -16,4 +17,5 @@ RUN apt install php-dev php-pear -y
 RUN pecl channel-update pecl.php.net
 
 EXPOSE 80 22 35729 9876
+CMD ["/usr/bin/supervisord"]
 WORKDIR /var/www/html

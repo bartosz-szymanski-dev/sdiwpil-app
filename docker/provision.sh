@@ -48,23 +48,17 @@ php-pear php-apcu php-memcached php-igbinary \
 php8.1-dom php8.1-bcmath php8.1-bz2
 
 # Nginx & PHP-FPM
-apt-get install -y nginx php8.1-fpm
+apt-get install -y php8.1-fpm
 
 # Install Composer
 php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
-php -r "if (hash_file('sha384', 'composer-setup.php') === '906a84df04cea2aa72f40b5f787e49f22d4c2f19492ac310e8cba5b96ac8b64115ac402c8cd292b8a03482574915d1a8') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
+php -r "if (hash_file('sha384', 'composer-setup.php') === '55ce33d7678c5a611085589f1f3ddf8b3c52d662cd01d4ba75c0ee0459970c2200a51f492d557530c71c15d8dba01eae') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
 php composer-setup.php --version=2.1.12
 php -r "unlink('composer-setup.php');"
 sudo mv composer.phar /usr/local/bin/composer
 
-
 # Add Composer Global Bin To Path
 printf "\nPATH=\"/home/homestead/.composer/vendor/bin:\$PATH\"\n" | tee -a /home/homestead/.profile
-
-# Laravel Envoy
-#su homestead <<'EOF'
-#/usr/local/bin/composer global require "laravel/envoy=~1.5.0"
-#EOF
 
 # Set Some PHP CLI Settings
 sed -i "s/error_reporting = .*/error_reporting = E_ALL/" /etc/php/8.1/cli/php.ini
@@ -111,5 +105,8 @@ apt-get install -y memcached
 #do
 #  ln -s "$file" /etc/nginx/sites-enabled/
 #done
-
-#service nginx restart
+#
+#sudo service supervisor stop
+#sudo service supervisor start
+#
+#supervisorctl restart nginx
