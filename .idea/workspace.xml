@@ -1,0 +1,689 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="03c8d6ee-2e1c-43a1-a69e-d798442a3ed7" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/back-end/deploy/templates/default.conf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/back-end/deploy/templates/nginx.conf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.env.test" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.eslintignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.eslintrc.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/LICENSE" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Vagrantfile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/app.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/mixins/breakpoint.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/mixins/containerHelper.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/mixins/mainComponentHelper.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/mixins/vuelidateErrors.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/pages/doctor/appointments/components/DesktopContainer.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/pages/doctor/appointments/components/DoctorAppointments.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/pages/doctor/appointments/components/DoctorAppointmentsList.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/pages/doctor/appointments/components/MobileContainer.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/pages/doctor/appointments/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/pages/doctor/chats/components/DoctorChats.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/pages/doctor/chats/components/DoctorChatsDesktopContainer.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/pages/doctor/chats/components/DoctorChatsList.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/pages/doctor/chats/components/DoctorChatsMobileContainer.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/pages/doctor/chats/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/pages/doctor/dashboard/components/DoctorDashboard.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/pages/doctor/dashboard/components/DoctorDashboardDesktopContainer.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/pages/doctor/dashboard/components/DoctorDashboardMobileContainer.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/pages/doctor/dashboard/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/pages/doctor/documents/components/DesktopContainer.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/pages/doctor/documents/components/DoctorDocuments.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/pages/doctor/documents/components/DoctorDocumentsList.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/pages/doctor/documents/components/Forms/EditDocumentForm.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/pages/doctor/documents/components/Forms/NewDocumentForm.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/pages/doctor/documents/components/MobileContainer.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/pages/doctor/documents/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/pages/doctor/documents/models/DocumentModel.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/pages/doctor/documents/models/EditDocumentModel.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/pages/doctor/documents/models/NewDocumentModel.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/pages/doctor/particular_chat/components/DesktopContainer.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/pages/doctor/particular_chat/components/DoctorParticularChat.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/pages/doctor/particular_chat/components/MobileContainer.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/pages/doctor/particular_chat/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/pages/doctor/register/components/DoctorRegister.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/pages/doctor/register/components/DoctorRegisterDesktopContainer.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/pages/doctor/register/components/DoctorRegisterForm.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/pages/doctor/register/components/DoctorRegisterMobileContainer.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/pages/doctor/register/components/DoctorRegisterScreen.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/pages/doctor/register/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/pages/doctor/register/models/DoctorModel.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/pages/doctor/settings/components/DoctorSettings.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/pages/doctor/settings/components/DoctorSettingsDesktopContainer.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/pages/doctor/settings/components/DoctorSettingsForm.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/pages/doctor/settings/components/DoctorSettingsMobileContainer.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/pages/doctor/settings/components/FormParts/ProfessionalSettingsPart.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/pages/doctor/settings/components/FormParts/SendFormPart.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/pages/doctor/settings/components/FormParts/WorkingTimePart.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/pages/doctor/settings/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/pages/doctor/settings/models/DoctorSettingsModel.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/pages/doctor/settings/models/WorkingDayModel.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/pages/doctor/settings/models/WorkingTimeModel.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/pages/home_page/components/HomePage.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/pages/home_page/components/MainContainer.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/pages/home_page/components/MainFunctions.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/pages/home_page/components/MainImg.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/pages/home_page/components/MainScreen.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/pages/home_page/components/MobileContainer.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/pages/home_page/components/functions/FunctionCard.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/pages/home_page/components/functions/FunctionsBlock.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/pages/home_page/components/functions/FunctionsCarousel.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/pages/home_page/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/pages/login/components/AppLogin.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/pages/login/components/DesktopContainer.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/pages/login/components/LoginForm.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/pages/login/components/MobileContainer.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/pages/login/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/pages/management/dashboard/components/DesktopContainer.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/pages/management/dashboard/components/ManagementDashboard.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/pages/management/dashboard/components/MobileContainer.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/pages/management/dashboard/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/pages/management/settings/components/ManagementSettings.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/pages/management/settings/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/pages/management/statistics/components/DesktopContainer.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/pages/management/statistics/components/ManagementStatistics.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/pages/management/statistics/components/MobileContainer.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/pages/management/statistics/components/StatisticsChart.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/pages/management/statistics/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/pages/patient/appointment/components/PatientAppointment.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/pages/patient/appointment/components/PatientAppointmentDesktopContainer.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/pages/patient/appointment/components/PatientAppointmentForm.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/pages/patient/appointment/components/PatientAppointmentList.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/pages/patient/appointment/components/PatientAppointmentMobileContainer.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/pages/patient/appointment/components/PatientAppointmentRestInfoForm.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/pages/patient/appointment/components/PatientAppointmentResults.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/pages/patient/appointment/components/PatientAppointmentScreen.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/pages/patient/appointment/components/PatientAppointmentStepper.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/pages/patient/appointment/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/pages/patient/appointment/models/AppointmentSearchModel.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/pages/patient/chat/components/PatientChat.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/pages/patient/chat/components/PatientChatDesktopContainer.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/pages/patient/chat/components/PatientChatList.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/pages/patient/chat/components/PatientChatMobileContainer.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/pages/patient/chat/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/pages/patient/dashboard/components/PatientDashboard.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/pages/patient/dashboard/components/PatientDashboardDesktopContainer.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/pages/patient/dashboard/components/PatientDashboardMobileContainer.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/pages/patient/dashboard/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/pages/patient/documents/components/DesktopContainer.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/pages/patient/documents/components/DocumentsList.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/pages/patient/documents/components/MobileContainer.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/pages/patient/documents/components/PatientDocuments.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/pages/patient/documents/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/pages/patient/particular_chat/components/DesktopContainer.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/pages/patient/particular_chat/components/MobileContainer.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/pages/patient/particular_chat/components/PatientParticularChat.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/pages/patient/particular_chat/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/pages/patient/register/components/PatientRegister.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/pages/patient/register/components/PatientRegisterDesktopContainer.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/pages/patient/register/components/PatientRegisterForm.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/pages/patient/register/components/PatientRegisterMobileContainer.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/pages/patient/register/components/PatientRegisterScreen.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/pages/patient/register/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/pages/patient/register/models/PatientModel.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/pages/patient/settings/components/PatientSettings.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/pages/patient/settings/components/PatientSettingsDesktopContainer.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/pages/patient/settings/components/PatientSettingsForm.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/pages/patient/settings/components/PatientSettingsMobileContainer.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/pages/patient/settings/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/pages/receptionist/appointment_management/components/ReceptionistAppointmentManagement.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/pages/receptionist/appointment_management/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/pages/receptionist/dashboard/components/ReceptionistDashboard.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/pages/receptionist/dashboard/components/ReceptionistDashboardDesktopContainer.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/pages/receptionist/dashboard/components/ReceptionistDashboardMobileContainer.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/pages/receptionist/dashboard/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/pages/receptionist/register_management/components/DesktopContainer.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/pages/receptionist/register_management/components/MobileContainer.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/pages/receptionist/register_management/components/ReceptionistRegisterManagement.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/pages/receptionist/register_management/components/RegisterList.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/pages/receptionist/register_management/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/pages/receptionist/settings/components/ReceptionistSettings.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/pages/receptionist/settings/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/plugins/router.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/plugins/v-mask.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/plugins/vuetify.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/shared/components/AppBackground.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/shared/components/AppFooter.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/shared/components/AppNavbar.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/shared/components/Chat/ChatBox.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/shared/components/Chat/ChatMessage.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/shared/components/DashboardFunctions.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/shared/components/MenuItems.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/shared/components/MobileNavList.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/shared/components/Parts/GeneralSettingsPart.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/shared/components/RegisterInterlinking.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/shared/components/RouteScreen.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/shared/mixins/chatRouteScreenHeaderMixin.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/shared/models/DashboardFunctionModel.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/shared/models/PasswordModel.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/shared/models/UserModel.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/shared/models/UserSettingsModel.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/store/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/store/module-namespaces.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/store/module-state-properties.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/store/modules/doctor_appointments.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/store/modules/doctor_chats.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/store/modules/home_page.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/store/modules/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/store/modules/menu.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/styles/_breakpoints.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/styles/_colors.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/styles/app.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/console" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/project-deploy-on-vps-unlock.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/project-deploy-on-vps.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bootstrap.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/clinic.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/bundles.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/packages/cache.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/packages/dev/debug.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/packages/dev/web_profiler.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/packages/doctrine.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/packages/doctrine_migrations.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/packages/fos_js_routing.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/packages/framework.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/packages/knp_snappy.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/packages/mailer.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/packages/messenger.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/packages/monolog.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/packages/notifier.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/packages/routing.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/packages/security.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/packages/sensio_framework_extra.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/packages/sentry.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/packages/test/validator.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/packages/test/web_profiler.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/packages/translation.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/packages/twig.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/packages/validator.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/packages/webpack_encore.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/packages/zenstruck_foundry.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/preload.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/routes.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/routes/annotations.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/routes/dev/web_profiler.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/routes/fos_js_routing.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/routes/framework.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/services.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/deploy.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/deploy/src/DotEnvHelper.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/deploy/src/FileHelper.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/deploy/tasks.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/deploy/templates/default" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/deploy/templates_env/vps/etc/mysqld_ext.cnf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/deploy/templates_env/vps/etc/nginx.conf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/deploy/templates_env/vps/etc/php-fpm.conf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/deploy/templates_env/vps/etc/php7.4-fpm.conf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker/Dockerfile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker/nginx/sites-available/default" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker/provision.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker/supervisor.conf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/medical-specialties.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/2022/08/Version20220806114407.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/phpunit.xml.dist" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/fonts/Roboto-Regular.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/fonts/roboto-bold.eot" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/fonts/roboto-bold.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/fonts/roboto-bold.woff" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/fonts/roboto-bold.woff2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/fonts/roboto-regular.eot" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/fonts/roboto-regular.woff" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/fonts/roboto-regular.woff2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/dashboard-functions/statistics.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/functions/doctor-account.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/functions/management-account.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/functions/patient-account.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/functions/receptionist-account.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/home-page/main.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/patient-dashboard/appointment.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/patient-dashboard/chat.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/patient-dashboard/referral.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/patient-dashboard/settings.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/index.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/wss/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/wss/package-lock.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/wss/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/wss/src/Function/getMessageDate.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/wss/src/Model/Message.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/wss/src/Model/ResponseDataModel.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Command/CreateConversationsFromAppointments.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Command/ImportClinicsCommand.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Command/ImportMedicalSpecialtiesCommand.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/AbstractParticularConversationController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/AbstractViewDocumentsListController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/Appointment/NewController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/Doctor/Appointments/ViewController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/Doctor/Conversations/ParticularViewController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/Doctor/Conversations/ViewController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/Doctor/Dashboard/ViewController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/Doctor/Documents/ListController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/Doctor/Documents/NewController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/Doctor/Documents/ViewController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/Doctor/Register/NewController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/Doctor/Register/ViewController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/Doctor/Settings/SaveController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/Doctor/Settings/ViewController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/Document/DownloadController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/Document/EditController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/HomePageViewController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/Login/CheckController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/Login/ViewController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/Login/VueCheckController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/LogoutController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/Management/Dashboard/ViewController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/Management/Settings/ViewController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/Management/Statistics/ViewController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/Message/NewController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/Patient/Appointment/FindAppointmentDatesController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/Patient/Appointment/FindDoctorController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/Patient/Appointment/ViewController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/Patient/Chat/DashboardController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/Patient/Chat/ParticularViewController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/Patient/Dashboard/ViewController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/Patient/Documents/ListController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/Patient/Documents/ViewController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/Patient/Register/NewController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/Patient/Register/ViewController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/Patient/Settings/SaveController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/Patient/Settings/ViewController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/Receptionist/AppointmentManagement/ViewController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/Receptionist/Dashboard/ViewController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/Receptionist/RegisterManagement/ViewController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/Receptionist/Settings/ViewController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DataFixtures/ClinicFixtures.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/AbstractEntity.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Appointment.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Clinic.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Conversation.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/DoctorData.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Document.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/FrontEndStructureEntityInterface.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/ManagerData.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/MedicalSpecialty.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Message.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/PatientData.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Prescription.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/ReceptionistData.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/User.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Exception/AppointmentException.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Factory/ClinicFactory.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Form/Appointment/AppointmentNewFormType.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Form/Document/AbstractDocumentType.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Form/Document/EditDocumentType.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Form/Document/NewDocumentType.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Form/FindAppointmentDatesFormType.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Form/FindDoctorFormType.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Form/Message/MessageBulkType.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Form/Message/MessageType.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Form/Register/AbstractUserFormType.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Form/Register/DoctorFormType.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Form/Register/PatientFormType.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Form/Settings/DoctorSettingsFormType.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Form/Settings/UserSettingsFormType.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Form/Settings/WorkingTime/WorkingDayFormType.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Form/Settings/WorkingTime/WorkingTimeFormType.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Kernel.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Model/Menu/MenuItemModel.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/AppointmentRepository.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/ClinicRepository.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/ConversationRepository.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/DoctorDataRepository.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/DocumentRepository.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/ManagerDataRepository.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/MedicalSpecialtyRepository.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/MessageRepository.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/PatientDataRepository.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/PrescriptionRepository.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/ReceptionistDataRepository.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/UserRepository.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Security/AccessDeniedHandler.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Security/JsonLoginAuthenticator.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Service/AbstractFrontEndCachableService.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Service/AbstractRegisterService.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Service/Appointment/AppointmentDatesService.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Service/Appointment/AppointmentNewActionService.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Service/Clinic/FrontEndClinicService.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Service/Conversation/ConversationService.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Service/Doctor/DoctorRegisterService.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Service/Doctor/DoctorSettingsStateService.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Service/Document/DocumentFrontEndStructureService.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Service/Document/DocumentListService.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Service/Document/EditDocumentService.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Service/Document/NewDocumentService.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Service/Document/PrescriptionService.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Service/Document/PrintService.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Service/FormErrorService.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Service/MedicalSpecialty/FrontEndMedicalSpecialtyService.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Service/Menu/Item/AbstractMenuItem.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Service/Menu/Item/DoctorMenuItem.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Service/Menu/Item/ManagementMenuItem.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Service/Menu/Item/PatientMenuItem.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Service/Menu/Item/ReceptionistMenuItem.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Service/Menu/MenuService.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Service/Message/MessageNewService.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Service/PaginatedRequestService.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Service/Patient/FindAppointmentDatesService.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Service/Patient/FindDoctorActionService.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Service/Patient/PatientRegisterService.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Service/Patient/PeselDataHelper.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Service/RegisterInterlinkingService.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Service/RequestService.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Service/Settings/DoctorSettingsSaveService.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Service/Settings/UserSettingsSaveService.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Service/Settings/UserSettingsStateService.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Service/User/UserRegisterService.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Service/Vuex/Module/AbstractModule.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Service/Vuex/Module/DoctorAppointmentsModule.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Service/Vuex/Module/DoctorChatsModule.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Service/Vuex/Module/HomePageModule.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Service/Vuex/Module/MenuModule.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Service/Vuex/StateGenerator.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Twig/PrintExtension.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Validator/Pesel.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Validator/PeselValidator.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Validator/WorkingDay.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Validator/WorkingDayValidator.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/symfony.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/base.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/doctor/appointments.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/doctor/chats.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/doctor/dashboard.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/doctor/documents.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/doctor/particular_chat.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/doctor/register.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/doctor/settings.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/home_page/index.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/login/index.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/management/dashboard.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/management/settings.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/management/statistics.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/patient/appointment.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/patient/chat.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/patient/dashboard.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/patient/documents.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/patient/particular_chat.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/patient/register.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/patient/settings.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/print/base.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/print/prescription.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/receptionist/appointment_management.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/receptionist/dashboard.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/receptionist/register_management.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/receptionist/settings.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/Service/Patient/PeselDataHelperTest.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/bootstrap.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/translations/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tsconfig.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/upgrade_to_php_8_1.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webpack.config.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerSettings" doNotAsk="true" synchronizationState="SYNCHRONIZE">
+    <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
+    <execution />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="PhpWorkspaceProjectConfiguration">
+    <include_path>
+      <path value="$PROJECT_DIR$/vendor/composer" />
+      <path value="$PROJECT_DIR$/vendor/psr/cache" />
+      <path value="$PROJECT_DIR$/vendor/psr/event-dispatcher" />
+      <path value="$PROJECT_DIR$/vendor/psr/container" />
+      <path value="$PROJECT_DIR$/vendor/psr/log" />
+      <path value="$PROJECT_DIR$/vendor/clue/stream-filter" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-php73" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-php80" />
+      <path value="$PROJECT_DIR$/vendor/deployer/deployer" />
+      <path value="$PROJECT_DIR$/vendor/symfony/event-dispatcher" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/event-manager" />
+      <path value="$PROJECT_DIR$/vendor/symfony/runtime" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/collections" />
+      <path value="$PROJECT_DIR$/vendor/symfony/var-dumper" />
+      <path value="$PROJECT_DIR$/vendor/symfony/event-dispatcher-contracts" />
+      <path value="$PROJECT_DIR$/vendor/symfony/http-kernel" />
+      <path value="$PROJECT_DIR$/vendor/symfony/deprecation-contracts" />
+      <path value="$PROJECT_DIR$/vendor/symfony/service-contracts" />
+      <path value="$PROJECT_DIR$/vendor/symfony/http-foundation" />
+      <path value="$PROJECT_DIR$/vendor/symfony/flex" />
+      <path value="$PROJECT_DIR$/vendor/symfony/error-handler" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-mbstring" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/cache" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/common" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/instantiator" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/dbal" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/inflector" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/persistence" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/orm" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/deprecations" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/lexer" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/sql-formatter" />
+      <path value="$PROJECT_DIR$/vendor/symfony/dependency-injection" />
+      <path value="$PROJECT_DIR$/vendor/symfony/string" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-php81" />
+      <path value="$PROJECT_DIR$/vendor/symfony/routing" />
+      <path value="$PROJECT_DIR$/vendor/symfony/cache-contracts" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-intl-grapheme" />
+      <path value="$PROJECT_DIR$/vendor/symfony/console" />
+      <path value="$PROJECT_DIR$/vendor/symfony/framework-bundle" />
+      <path value="$PROJECT_DIR$/vendor/symfony/cache" />
+      <path value="$PROJECT_DIR$/vendor/symfony/doctrine-bridge" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-intl-normalizer" />
+      <path value="$PROJECT_DIR$/vendor/symfony/filesystem" />
+      <path value="$PROJECT_DIR$/vendor/symfony/finder" />
+      <path value="$PROJECT_DIR$/vendor/symfony/config" />
+      <path value="$PROJECT_DIR$/vendor/symfony/var-exporter" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/annotations" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/data-fixtures" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/doctrine-bundle" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/migrations" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/doctrine-fixtures-bundle" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/doctrine-migrations-bundle" />
+      <path value="$PROJECT_DIR$/vendor/webmozart/assert" />
+      <path value="$PROJECT_DIR$/vendor/league/csv" />
+      <path value="$PROJECT_DIR$/vendor/php-http/message-factory" />
+      <path value="$PROJECT_DIR$/vendor/php-http/promise" />
+      <path value="$PROJECT_DIR$/vendor/guzzlehttp/promises" />
+      <path value="$PROJECT_DIR$/vendor/guzzlehttp/psr7" />
+      <path value="$PROJECT_DIR$/vendor/guzzlehttp/guzzle" />
+      <path value="$PROJECT_DIR$/vendor/ralouphie/getallheaders" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/global-state" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/object-enumerator" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/object-reflector" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/recursion-context" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/type" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/version" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/resource-operations" />
+      <path value="$PROJECT_DIR$/vendor/friendsofsymfony/jsrouting-bundle" />
+      <path value="$PROJECT_DIR$/vendor/phpdocumentor/reflection-common" />
+      <path value="$PROJECT_DIR$/vendor/phpdocumentor/type-resolver" />
+      <path value="$PROJECT_DIR$/vendor/phpdocumentor/reflection-docblock" />
+      <path value="$PROJECT_DIR$/vendor/nesbot/carbon" />
+      <path value="$PROJECT_DIR$/vendor/phpstan/phpdoc-parser" />
+      <path value="$PROJECT_DIR$/vendor/friendsofphp/proxy-manager-lts" />
+      <path value="$PROJECT_DIR$/vendor/http-interop/http-factory-guzzle" />
+      <path value="$PROJECT_DIR$/vendor/laminas/laminas-code" />
+      <path value="$PROJECT_DIR$/vendor/willdurand/jsonp-callback-validator" />
+      <path value="$PROJECT_DIR$/vendor/knplabs/knp-snappy" />
+      <path value="$PROJECT_DIR$/vendor/knplabs/knp-snappy-bundle" />
+      <path value="$PROJECT_DIR$/vendor/psr/http-message" />
+      <path value="$PROJECT_DIR$/vendor/psr/http-client" />
+      <path value="$PROJECT_DIR$/vendor/psr/http-factory" />
+      <path value="$PROJECT_DIR$/vendor/symfony/serializer" />
+      <path value="$PROJECT_DIR$/vendor/symfony/process" />
+      <path value="$PROJECT_DIR$/vendor/symfony/translation" />
+      <path value="$PROJECT_DIR$/vendor/symfony/translation-contracts" />
+      <path value="$PROJECT_DIR$/vendor/symfony/stopwatch" />
+      <path value="$PROJECT_DIR$/vendor/phpunit/php-timer" />
+      <path value="$PROJECT_DIR$/vendor/phpunit/php-text-template" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/cli-parser" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/diff" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/comparator" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/environment" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/exporter" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/code-unit" />
+      <path value="$PROJECT_DIR$/vendor/picqer/php-barcode-generator" />
+      <path value="$PROJECT_DIR$/vendor/nikic/php-parser" />
+      <path value="$PROJECT_DIR$/vendor/myclabs/deep-copy" />
+      <path value="$PROJECT_DIR$/vendor/sentry/sentry" />
+      <path value="$PROJECT_DIR$/vendor/phpspec/prophecy" />
+      <path value="$PROJECT_DIR$/vendor/phar-io/manifest" />
+      <path value="$PROJECT_DIR$/vendor/phar-io/version" />
+      <path value="$PROJECT_DIR$/vendor/jean85/pretty-package-versions" />
+      <path value="$PROJECT_DIR$/vendor/sensio/framework-extra-bundle" />
+      <path value="$PROJECT_DIR$/vendor/theseer/tokenizer" />
+      <path value="$PROJECT_DIR$/vendor/phpunit/php-invoker" />
+      <path value="$PROJECT_DIR$/vendor/phpunit/php-file-iterator" />
+      <path value="$PROJECT_DIR$/vendor/phpunit/php-code-coverage" />
+      <path value="$PROJECT_DIR$/vendor/phpunit/phpunit" />
+      <path value="$PROJECT_DIR$/vendor/symfony/http-client-contracts" />
+      <path value="$PROJECT_DIR$/vendor/symfony/options-resolver" />
+      <path value="$PROJECT_DIR$/vendor/symfony/password-hasher" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-uuid" />
+      <path value="$PROJECT_DIR$/vendor/symfony/http-client" />
+      <path value="$PROJECT_DIR$/vendor/php-http/message" />
+      <path value="$PROJECT_DIR$/vendor/php-http/client-common" />
+      <path value="$PROJECT_DIR$/vendor/php-http/discovery" />
+      <path value="$PROJECT_DIR$/vendor/php-http/httplug" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/complexity" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/lines-of-code" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/code-unit-reverse-lookup" />
+      <path value="$PROJECT_DIR$/vendor/psr/link" />
+      <path value="$PROJECT_DIR$/vendor/sentry/sentry-symfony" />
+      <path value="$PROJECT_DIR$/vendor/monolog/monolog" />
+      <path value="$PROJECT_DIR$/vendor/symfony/security-guard" />
+      <path value="$PROJECT_DIR$/vendor/symfony/security-bundle" />
+      <path value="$PROJECT_DIR$/vendor/symfony/mime" />
+      <path value="$PROJECT_DIR$/vendor/symfony/validator" />
+      <path value="$PROJECT_DIR$/vendor/symfony/amqp-messenger" />
+      <path value="$PROJECT_DIR$/vendor/symfony/redis-messenger" />
+      <path value="$PROJECT_DIR$/vendor/symfony/property-access" />
+      <path value="$PROJECT_DIR$/vendor/symfony/monolog-bundle" />
+      <path value="$PROJECT_DIR$/vendor/symfony/yaml" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-intl-icu" />
+      <path value="$PROJECT_DIR$/vendor/symfony/webpack-encore-bundle" />
+      <path value="$PROJECT_DIR$/vendor/symfony/twig-bundle" />
+      <path value="$PROJECT_DIR$/vendor/symfony/doctrine-messenger" />
+      <path value="$PROJECT_DIR$/vendor/symfony/mailer" />
+      <path value="$PROJECT_DIR$/vendor/symfony/security-csrf" />
+      <path value="$PROJECT_DIR$/vendor/symfony/expression-language" />
+      <path value="$PROJECT_DIR$/vendor/symfony/maker-bundle" />
+      <path value="$PROJECT_DIR$/vendor/symfony/security-core" />
+      <path value="$PROJECT_DIR$/vendor/symfony/security-http" />
+      <path value="$PROJECT_DIR$/vendor/symfony/web-link" />
+      <path value="$PROJECT_DIR$/vendor/symfony/web-profiler-bundle" />
+      <path value="$PROJECT_DIR$/vendor/symfony/proxy-manager-bridge" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-intl-idn" />
+      <path value="$PROJECT_DIR$/vendor/symfony/debug-bundle" />
+      <path value="$PROJECT_DIR$/vendor/symfony/notifier" />
+      <path value="$PROJECT_DIR$/vendor/symfony/property-info" />
+      <path value="$PROJECT_DIR$/vendor/symfony/intl" />
+      <path value="$PROJECT_DIR$/vendor/symfony/twig-bridge" />
+      <path value="$PROJECT_DIR$/vendor/symfony/dotenv" />
+      <path value="$PROJECT_DIR$/vendor/symfony/form" />
+      <path value="$PROJECT_DIR$/vendor/symfony/messenger" />
+      <path value="$PROJECT_DIR$/vendor/symfony/monolog-bridge" />
+      <path value="$PROJECT_DIR$/vendor/symfony/asset" />
+      <path value="$PROJECT_DIR$/vendor/symfony/psr-http-message-bridge" />
+      <path value="$PROJECT_DIR$/vendor/fakerphp/faker" />
+      <path value="$PROJECT_DIR$/vendor/egulias/email-validator" />
+      <path value="$PROJECT_DIR$/vendor/zenstruck/foundry" />
+      <path value="$PROJECT_DIR$/vendor/zenstruck/assert" />
+      <path value="$PROJECT_DIR$/vendor/zenstruck/callback" />
+      <path value="$PROJECT_DIR$/vendor/twig/extra-bundle" />
+      <path value="$PROJECT_DIR$/vendor/twig/twig" />
+    </include_path>
+  </component>
+  <component name="ProjectId" id="2ErCWrR2vzPtTmQD6i2Gi6dWaJJ" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "/Users/bartoszszymanski/Projects/sdiwpil-app",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "yarn",
+    "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings",
+    "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "mariadb"
+    ]
+  }
+}]]></component>
+  <component name="RunManager">
+    <configuration name="phpunit.xml.dist" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
+      <TestRunner scope="XML" />
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="03c8d6ee-2e1c-43a1-a69e-d798442a3ed7" name="Changes" comment="" />
+      <created>1663344352483</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1663344352483</updated>
+      <workItem from="1663344354097" duration="387000" />
+      <workItem from="1663345949950" duration="3043000" />
+      <workItem from="1663349816645" duration="345000" />
+      <workItem from="1663608701442" duration="3072000" />
+      <workItem from="1663693262320" duration="222000" />
+      <workItem from="1663694138590" duration="4745000" />
+      <workItem from="1663772142101" duration="9014000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <ignored-roots>
+      <path value="$PROJECT_DIR$/back-end" />
+    </ignored-roots>
+  </component>
+</project>
