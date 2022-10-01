@@ -3,16 +3,17 @@ version: '3.8'
 services:
   nginx:
     build: nginx
-    container_name: nginx-service
+    container_name: sdiwpil-nginx-service
     links:
       - front-end
       - back-end
     ports:
       - "8080:80"
+    command: "tail -f /dev/null"
 
   front-end:
     build: front-end
-    container_name: front-end-service
+    container_name: sdiwpil-front-end-service
     image: node:16.17.0
     volumes:
       - "./front-end:/src/app"
@@ -21,7 +22,7 @@ services:
 
   back-end:
     build: back-end
-    container_name: back-end-service
+    container_name: sdiwpil-back-end-service
     image: ubuntu:focal
     volumes:
       - "./back-end:/var/www/html"
@@ -33,7 +34,7 @@ services:
       - mysql
 
   mysql:
-    container_name: mysql-service
+    container_name: sdiwpil-mysql-service
     image: mariadb:10.6
     restart: unless-stopped
     environment:
