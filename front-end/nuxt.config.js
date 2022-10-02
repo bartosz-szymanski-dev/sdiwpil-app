@@ -6,10 +6,10 @@ export default {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    titleTemplate: '%s - app',
-    title: 'app',
+    titleTemplate: '%s - Pomost w kontakcie pacjent-lekarz',
+    title: 'SDIWPIL',
     htmlAttrs: {
-      lang: 'en'
+      lang: 'pl-Pl'
     },
     meta: [
       { charset: 'utf-8' },
@@ -24,6 +24,7 @@ export default {
 
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
+    '~/assets/main.scss'
   ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
@@ -38,7 +39,7 @@ export default {
     // https://go.nuxtjs.dev/typescript
     '@nuxt/typescript-build',
     // https://go.nuxtjs.dev/vuetify
-    '@nuxtjs/vuetify',
+    '@nuxtjs/vuetify'
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -49,19 +50,28 @@ export default {
   vuetify: {
     customVariables: ['~/assets/variables.scss'],
     theme: {
-      dark: true,
       themes: {
         dark: {
-          primary: colors.blue.darken2,
-          accent: colors.grey.darken3,
-          secondary: colors.amber.darken3,
-          info: colors.teal.lighten1,
-          warning: colors.amber.base,
+          primary: '#A6033F',
+          accent: '#056CF2',
+          secondary: '#0540F2',
+          info: '#05AFF2',
+          warning: '#BF2604',
+          error: colors.deepOrange.accent4,
+          success: colors.green.accent3
+        },
+        light: {
+          primary: '#A6033F',
+          accent: '#056CF2',
+          secondary: '#0540F2',
+          info: '#05AFF2',
+          warning: '#BF2604',
           error: colors.deepOrange.accent4,
           success: colors.green.accent3
         }
       }
-    }
+    },
+    treeShake: true
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
