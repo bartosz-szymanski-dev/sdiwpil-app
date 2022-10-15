@@ -1,0 +1,53 @@
+version: '3.8'
+
+services:
+  nginx:
+    build: nginx
+    container_name: sdiwpil-nginx-service
+    links:
+      - front-end
+      - back-end
+    ports:
+      - "8080:80"
+    command: "tail -f /dev/null"
+
+  front-end:
+    build: front-end
+    container_name: sdiwpil-front-end-service
+    image: node:16.17.0
+    volumes:
+      - "./front-end:/src/app"
+    working_dir: "/src/app"
+    command: "tail -f /dev/null"
+
+  back-end:
+    build: back-end
+    container_name: sdiwpil-back-end-service
+    image: ubuntu:focal
+    volumes:
+      - "./back-end:/var/www/html"
+    working_dir: "/var/www/html"
+    command: "tail -f /dev/null"
+    links:
+      - mysql
+    depends_on:
+      - mysql
+
+  mysql:
+    container_name: sdiwpil-mysql-service
+    image: mariadb:10.6
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_USER: root
+      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_DATABASE: sdiwpil
+      MYSQL_USER: sdiwpil
+      MYSQL_PASSWORD: secret
+    ports:
+      - "9906:3306"
+
+networks:
+  front-end:
+    name: front-end_default
+  back-end:
+    name: back-end_default
